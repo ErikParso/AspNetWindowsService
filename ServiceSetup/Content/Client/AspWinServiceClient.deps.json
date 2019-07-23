@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.0": {
+      "AspWinServiceClient/1.0.0": {
+        "runtime": {
+          "AspWinServiceClient.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "AspWinServiceClient/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
