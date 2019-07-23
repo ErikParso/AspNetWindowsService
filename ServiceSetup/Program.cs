@@ -2,14 +2,13 @@
 using System.Linq;
 using WixSharp;
 
-// DON'T FORGET to update NuGet package "WixSharp".
-// NuGet console: Update-Package WixSharp
-// NuGet Manager UI: updates tab
-
 namespace ServiceSetup
 {
     class Program
     {
+        private const string serviceFiles = @"C:\Users\eparso\source\repos\AspWinService\AspWinService\bin\Release\netcoreapp2.2\win7-x64\publish";
+        private const string clientFiles = @"C:\Users\eparso\source\repos\AspWinService\AspWinServiceClient\bin\Debug\netcoreapp3.0";
+
         static void Main()
         {
             System.Diagnostics.Debugger.Break();
@@ -19,10 +18,10 @@ namespace ServiceSetup
             var project = new Project("MyProduct",
                               new Dir(@"%ProgramFiles%\My Company\My Product",
                                 new Dir("Client", 
-                                    new Files(@"Content\Client\*.*")),
+                                    new Files(System.IO.Path.Combine(clientFiles, "*.*"))),
                                 new Dir("Service",
-                                    new Files(@"Content\Service\*.*", f => !f.EndsWith("AspWinService.exe")),
-                                    service = new File(@"Content\Service\AspWinService.exe"))))
+                                    new Files(System.IO.Path.Combine(serviceFiles, "*.*"), f => !f.EndsWith("AspWinService.exe")),
+                                    service = new File(System.IO.Path.Combine(serviceFiles, "AspWinService.exe")))))
             {
                 Platform = Platform.x64,
                 GUID = new Guid("6fe30b47-2577-43ad-9095-1861ba25889b")
