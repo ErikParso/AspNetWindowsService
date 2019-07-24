@@ -11,7 +11,7 @@ namespace ServiceSetup
 
         static void Main()
         {
-            //System.Diagnostics.Debugger.Break();
+            System.Diagnostics.Debugger.Break();
 
             var project = new Project("MyProduct",
                               new Dir(@"%ProgramFiles%\My Company\My Product",
@@ -22,7 +22,7 @@ namespace ServiceSetup
             {
                 Platform = Platform.x64,
                 GUID = new Guid("6fe30b47-2577-43ad-9095-1861ba25889b"),
-                Version = new Version("4.0.6.0"),                                                              
+                Version = new Version("4.1.3.0"),                                                              
                 MajorUpgradeStrategy = MajorUpgradeStrategy.Default
             };
 
@@ -44,6 +44,9 @@ namespace ServiceSetup
                 ResetPeriodInDays = 1,
                 PreShutdownDelay = 1000 * 60 * 3
             };
+
+            var client = project.FindFirstFile("AspWinServiceClient.exe");
+            client.Associations = new[] { new FileAssociation("heg") };
 
             project.BuildMsi();
         }
