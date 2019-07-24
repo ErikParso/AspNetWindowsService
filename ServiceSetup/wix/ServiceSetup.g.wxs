@@ -59,19 +59,6 @@
 
             <Directory Id="INSTALLDIR.Service" Name="Service">
 
-              <Component Id="Component.AspWinService.exe_923515921" Guid="6fe30b47-2577-43ad-9095-18617bcb1443" Win64="yes">
-                <File Id="AspWinService.exe_923515921" Source="..\AspWinService\bin\Release\netcoreapp2.2\win7-x64\publish\AspWinService.exe" />
-
-                <ServiceInstall Id="AspWinService" Name="AspWinService" DisplayName="AspWinService" Description="AspWinService" Type="ownProcess" Start="auto" ErrorControl="normal">
-                  <ServiceConfig DelayedAutoStart="yes" PreShutdownDelay="180000" ServiceSid="none" OnInstall="yes" OnReinstall="no" OnUninstall="no" />
-                  <ServiceConfig FirstFailureActionType="restart" SecondFailureActionType="restart" ThirdFailureActionType="restart" ResetPeriodInDays="1" RestartServiceDelayInSeconds="30" xmlns="http://schemas.microsoft.com/wix/UtilExtension" />
-                </ServiceInstall>
-
-                <ServiceControl Id="StopAspWinService" Name="AspWinService" Stop="both" Wait="yes" />
-                <ServiceControl Id="StartAspWinService" Name="AspWinService" Start="install" Wait="yes" />
-                <ServiceControl Id="RemoveAspWinService" Name="AspWinService" Remove="uninstall" Wait="yes" />
-              </Component>
-
               <Component Id="Component.api_ms_win_core_console_l1_1_0.dll_1542630846" Guid="6fe30b47-2577-43ad-9095-18616cdd1518" Win64="yes">
                 <File Id="api_ms_win_core_console_l1_1_0.dll_1542630846" Source="..\AspWinService\bin\Release\netcoreapp2.2\win7-x64\publish\api-ms-win-core-console-l1-1-0.dll" />
               </Component>
@@ -250,6 +237,19 @@
 
               <Component Id="Component.AspWinService.dll_2109621453" Guid="6fe30b47-2577-43ad-9095-1861b0d3f153" Win64="yes">
                 <File Id="AspWinService.dll_2109621453" Source="..\AspWinService\bin\Release\netcoreapp2.2\win7-x64\publish\AspWinService.dll" />
+              </Component>
+
+              <Component Id="Component.AspWinService.exe_923515921" Guid="6fe30b47-2577-43ad-9095-18617bcb1443" Win64="yes">
+                <File Id="AspWinService.exe_923515921" Source="..\AspWinService\bin\Release\netcoreapp2.2\win7-x64\publish\AspWinService.exe" />
+
+                <ServiceInstall Id="AspWinService" Name="AspWinService" DisplayName="AspWinService" Description="AspWinService" Type="ownProcess" Start="auto" ErrorControl="normal">
+                  <ServiceConfig DelayedAutoStart="yes" PreShutdownDelay="180000" ServiceSid="none" OnInstall="yes" OnReinstall="no" OnUninstall="no" />
+                  <ServiceConfig FirstFailureActionType="restart" SecondFailureActionType="restart" ThirdFailureActionType="restart" ResetPeriodInDays="1" RestartServiceDelayInSeconds="30" xmlns="http://schemas.microsoft.com/wix/UtilExtension" />
+                </ServiceInstall>
+
+                <ServiceControl Id="StopAspWinService" Name="AspWinService" Stop="both" Wait="yes" />
+                <ServiceControl Id="StartAspWinService" Name="AspWinService" Start="install" Wait="yes" />
+                <ServiceControl Id="RemoveAspWinService" Name="AspWinService" Remove="uninstall" Wait="yes" />
               </Component>
 
               <Component Id="Component.AspWinService.pdb_554953125" Guid="6fe30b47-2577-43ad-9095-18613f07d510" Win64="yes">
@@ -1687,7 +1687,6 @@
       <ComponentRef Id="Component.configuration.ico_1049749835" />
       <ComponentRef Id="Component.configuration.png_623307072" />
       <ComponentRef Id="Component.minimize.png_1342132378" />
-      <ComponentRef Id="Component.AspWinService.exe_923515921" />
       <ComponentRef Id="Component.api_ms_win_core_console_l1_1_0.dll_1542630846" />
       <ComponentRef Id="Component.api_ms_win_core_datetime_l1_1_0.dll_1692446353" />
       <ComponentRef Id="Component.api_ms_win_core_debug_l1_1_0.dll_1065385328" />
@@ -1733,6 +1732,7 @@
       <ComponentRef Id="Component.aspnetcorev2_inprocess.dll_1594761126" />
       <ComponentRef Id="Component.AspWinService.deps.json_669053437" />
       <ComponentRef Id="Component.AspWinService.dll_2109621453" />
+      <ComponentRef Id="Component.AspWinService.exe_923515921" />
       <ComponentRef Id="Component.AspWinService.pdb_554953125" />
       <ComponentRef Id="Component.AspWinService.runtimeconfig.json_65902830" />
       <ComponentRef Id="Component.clrcompression.dll_827923290" />

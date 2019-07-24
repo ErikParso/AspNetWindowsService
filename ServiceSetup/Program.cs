@@ -13,20 +13,20 @@ namespace ServiceSetup
         {
             System.Diagnostics.Debugger.Break();
 
-            File service;
-
             var project = new Project("MyProduct",
                               new Dir(@"%ProgramFiles%\My Company\My Product",
                                 new Dir("Client", 
                                     new Files(System.IO.Path.Combine(clientFiles, "*.*"))),
                                 new Dir("Service",
-                                    new Files(System.IO.Path.Combine(serviceFiles, "*.*"), f => !f.EndsWith("AspWinService.exe")),
-                                    service = new File(System.IO.Path.Combine(serviceFiles, "AspWinService.exe")))))
+                                    new Files(System.IO.Path.Combine(serviceFiles, "*.*")))))
             {
                 Platform = Platform.x64,
                 GUID = new Guid("6fe30b47-2577-43ad-9095-1861ba25889b")
             };
 
+            project.ResolveWildCards();
+
+            var service = project.FindFirstFile("AspWinService.exe");
             service.ServiceInstaller = new ServiceInstaller
             {
                 Name = "AspWinService",
