@@ -6,7 +6,7 @@
 </auto-generated>
 -->
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Id="6fe30b47-2577-43ad-9095-1861fa45889c" Name="MyProduct" Language="1033" Codepage="Windows-1252" Version="4.2.0.0" UpgradeCode="6fe30b47-2577-43ad-9095-1861ba25889b" Manufacturer="eparso">
+  <Product Id="6fe30b47-2577-43ad-9095-1861fa25e89c" Name="MyProduct" Language="1033" Codepage="Windows-1252" Version="4.0.6.0" UpgradeCode="6fe30b47-2577-43ad-9095-1861ba25889b" Manufacturer="eparso">
     <Package InstallerVersion="200" Compressed="yes" Platform="x64" SummaryCodepage="Windows-1252" Languages="1033" />
     <Media Id="1" Cabinet="MyProduct.cab" EmbedCab="yes" />
 
@@ -38,6 +38,14 @@
 
               <Component Id="Component.AspWinServiceClient.runtimeconfig.json_1656657983" Guid="6fe30b47-2577-43ad-9095-1861201d14cd" Win64="yes">
                 <File Id="AspWinServiceClient.runtimeconfig.json_1656657983" Source="..\AspWinServiceClient\bin\Debug\netcoreapp3.0\AspWinServiceClient.runtimeconfig.json" />
+              </Component>
+
+              <Component Id="Component.Newtonsoft.Json.dll_616098905" Guid="6fe30b47-2577-43ad-9095-18615f1f3420" Win64="yes">
+                <File Id="Newtonsoft.Json.dll_616098905" Source="..\AspWinServiceClient\bin\Debug\netcoreapp3.0\Newtonsoft.Json.dll" />
+              </Component>
+
+              <Component Id="Component.Newtonsoft.Json.xml_949198604" Guid="6fe30b47-2577-43ad-9095-18615ccb8c3b" Win64="yes">
+                <File Id="Newtonsoft.Json.xml_949198604" Source="..\AspWinServiceClient\bin\Debug\netcoreapp3.0\Newtonsoft.Json.xml" />
               </Component>
 
               <Component Id="Component.readme.txt_1043029524" Guid="6fe30b47-2577-43ad-9095-1861ec8aaff8" Win64="yes">
@@ -1682,6 +1690,13 @@
       </Directory>
     </Directory>
 
+    <Upgrade Id="6fe30b47-2577-43ad-9095-1861ba25889b">
+      <UpgradeVersion Minimum="0.0.0.0" Maximum="4.0.6.0" IncludeMinimum="yes" IncludeMaximum="no" Property="UPGRADEFOUND" />
+      <UpgradeVersion Minimum="4.0.6.0" IncludeMinimum="no" Property="NEWPRODUCTFOUND" />
+    </Upgrade>
+
+    <CustomAction Id="PreventDowngrading" Error="Newer version already installed" />
+
     <UIRef Id="WixUI_Minimal" />
     <UIRef Id="WixUI_ErrorProgressText" />
 
@@ -1692,6 +1707,8 @@
       <ComponentRef Id="Component.AspWinServiceClient.pdb_1932399013" />
       <ComponentRef Id="Component.AspWinServiceClient.runtimeconfig.dev.json_1999697628" />
       <ComponentRef Id="Component.AspWinServiceClient.runtimeconfig.json_1656657983" />
+      <ComponentRef Id="Component.Newtonsoft.Json.dll_616098905" />
+      <ComponentRef Id="Component.Newtonsoft.Json.xml_949198604" />
       <ComponentRef Id="Component.readme.txt_1043029524" />
       <ComponentRef Id="Component.configuration.ico_1049749835" />
       <ComponentRef Id="Component.configuration.png_623307072" />
@@ -2098,6 +2115,16 @@
       <ComponentRef Id="Component.ucrtbase.dll_547774747" />
       <ComponentRef Id="Component.WindowsBase.dll_476661599" />
     </Feature>
+
+    <InstallExecuteSequence>
+      <Custom Action="PreventDowngrading" After="FindRelatedProducts">NEWPRODUCTFOUND</Custom>
+
+      <RemoveExistingProducts After="InstallFinalize" />
+    </InstallExecuteSequence>
+
+    <InstallUISequence>
+      <Custom Action="PreventDowngrading" After="FindRelatedProducts">NEWPRODUCTFOUND</Custom>
+    </InstallUISequence>
 
   </Product>
 </Wix>

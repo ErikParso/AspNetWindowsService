@@ -22,7 +22,8 @@ namespace ServiceSetup
             {
                 Platform = Platform.x64,
                 GUID = new Guid("6fe30b47-2577-43ad-9095-1861ba25889b"),
-                Version = new Version("4.2.0.0")
+                Version = new Version("4.0.6.0"),
+                MajorUpgradeStrategy = MajorUpgradeStrategy.Default
             };
 
             project.ResolveWildCards();

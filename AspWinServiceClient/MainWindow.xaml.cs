@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
+using System.IO;
 using System.Net.Http;
 using System.Windows;
 using System.Windows.Forms;
@@ -15,10 +17,15 @@ namespace AspWinServiceClient
 
         public MainWindow()
         {
+            string path = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            Directory.SetCurrentDirectory(Path.GetDirectoryName(path));
+
             InitializeComponent();
             _notifyIcon = InitializeIcon();
             _httpClient = new HttpClient();
             _httpClient.BaseAddress = new Uri("http://localhost:5000/");
+
+            output.Text = $"Arguments:{JsonConvert.SerializeObject(Environment.GetCommandLineArgs())}";
         }
 
         private NotifyIcon InitializeIcon()
