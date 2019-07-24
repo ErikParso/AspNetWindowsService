@@ -6,7 +6,7 @@
 </auto-generated>
 -->
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Id="6fe30b47-2577-43ad-9095-1861ca25889c" Name="MyProduct" Language="1033" Codepage="Windows-1252" Version="1.0.0.0" UpgradeCode="6fe30b47-2577-43ad-9095-1861ba25889b" Manufacturer="eparso">
+  <Product Id="6fe30b47-2577-43ad-9095-1861fa45889c" Name="MyProduct" Language="1033" Codepage="Windows-1252" Version="4.2.0.0" UpgradeCode="6fe30b47-2577-43ad-9095-1861ba25889b" Manufacturer="eparso">
     <Package InstallerVersion="200" Compressed="yes" Platform="x64" SummaryCodepage="Windows-1252" Languages="1033" />
     <Media Id="1" Cabinet="MyProduct.cab" EmbedCab="yes" />
 
@@ -40,6 +40,10 @@
                 <File Id="AspWinServiceClient.runtimeconfig.json_1656657983" Source="..\AspWinServiceClient\bin\Debug\netcoreapp3.0\AspWinServiceClient.runtimeconfig.json" />
               </Component>
 
+              <Component Id="Component.readme.txt_1043029524" Guid="6fe30b47-2577-43ad-9095-1861ec8aaff8" Win64="yes">
+                <File Id="readme.txt_1043029524" Source="..\AspWinServiceClient\bin\Debug\netcoreapp3.0\readme.txt" />
+              </Component>
+
               <Directory Id="INSTALLDIR.Client.Resources" Name="Resources">
 
                 <Component Id="Component.configuration.ico_1049749835" Guid="6fe30b47-2577-43ad-9095-1861172a8de6" Win64="yes">
@@ -48,6 +52,10 @@
 
                 <Component Id="Component.configuration.png_623307072" Guid="6fe30b47-2577-43ad-9095-18613222b8b4" Win64="yes">
                   <File Id="configuration.png_623307072" Source="..\AspWinServiceClient\bin\Debug\netcoreapp3.0\Resources\configuration.png" />
+                </Component>
+
+                <Component Id="Component.minimize_alternative.png_811846767" Guid="6fe30b47-2577-43ad-9095-1861f3c21469" Win64="yes">
+                  <File Id="minimize_alternative.png_811846767" Source="..\AspWinServiceClient\bin\Debug\netcoreapp3.0\Resources\minimize-alternative.png" />
                 </Component>
 
                 <Component Id="Component.minimize.png_1342132378" Guid="6fe30b47-2577-43ad-9095-1861036a3bea" Win64="yes">
@@ -1684,8 +1692,10 @@
       <ComponentRef Id="Component.AspWinServiceClient.pdb_1932399013" />
       <ComponentRef Id="Component.AspWinServiceClient.runtimeconfig.dev.json_1999697628" />
       <ComponentRef Id="Component.AspWinServiceClient.runtimeconfig.json_1656657983" />
+      <ComponentRef Id="Component.readme.txt_1043029524" />
       <ComponentRef Id="Component.configuration.ico_1049749835" />
       <ComponentRef Id="Component.configuration.png_623307072" />
+      <ComponentRef Id="Component.minimize_alternative.png_811846767" />
       <ComponentRef Id="Component.minimize.png_1342132378" />
       <ComponentRef Id="Component.api_ms_win_core_console_l1_1_0.dll_1542630846" />
       <ComponentRef Id="Component.api_ms_win_core_datetime_l1_1_0.dll_1692446353" />

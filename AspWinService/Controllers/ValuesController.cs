@@ -14,7 +14,7 @@ namespace AspWinService.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            return new string[] { "value1", "value2" };
+            return new string[] { "value1", "value2", "value4", "value8" };
         }
 
         // GET api/values/5
