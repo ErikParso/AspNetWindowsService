@@ -24,7 +24,7 @@ namespace ServiceSetup
             {
                 Platform = Platform.x64,
                 GUID = new Guid("6fe30b47-2577-43ad-9095-1861ba25889b"),
-                Version = new Version("6.0.16.0"),                                                              
+                Version = new Version("1.0.0.0"),                                                              
                 MajorUpgradeStrategy = MajorUpgradeStrategy.Default,
             };
 
