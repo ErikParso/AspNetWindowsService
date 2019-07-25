@@ -56,8 +56,8 @@ namespace AspWinServiceClient
 
         private async void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            var values = await _httpClient.GetAsync("api/values").Result.Content.ReadAsStringAsync();
-            output.Text = values;
+            var values = await _httpClient.GetAsync("api/version").Result.Content.ReadAsStringAsync();
+            output.Text = "Versions: " + values;
             _notifyIcon.ShowBalloonTip(3000, "Helios client manager", "Values was received", ToolTipIcon.Info);
         }
     }

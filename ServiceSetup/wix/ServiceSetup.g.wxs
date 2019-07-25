@@ -6,7 +6,7 @@
 </auto-generated>
 -->
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Id="6fe30b47-2577-43ad-9095-1861fa35b89c" Name="MyProduct" Language="1033" Codepage="Windows-1252" Version="4.1.3.0" UpgradeCode="6fe30b47-2577-43ad-9095-1861ba25889b" Manufacturer="eparso">
+  <Product Id="6fe30b47-2577-43ad-9095-1861fa35089c" Name="MyProduct" Language="1033" Codepage="Windows-1252" Version="4.1.8.0" UpgradeCode="6fe30b47-2577-43ad-9095-1861ba25889b" Manufacturer="eparso">
     <Package InstallerVersion="200" Compressed="yes" Platform="x64" SummaryCodepage="Windows-1252" Languages="1033" />
     <Media Id="1" Cabinet="MyProduct.cab" EmbedCab="yes" />
 
@@ -29,18 +29,6 @@
 
                 <ProgId Id="heg.file" Advertise="no" Description="heg file" Icon="AspWinServiceClient.exe_113463473" IconIndex="0">
                   <Extension Id="heg" ContentType="application/heg">
-                    <Verb TargetFile="AspWinServiceClient.exe_113463473" Id="Open" Command="Open" Argument="&quot;%1&quot;" />
-                  </Extension>
-                </ProgId>
-
-                <ProgId Id="heg1.file" Advertise="no" Description="heg1 file" Icon="AspWinServiceClient.exe_113463473" IconIndex="0">
-                  <Extension Id="heg1" ContentType="application/heg1">
-                    <Verb TargetFile="AspWinServiceClient.exe_113463473" Id="Open" Command="Open" Argument="&quot;%1&quot;" />
-                  </Extension>
-                </ProgId>
-
-                <ProgId Id="heg2.file" Advertise="no" Description="heg2 file" Icon="AspWinServiceClient.exe_113463473" IconIndex="0">
-                  <Extension Id="heg2" ContentType="application/heg2">
                     <Verb TargetFile="AspWinServiceClient.exe_113463473" Id="Open" Command="Open" Argument="&quot;%1&quot;" />
                   </Extension>
                 </ProgId>
@@ -1709,8 +1697,8 @@
     </Directory>
 
     <Upgrade Id="6fe30b47-2577-43ad-9095-1861ba25889b">
-      <UpgradeVersion Minimum="0.0.0.0" Maximum="4.1.3.0" IncludeMinimum="yes" IncludeMaximum="no" Property="UPGRADEFOUND" />
-      <UpgradeVersion Minimum="4.1.3.0" IncludeMinimum="no" Property="NEWPRODUCTFOUND" />
+      <UpgradeVersion Minimum="0.0.0.0" Maximum="4.1.8.0" IncludeMinimum="yes" IncludeMaximum="no" Property="UPGRADEFOUND" />
+      <UpgradeVersion Minimum="4.1.8.0" IncludeMinimum="no" Property="NEWPRODUCTFOUND" />
     </Upgrade>
 
     <CustomAction Id="PreventDowngrading" Error="Newer version already installed" />
