@@ -12,7 +12,7 @@ namespace AspWinService.Controllers
     [ApiController]
     public class VersionController : ControllerBase
     {
-        private const string version = "6.0.9";
+        private const string version = "6.0.16";
 
         [HttpGet]
         public async Task<IActionResult> Get()

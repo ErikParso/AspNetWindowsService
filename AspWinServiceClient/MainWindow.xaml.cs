@@ -2,8 +2,10 @@
 using System;
 using System.IO;
 using System.Net.Http;
+using System.Threading;
 using System.Windows;
 using System.Windows.Forms;
+using Application = System.Windows.Application;
 
 namespace AspWinServiceClient
 {
@@ -63,7 +65,13 @@ namespace AspWinServiceClient
 
         private async void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            await _httpClient.PostAsync("api/version", new StringContent("Hello. Pleas, check versions and update us if needed. Thank you."));
+            await _httpClient.PostAsync("api/version", new StringContent("Hello. Please, check versions and update us if needed. Thank you."));
+        }
+
+        private class Info {
+            public string Local { get; set; }
+            public string Latest { get; set; }
+            public string ServiceDir { get; set; }
         }
     }
 }

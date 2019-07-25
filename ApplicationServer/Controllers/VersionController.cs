@@ -7,7 +7,7 @@ namespace ApplicationServer.Controllers
     [ApiController]
     public class VersionController : ControllerBase
     {
-        private static string version = "6.0.9";
+        private static string version = "6.0.16";
 
         [HttpGet]
         public ActionResult<IEnumerable<string>> GetLatestVersion()

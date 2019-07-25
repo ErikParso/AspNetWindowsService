@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Deployment.WindowsInstaller;
+using System;
+using System.Diagnostics;
 using System.Linq;
 using WixSharp;
 
@@ -11,7 +13,7 @@ namespace ServiceSetup
 
         static void Main()
         {
-            System.Diagnostics.Debugger.Break();
+            //System.Diagnostics.Debugger.Break();
 
             var project = new Project("MyProduct",
                               new Dir(@"%ProgramFiles%\My Company\My Product",
@@ -22,10 +24,11 @@ namespace ServiceSetup
             {
                 Platform = Platform.x64,
                 GUID = new Guid("6fe30b47-2577-43ad-9095-1861ba25889b"),
-                Version = new Version("6.0.9.0"),                                                              
-                MajorUpgradeStrategy = MajorUpgradeStrategy.Default
+                Version = new Version("6.0.16.0"),                                                              
+                MajorUpgradeStrategy = MajorUpgradeStrategy.Default,
             };
 
+            project.RebootSupressing = RebootSupressing.ReallySuppress;
             project.ResolveWildCards();
 
             var service = project.FindFirstFile("AspWinService.exe");
