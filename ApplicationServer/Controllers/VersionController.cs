@@ -1,8 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 
 namespace ApplicationServer.Controllers
 {
@@ -10,7 +7,7 @@ namespace ApplicationServer.Controllers
     [ApiController]
     public class VersionController : ControllerBase
     {
-        private static string version = "1.0.1";
+        private static string version = "6.0.9";
 
         [HttpGet]
         public ActionResult<IEnumerable<string>> GetLatestVersion()
@@ -21,7 +18,8 @@ namespace ApplicationServer.Controllers
         [HttpGet("{version}")]
         public ActionResult<string> GetInstaller(string version)
         {
-            return "MSI";
+            byte[] fileBytes = System.IO.File.ReadAllBytes("Installer/MyProduct.msi");
+            return File(fileBytes, "application/force-download", "MyProduct.msi");
         }
     }
 }

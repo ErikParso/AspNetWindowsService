@@ -60,5 +60,10 @@ namespace AspWinServiceClient
             output.Text = "Versions: " + values;
             _notifyIcon.ShowBalloonTip(3000, "Helios client manager", "Values was received", ToolTipIcon.Info);
         }
+
+        private async void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            await _httpClient.PostAsync("api/version", new StringContent("Hello. Pleas, check versions and update us if needed. Thank you."));
+        }
     }
 }

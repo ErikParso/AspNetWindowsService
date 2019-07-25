@@ -31,8 +31,9 @@
         </Button>
 
         <DockPanel Grid.Row="1" Grid.ColumnSpan="2">
-            <Button DockPanel.Dock="Top" Content="Get values from service" Grid.Row="1" HorizontalAlignment="Center" Click="Button_Click_1" Padding="3"/>
-            <TextBlock x:Name="output" Margin="10" TextWrapping="Wrap" Background="White" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <Button DockPanel.Dock="Top" Content="Get values from service" Grid.Row="1" HorizontalAlignment="Center" Click="Button_Click_1" Padding="3" Margin="3"/>
+            <Button DockPanel.Dock="Top" Content="Check versions and uprade" Grid.Row="1" HorizontalAlignment="Center" Click="Button_Click_2" Padding="3" Margin="3"/>
+            <TextBlock x:Name="output" Margin="10" TextWrapping="Wrap" Background="SkyBlue" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         </DockPanel>
 
     </Grid>
