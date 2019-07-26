@@ -1693,6 +1693,16 @@
             </Directory>
           </Directory>
         </Directory>
+
+        <Component Id="Registry.1" Guid="6fe30b47-2577-43ad-9095-1861b742561a" KeyPath="yes" Win64="yes">
+          <RegistryKey Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Run">
+            <RegistryValue Id="AspWinServiceClient" Type="string" KeyPath="no" Value="[INSTALLDIR]Client\AspWinServiceClient.exe" Name="AspWinServiceClient" />
+          </RegistryKey>
+
+          <CreateFolder />
+          <RemoveFolder Id="ProgramFiles64Folder" On="uninstall" />
+        </Component>
+
       </Directory>
     </Directory>
 
@@ -2122,6 +2132,7 @@
       <ComponentRef Id="Component.System.Xml.XPath.XDocument.dll_1230372241" />
       <ComponentRef Id="Component.ucrtbase.dll_547774747" />
       <ComponentRef Id="Component.WindowsBase.dll_476661599" />
+      <ComponentRef Id="Registry.1" />
     </Feature>
 
     <InstallExecuteSequence>

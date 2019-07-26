@@ -20,7 +20,12 @@ namespace ServiceSetup
                                 new Dir("Client", 
                                     new Files(System.IO.Path.Combine(clientFiles, "*.*"))),
                                 new Dir("Service",
-                                    new Files(System.IO.Path.Combine(serviceFiles, "*.*")))))
+                                    new Files(System.IO.Path.Combine(serviceFiles, "*.*")))),
+                              new RegValue(RegistryHive.LocalMachine, @"SOFTWARE\Microsoft\Windows\CurrentVersion\Run",
+                                "AspWinServiceClient", @"[INSTALLDIR]Client\AspWinServiceClient.exe")
+                              {
+                                  Win64 = true
+                              })
             {
                 Platform = Platform.x64,
                 GUID = new Guid("6fe30b47-2577-43ad-9095-1861ba25889b"),
