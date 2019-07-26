@@ -73,5 +73,11 @@ namespace AspWinServiceClient
             public string Latest { get; set; }
             public string ServiceDir { get; set; }
         }
+
+        private async void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            var value = await _httpClient.GetAsync("api/test").Result.Content.ReadAsStringAsync();
+            output.Text = "Service says: " + value;
+        }
     }
 }

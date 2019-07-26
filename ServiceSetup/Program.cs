@@ -15,21 +15,21 @@ namespace ServiceSetup
         {
             //System.Diagnostics.Debugger.Break();
 
-            var project = new Project("MyProduct",
-                              new Dir(@"%ProgramFiles%\My Company\My Product",
+            var project = new Project("MyProduct1",
+                              new Dir(@"%ProgramFiles%\My Company 1\My Product 1",
                                 new Dir("Client", 
                                     new Files(System.IO.Path.Combine(clientFiles, "*.*"))),
                                 new Dir("Service",
                                     new Files(System.IO.Path.Combine(serviceFiles, "*.*")))),
                               new RegValue(RegistryHive.LocalMachine, @"SOFTWARE\Microsoft\Windows\CurrentVersion\Run",
-                                "AspWinServiceClient", @"[INSTALLDIR]Client\AspWinServiceClient.exe")
+                                "AspWinServiceClient1", @"[INSTALLDIR]Client\AspWinServiceClient.exe")
                               {
                                   Win64 = true
                               })
             {
                 Platform = Platform.x64,
-                GUID = new Guid("6fe30b47-2577-43ad-9095-1861ba25889b"),
-                Version = new Version("1.0.0.0"),                                                              
+                GUID = new Guid("6fe30b47-2577-43ad-9095-1861ba25889c"),
+                Version = new Version("1.0.1.0"),                                                              
                 MajorUpgradeStrategy = MajorUpgradeStrategy.Default,
             };
 
