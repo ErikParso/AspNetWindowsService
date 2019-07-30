@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { NgxElectronModule } from 'ngx-electron';
+import { NgxChildProcessModule } from 'ngx-childprocess';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -19,6 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
     BrowserModule,
     AppRoutingModule,
     NgxElectronModule,
+    NgxChildProcessModule,
     BrowserAnimationsModule,
     MatToolbarModule,
     MatButtonModule,

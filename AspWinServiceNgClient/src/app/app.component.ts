@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter } from '@angular/core';
 import { ElectronService } from 'ngx-electron';
+import { ChildProcessService } from 'ngx-childprocess';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,9 @@ import { ElectronService } from 'ngx-electron';
 export class AppComponent {
   title = 'AspWinServiceNgClient';
 
-  constructor(public electronService: ElectronService) { }
+  constructor(
+    public electronService: ElectronService,
+    public childProcessService: ChildProcessService) { }
 
   hideWindow() {
     this.electronService.remote.getCurrentWindow().hide();
@@ -17,5 +20,11 @@ export class AppComponent {
 
   closeWindow() {
     this.electronService.remote.getCurrentWindow().close();
+  }
+
+  runApplication() {
+    const executablePath = 'C:\\ProgramData\\Asseco Solutions\\NorisWin32Clients\\Source99-E5\\NorisWin32.exe';
+    const params = ['--incognito'];
+    this.childProcessService.childProcess.execFile(executablePath, params, null, null);
   }
 }
