@@ -10,6 +10,7 @@ namespace ServiceSetup
     {
         private const string serviceFiles = @"C:\Users\eparso\source\repos\AspWinService\AspWinService\bin\Release\netcoreapp2.2\win7-x64\publish";
         private const string clientFiles = @"C:\Users\eparso\source\repos\AspWinService\AspWinServiceClient\bin\Debug\netcoreapp3.0";
+        private const string electronClientFiles = @"C:\Users\eparso\source\repos\AspWinService\AspWinServiceNgClient\—platform=win32-win32-x64";
 
         static void Main()
         {
@@ -19,6 +20,8 @@ namespace ServiceSetup
                               new Dir(@"%ProgramFiles%\My Company 1\My Product 1",
                                 new Dir("Client", 
                                     new Files(System.IO.Path.Combine(clientFiles, "*.*"))),
+                                new Dir("NgClient",
+                                    new Files(System.IO.Path.Combine(electronClientFiles, "*.*"))),
                                 new Dir("Service",
                                     new Files(System.IO.Path.Combine(serviceFiles, "*.*")))),
                               new RegValue(RegistryHive.LocalMachine, @"SOFTWARE\Microsoft\Windows\CurrentVersion\Run",
