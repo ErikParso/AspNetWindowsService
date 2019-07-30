@@ -13,7 +13,7 @@ app.on('activate', () => {
 });
 
 function createWindow() {
-    win = new BrowserWindow({ width: 800, height: 600 });
+    win = new BrowserWindow({ width: 800, height: 600, frame: false });
 
     win.loadURL(
         url.format({
