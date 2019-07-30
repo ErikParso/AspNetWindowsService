@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var electron_1 = require("electron");
 var path = require("path");
 var url = require("url");
+var electron = require('electron');
 var win;
 var tray;
 electron_1.app.on('ready', createWindow);
@@ -20,7 +21,24 @@ electron_1.app.on('ready', function () {
     });
 });
 function createWindow() {
-    win = new electron_1.BrowserWindow({ width: 800, height: 600, frame: false, webPreferences: { nodeIntegration: true } });
+    var display = electron.screen.getPrimaryDisplay();
+    var screenWidth = display.workAreaSize.width;
+    var screenHeight = display.workAreaSize.height;
+    var browserWidth = 300;
+    var browserHeight = 500;
+    var margin = 10;
+    win = new electron_1.BrowserWindow({
+        width: browserWidth,
+        height: browserHeight,
+        x: screenWidth - browserWidth - margin,
+        y: screenHeight - browserHeight - margin,
+        frame: false,
+        resizable: false,
+        alwaysOnTop: true,
+        webPreferences: {
+            nodeIntegration: true
+        }
+    });
     win.loadURL(url.format({
         pathname: path.join(__dirname, "/../../dist/AspWinServiceNgClient/index.html"),
         protocol: 'file:',

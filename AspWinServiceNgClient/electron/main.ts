@@ -2,6 +2,8 @@ import { app, BrowserWindow, Tray } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 
+const electron = require('electron');
+
 let win: BrowserWindow;
 let tray: Tray;
 
@@ -26,7 +28,25 @@ app.on('ready', () => {
 });
 
 function createWindow() {
-    win = new BrowserWindow({ width: 800, height: 600, frame: false, webPreferences: { nodeIntegration: true } });
+    const display = electron.screen.getPrimaryDisplay();
+    const screenWidth = display.workAreaSize.width;
+    const screenHeight = display.workAreaSize.height;
+    const browserWidth = 300;
+    const browserHeight = 500;
+    const margin = 10;
+
+    win = new BrowserWindow({
+        width: browserWidth,
+        height: browserHeight,
+        x: screenWidth - browserWidth - margin,
+        y: screenHeight - browserHeight - margin,
+        frame: false,
+        resizable: false,
+        alwaysOnTop: true,
+        webPreferences: {
+            nodeIntegration: true
+        }
+    });
 
     win.loadURL(
         url.format({
