@@ -4,14 +4,23 @@ var electron_1 = require("electron");
 var path = require("path");
 var url = require("url");
 var win;
+var tray;
 electron_1.app.on('ready', createWindow);
 electron_1.app.on('activate', function () {
     if (win === null) {
         createWindow();
     }
 });
+electron_1.app.on('ready', function () {
+    console.log(__dirname);
+    tray = new electron_1.Tray(path.join(__dirname, "/../../dist/AspWinServiceNgClient/assets/green.ico"));
+    tray.setToolTip('Asp Windows Servcie Angular-Electron Client.');
+    tray.on('click', function () {
+        win.isVisible() ? win.hide() : win.show();
+    });
+});
 function createWindow() {
-    win = new electron_1.BrowserWindow({ width: 800, height: 600, frame: false });
+    win = new electron_1.BrowserWindow({ width: 800, height: 600, frame: false, webPreferences: { nodeIntegration: true } });
     win.loadURL(url.format({
         pathname: path.join(__dirname, "/../../dist/AspWinServiceNgClient/index.html"),
         protocol: 'file:',
@@ -20,5 +29,6 @@ function createWindow() {
     win.on('closed', function () {
         win = null;
     });
+    // win.hide();
 }
 //# sourceMappingURL=main.js.map
