@@ -4,7 +4,7 @@ import { ElectronService } from 'ngx-electron';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.sass']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   title = 'AspWinServiceNgClient';
@@ -13,5 +13,9 @@ export class AppComponent {
 
   hideWindow() {
     this.electronService.remote.getCurrentWindow().hide();
+  }
+
+  closeWindow() {
+    this.electronService.remote.getCurrentWindow().close();
   }
 }
