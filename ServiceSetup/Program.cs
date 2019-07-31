@@ -1,27 +1,33 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
+using System.IO;
 using WixSharp;
 
 namespace ServiceSetup
 {
     class Program
     {
-        private const string serviceFilesDebug = @"C:\Users\eparso\source\repos\AspWinService\AspWinService\bin\Debug\netcoreapp2.2\win7-x64";
-        private const string serviceFilesRelease = @"C:\Users\eparso\source\repos\AspWinService\AspWinService\bin\Release\netcoreapp2.2\win7-x64\publish";
+        private const string serviceFiles = @"C:\Users\eparso\source\repos\AspWinService\AspWinService\bin\Debug\netcoreapp2.2\win7-x64";
+        //private const string serviceFiles = @"C:\Users\eparso\source\repos\AspWinService\AspWinService\bin\Release\netcoreapp2.2\win7-x64\publish";
         private const string clientFiles = @"C:\Users\eparso\source\repos\AspWinService\AspWinServiceClient\bin\Debug\netcoreapp3.0";
         private const string electronClientFiles = @"C:\Users\eparso\source\repos\AspWinService\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64";
+        private const string msiDeployPath = @"C:\Users\eparso\source\repos\AspWinService\ApplicationServer\bin\Debug\netcoreapp3.0\Installer";
 
         static void Main()
         {
             //System.Diagnostics.Debugger.Break();
 
-            var project = new Project("MyProduct1",
-                              new Dir(@"%ProgramFiles%\My Company 1\My Product 1",
+            var serviceVersionInfo = Path.Combine(serviceFiles, "VersionInfo.json");
+            var serviceVersion = JsonConvert.DeserializeObject<VersionInfo>(System.IO.File.ReadAllText(serviceVersionInfo)).Version;
+
+            var project = new Project("MyProduct",
+                              new Dir(@"%ProgramFiles%\My Company\My Product",
                                 new Dir("Client", 
                                     new Files(System.IO.Path.Combine(clientFiles, "*.*"))),
                                 new Dir("NgClient",
                                     new Files(System.IO.Path.Combine(electronClientFiles, "*.*"))),
                                 new Dir("Service",
-                                    new Files(System.IO.Path.Combine(serviceFilesDebug, "*.*")))),
+                                    new Files(System.IO.Path.Combine(serviceFiles, "*.*")))),
                               new RegValue(RegistryHive.LocalMachine, @"SOFTWARE\Microsoft\Windows\CurrentVersion\Run",
                                 "AspWinServiceClient1", @"[INSTALLDIR]Client\AspWinServiceClient.exe")
                               {
@@ -29,8 +35,8 @@ namespace ServiceSetup
                               })
             {
                 Platform = Platform.x64,
-                GUID = new Guid("6fe30b47-2577-43ad-9095-1861ba25889c"),
-                Version = new Version("1.0.1.0"),                                                              
+                GUID = new Guid("6fe30b47-2577-43ad-9095-1861ba25889d"),
+                Version = new Version(serviceVersion),                                                              
                 MajorUpgradeStrategy = MajorUpgradeStrategy.Default,
             };
 
@@ -58,6 +64,22 @@ namespace ServiceSetup
             client.Associations = new[] { new FileAssociation("heg") };
 
             project.BuildMsi();
+
+            // Move msi to deploy path (to application server)
+            var sourceFile = Path.Combine(Directory.GetCurrentDirectory(), "MyProduct.msi");
+            var destFile = Path.Combine(msiDeployPath, "MyProduct.msi");
+            System.IO.File.Delete(destFile);
+            System.IO.File.Move(sourceFile, destFile);
+
+            // Update version info
+            var versionInfo = Path.Combine(msiDeployPath, "VersionInfo.json");
+            System.IO.File.Delete(versionInfo);
+            System.IO.File.Copy(serviceVersionInfo, versionInfo);
+        }
+
+        private class VersionInfo
+        {
+            public string Version { get; set; }
         }
     }
 }

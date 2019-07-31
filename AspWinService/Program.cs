@@ -10,7 +10,6 @@ namespace AspWinService
     {
         public static void Main(string[] args)
         {
-
             var pathToExe = Process.GetCurrentProcess().MainModule.FileName;
             var pathToContentRoot = Path.GetDirectoryName(pathToExe);
             Directory.SetCurrentDirectory(pathToContentRoot);

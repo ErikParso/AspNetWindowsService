@@ -6,74 +6,74 @@
 </auto-generated>
 -->
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Id="6fe30b47-2577-43ad-9095-1861ca25989d" Name="MyProduct1" Language="1033" Codepage="Windows-1252" Version="1.0.1.0" UpgradeCode="6fe30b47-2577-43ad-9095-1861ba25889c" Manufacturer="eparso">
+  <Product Id="6fe30b47-2577-43ad-9095-1861ca25a89d" Name="MyProduct" Language="1033" Codepage="Windows-1252" Version="1.0.1" UpgradeCode="6fe30b47-2577-43ad-9095-1861ba25889d" Manufacturer="eparso">
     <Package InstallerVersion="200" Compressed="yes" Platform="x64" SummaryCodepage="Windows-1252" Languages="1033" />
-    <Media Id="1" Cabinet="MyProduct1_.cab" EmbedCab="yes" />
+    <Media Id="1" Cabinet="MyProduct.cab" EmbedCab="yes" />
 
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFiles64Folder" Name="ProgramFiles64Folder">
-        <Directory Id="ProgramFiles64Folder.My_Company_1" Name="My Company 1">
-          <Directory Id="INSTALLDIR" Name="My Product 1">
+        <Directory Id="ProgramFiles64Folder.My_Company" Name="My Company">
+          <Directory Id="INSTALLDIR" Name="My Product">
             <Directory Id="INSTALLDIR.Client" Name="Client">
 
-              <Component Id="Component.AspWinServiceClient.deps.json_1909267160" Guid="6fe30b47-2577-43ad-9095-1861dd30dd90" Win64="yes">
-                <File Id="AspWinServiceClient.deps.json_1909267160" Source="..\AspWinServiceClient\bin\Debug\netcoreapp3.0\AspWinServiceClient.deps.json" />
+              <Component Id="Component.AspWinServiceClient.deps.json_1612635789" Guid="6fe30b47-2577-43ad-9095-18613e4ecb6b" Win64="yes">
+                <File Id="AspWinServiceClient.deps.json_1612635789" Source="..\AspWinServiceClient\bin\Debug\netcoreapp3.0\AspWinServiceClient.deps.json" />
               </Component>
 
-              <Component Id="Component.AspWinServiceClient.dll_1112370877" Guid="6fe30b47-2577-43ad-9095-186138df8cb7" Win64="yes">
-                <File Id="AspWinServiceClient.dll_1112370877" Source="..\AspWinServiceClient\bin\Debug\netcoreapp3.0\AspWinServiceClient.dll" />
+              <Component Id="Component.AspWinServiceClient.dll_1570476851" Guid="6fe30b47-2577-43ad-9095-18610f2d7af3" Win64="yes">
+                <File Id="AspWinServiceClient.dll_1570476851" Source="..\AspWinServiceClient\bin\Debug\netcoreapp3.0\AspWinServiceClient.dll" />
               </Component>
 
-              <Component Id="Component.AspWinServiceClient.exe_760219783" Guid="6fe30b47-2577-43ad-9095-18613f6bd9d1" Win64="yes">
-                <File Id="AspWinServiceClient.exe_760219783" Source="..\AspWinServiceClient\bin\Debug\netcoreapp3.0\AspWinServiceClient.exe" />
+              <Component Id="Component.AspWinServiceClient.exe_113463473" Guid="6fe30b47-2577-43ad-9095-18614c51ec8b" Win64="yes">
+                <File Id="AspWinServiceClient.exe_113463473" Source="..\AspWinServiceClient\bin\Debug\netcoreapp3.0\AspWinServiceClient.exe" />
 
-                <ProgId Id="heg.file" Advertise="no" Description="heg file" Icon="AspWinServiceClient.exe_760219783" IconIndex="0">
+                <ProgId Id="heg.file" Advertise="no" Description="heg file" Icon="AspWinServiceClient.exe_113463473" IconIndex="0">
                   <Extension Id="heg" ContentType="application/heg">
-                    <Verb TargetFile="AspWinServiceClient.exe_760219783" Id="Open" Command="Open" Argument="&quot;%1&quot;" />
+                    <Verb TargetFile="AspWinServiceClient.exe_113463473" Id="Open" Command="Open" Argument="&quot;%1&quot;" />
                   </Extension>
                 </ProgId>
               </Component>
 
-              <Component Id="Component.AspWinServiceClient.pdb_1918907931" Guid="6fe30b47-2577-43ad-9095-1861fe46d5b3" Win64="yes">
-                <File Id="AspWinServiceClient.pdb_1918907931" Source="..\AspWinServiceClient\bin\Debug\netcoreapp3.0\AspWinServiceClient.pdb" />
+              <Component Id="Component.AspWinServiceClient.pdb_1932399013" Guid="6fe30b47-2577-43ad-9095-1861ed15a830" Win64="yes">
+                <File Id="AspWinServiceClient.pdb_1932399013" Source="..\AspWinServiceClient\bin\Debug\netcoreapp3.0\AspWinServiceClient.pdb" />
               </Component>
 
-              <Component Id="Component.AspWinServiceClient.runtimeconfig.dev.json_845192893" Guid="6fe30b47-2577-43ad-9095-18616cb698fc" Win64="yes">
-                <File Id="AspWinServiceClient.runtimeconfig.dev.json_845192893" Source="..\AspWinServiceClient\bin\Debug\netcoreapp3.0\AspWinServiceClient.runtimeconfig.dev.json" />
+              <Component Id="Component.AspWinServiceClient.runtimeconfig.dev.json_1999697628" Guid="6fe30b47-2577-43ad-9095-186184a398a1" Win64="yes">
+                <File Id="AspWinServiceClient.runtimeconfig.dev.json_1999697628" Source="..\AspWinServiceClient\bin\Debug\netcoreapp3.0\AspWinServiceClient.runtimeconfig.dev.json" />
               </Component>
 
-              <Component Id="Component.AspWinServiceClient.runtimeconfig.json_394758940" Guid="6fe30b47-2577-43ad-9095-18615ef28686" Win64="yes">
-                <File Id="AspWinServiceClient.runtimeconfig.json_394758940" Source="..\AspWinServiceClient\bin\Debug\netcoreapp3.0\AspWinServiceClient.runtimeconfig.json" />
+              <Component Id="Component.AspWinServiceClient.runtimeconfig.json_1656657983" Guid="6fe30b47-2577-43ad-9095-1861201d14cf" Win64="yes">
+                <File Id="AspWinServiceClient.runtimeconfig.json_1656657983" Source="..\AspWinServiceClient\bin\Debug\netcoreapp3.0\AspWinServiceClient.runtimeconfig.json" />
               </Component>
 
-              <Component Id="Component.Newtonsoft.Json.dll_1271207601" Guid="6fe30b47-2577-43ad-9095-186194e24a7d" Win64="yes">
-                <File Id="Newtonsoft.Json.dll_1271207601" Source="..\AspWinServiceClient\bin\Debug\netcoreapp3.0\Newtonsoft.Json.dll" />
+              <Component Id="Component.Newtonsoft.Json.dll_616098905" Guid="6fe30b47-2577-43ad-9095-18615f1f3422" Win64="yes">
+                <File Id="Newtonsoft.Json.dll_616098905" Source="..\AspWinServiceClient\bin\Debug\netcoreapp3.0\Newtonsoft.Json.dll" />
               </Component>
 
-              <Component Id="Component.Newtonsoft.Json.xml_1456365034" Guid="6fe30b47-2577-43ad-9095-18618780c9d0" Win64="yes">
-                <File Id="Newtonsoft.Json.xml_1456365034" Source="..\AspWinServiceClient\bin\Debug\netcoreapp3.0\Newtonsoft.Json.xml" />
+              <Component Id="Component.Newtonsoft.Json.xml_949198604" Guid="6fe30b47-2577-43ad-9095-18615ccb8c3d" Win64="yes">
+                <File Id="Newtonsoft.Json.xml_949198604" Source="..\AspWinServiceClient\bin\Debug\netcoreapp3.0\Newtonsoft.Json.xml" />
               </Component>
 
-              <Component Id="Component.readme.txt_1854374722" Guid="6fe30b47-2577-43ad-9095-1861dd850c23" Win64="yes">
-                <File Id="readme.txt_1854374722" Source="..\AspWinServiceClient\bin\Debug\netcoreapp3.0\readme.txt" />
+              <Component Id="Component.readme.txt_1043029524" Guid="6fe30b47-2577-43ad-9095-1861ec8aaffa" Win64="yes">
+                <File Id="readme.txt_1043029524" Source="..\AspWinServiceClient\bin\Debug\netcoreapp3.0\readme.txt" />
               </Component>
 
               <Directory Id="INSTALLDIR.Client.Resources" Name="Resources">
 
-                <Component Id="Component.configuration.ico_1261712260" Guid="6fe30b47-2577-43ad-9095-186177a5b64b" Win64="yes">
-                  <File Id="configuration.ico_1261712260" Source="..\AspWinServiceClient\bin\Debug\netcoreapp3.0\Resources\configuration.ico" />
+                <Component Id="Component.configuration.ico_1049749835" Guid="6fe30b47-2577-43ad-9095-1861172a8de8" Win64="yes">
+                  <File Id="configuration.ico_1049749835" Source="..\AspWinServiceClient\bin\Debug\netcoreapp3.0\Resources\configuration.ico" />
                 </Component>
 
-                <Component Id="Component.configuration.png_987155585" Guid="6fe30b47-2577-43ad-9095-1861614334a3" Win64="yes">
-                  <File Id="configuration.png_987155585" Source="..\AspWinServiceClient\bin\Debug\netcoreapp3.0\Resources\configuration.png" />
+                <Component Id="Component.configuration.png_623307072" Guid="6fe30b47-2577-43ad-9095-18613222b8b6" Win64="yes">
+                  <File Id="configuration.png_623307072" Source="..\AspWinServiceClient\bin\Debug\netcoreapp3.0\Resources\configuration.png" />
                 </Component>
 
-                <Component Id="Component.minimize_alternative.png_98642905" Guid="6fe30b47-2577-43ad-9095-1861c8c7ec79" Win64="yes">
-                  <File Id="minimize_alternative.png_98642905" Source="..\AspWinServiceClient\bin\Debug\netcoreapp3.0\Resources\minimize-alternative.png" />
+                <Component Id="Component.minimize_alternative.png_811846767" Guid="6fe30b47-2577-43ad-9095-1861f3c2146b" Win64="yes">
+                  <File Id="minimize_alternative.png_811846767" Source="..\AspWinServiceClient\bin\Debug\netcoreapp3.0\Resources\minimize-alternative.png" />
                 </Component>
 
-                <Component Id="Component.minimize.png_1705659976" Guid="6fe30b47-2577-43ad-9095-186121558428" Win64="yes">
-                  <File Id="minimize.png_1705659976" Source="..\AspWinServiceClient\bin\Debug\netcoreapp3.0\Resources\minimize.png" />
+                <Component Id="Component.minimize.png_1342132378" Guid="6fe30b47-2577-43ad-9095-1861036a3bec" Win64="yes">
+                  <File Id="minimize.png_1342132378" Source="..\AspWinServiceClient\bin\Debug\netcoreapp3.0\Resources\minimize.png" />
                 </Component>
 
               </Directory>
@@ -81,377 +81,377 @@
 
             <Directory Id="INSTALLDIR.NgClient" Name="NgClient">
 
-              <Component Id="Component.asp_win_service_ng_client.exe_91998933" Guid="6fe30b47-2577-43ad-9095-18619d89bf3b" Win64="yes">
-                <File Id="asp_win_service_ng_client.exe_91998933" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\asp-win-service-ng-client.exe" />
+              <Component Id="Component.asp_win_service_ng_client.exe_1180887993" Guid="6fe30b47-2577-43ad-9095-18617a814ecd" Win64="yes">
+                <File Id="asp_win_service_ng_client.exe_1180887993" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\asp-win-service-ng-client.exe" />
               </Component>
 
-              <Component Id="Component.chrome_100_percent.pak_269906047" Guid="6fe30b47-2577-43ad-9095-1861352ef915" Win64="yes">
-                <File Id="chrome_100_percent.pak_269906047" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\chrome_100_percent.pak" />
+              <Component Id="Component.chrome_100_percent.pak_2014218607" Guid="6fe30b47-2577-43ad-9095-1861af03e131" Win64="yes">
+                <File Id="chrome_100_percent.pak_2014218607" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\chrome_100_percent.pak" />
               </Component>
 
-              <Component Id="Component.chrome_200_percent.pak_270151070" Guid="6fe30b47-2577-43ad-9095-1861c6e4f0b7" Win64="yes">
-                <File Id="chrome_200_percent.pak_270151070" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\chrome_200_percent.pak" />
+              <Component Id="Component.chrome_200_percent.pak_2014396240" Guid="6fe30b47-2577-43ad-9095-1861a3a47de5" Win64="yes">
+                <File Id="chrome_200_percent.pak_2014396240" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\chrome_200_percent.pak" />
               </Component>
 
-              <Component Id="Component.d3dcompiler_47.dll_1532266269" Guid="6fe30b47-2577-43ad-9095-1861a626a0b6" Win64="yes">
-                <File Id="d3dcompiler_47.dll_1532266269" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\d3dcompiler_47.dll" />
+              <Component Id="Component.d3dcompiler_47.dll_392915082" Guid="6fe30b47-2577-43ad-9095-186177a2c65b" Win64="yes">
+                <File Id="d3dcompiler_47.dll_392915082" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\d3dcompiler_47.dll" />
               </Component>
 
-              <Component Id="Component.ffmpeg.dll_1842988182" Guid="6fe30b47-2577-43ad-9095-1861792b2a31" Win64="yes">
-                <File Id="ffmpeg.dll_1842988182" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\ffmpeg.dll" />
+              <Component Id="Component.ffmpeg.dll_1404618524" Guid="6fe30b47-2577-43ad-9095-186133b4dbbf" Win64="yes">
+                <File Id="ffmpeg.dll_1404618524" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\ffmpeg.dll" />
               </Component>
 
-              <Component Id="Component.icudtl.dat_307900920" Guid="6fe30b47-2577-43ad-9095-186154177655" Win64="yes">
-                <File Id="icudtl.dat_307900920" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\icudtl.dat" />
+              <Component Id="Component.icudtl.dat_1915328059" Guid="6fe30b47-2577-43ad-9095-1861245bccc3" Win64="yes">
+                <File Id="icudtl.dat_1915328059" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\icudtl.dat" />
               </Component>
 
-              <Component Id="Component.libEGL.dll_878853445" Guid="6fe30b47-2577-43ad-9095-1861d088151f" Win64="yes">
-                <File Id="libEGL.dll_878853445" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\libEGL.dll" />
+              <Component Id="Component.libEGL.dll_721793012" Guid="6fe30b47-2577-43ad-9095-18617cfd7bb1" Win64="yes">
+                <File Id="libEGL.dll_721793012" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\libEGL.dll" />
               </Component>
 
-              <Component Id="Component.libGLESv2.dll_1958011432" Guid="6fe30b47-2577-43ad-9095-18614cd49862" Win64="yes">
-                <File Id="libGLESv2.dll_1958011432" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\libGLESv2.dll" />
+              <Component Id="Component.libGLESv2.dll_1534616519" Guid="6fe30b47-2577-43ad-9095-18617656817d" Win64="yes">
+                <File Id="libGLESv2.dll_1534616519" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\libGLESv2.dll" />
               </Component>
 
-              <Component Id="Component.LICENSE_396138561" Guid="6fe30b47-2577-43ad-9095-18619b5d70eb" Win64="yes">
-                <File Id="LICENSE_396138561" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\LICENSE" />
+              <Component Id="Component.LICENSE_1379998712" Guid="6fe30b47-2577-43ad-9095-1861c6ab6054" Win64="yes">
+                <File Id="LICENSE_1379998712" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\LICENSE" />
               </Component>
 
-              <Component Id="Component.LICENSES.chromium.html_1164142971" Guid="6fe30b47-2577-43ad-9095-1861724d9eee" Win64="yes">
-                <File Id="LICENSES.chromium.html_1164142971" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\LICENSES.chromium.html" />
+              <Component Id="Component.LICENSES.chromium.html_244396485" Guid="6fe30b47-2577-43ad-9095-186192f224cd" Win64="yes">
+                <File Id="LICENSES.chromium.html_244396485" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\LICENSES.chromium.html" />
               </Component>
 
-              <Component Id="Component.natives_blob.bin_1461699108" Guid="6fe30b47-2577-43ad-9095-186173e8cbac" Win64="yes">
-                <File Id="natives_blob.bin_1461699108" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\natives_blob.bin" />
+              <Component Id="Component.natives_blob.bin_1148628008" Guid="6fe30b47-2577-43ad-9095-18617b46bafb" Win64="yes">
+                <File Id="natives_blob.bin_1148628008" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\natives_blob.bin" />
               </Component>
 
-              <Component Id="Component.resources.pak_538941389" Guid="6fe30b47-2577-43ad-9095-18618ac56099" Win64="yes">
-                <File Id="resources.pak_538941389" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources.pak" />
+              <Component Id="Component.resources.pak_300477966" Guid="6fe30b47-2577-43ad-9095-1861a3feb568" Win64="yes">
+                <File Id="resources.pak_300477966" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources.pak" />
               </Component>
 
-              <Component Id="Component.snapshot_blob.bin_472925060" Guid="6fe30b47-2577-43ad-9095-1861f3751b8e" Win64="yes">
-                <File Id="snapshot_blob.bin_472925060" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\snapshot_blob.bin" />
+              <Component Id="Component.snapshot_blob.bin_244741027" Guid="6fe30b47-2577-43ad-9095-1861d5e446b0" Win64="yes">
+                <File Id="snapshot_blob.bin_244741027" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\snapshot_blob.bin" />
               </Component>
 
-              <Component Id="Component.v8_context_snapshot.bin_2139794297" Guid="6fe30b47-2577-43ad-9095-18619ba73f08" Win64="yes">
-                <File Id="v8_context_snapshot.bin_2139794297" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\v8_context_snapshot.bin" />
+              <Component Id="Component.v8_context_snapshot.bin_696409151" Guid="6fe30b47-2577-43ad-9095-186130617a62" Win64="yes">
+                <File Id="v8_context_snapshot.bin_696409151" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\v8_context_snapshot.bin" />
               </Component>
 
-              <Component Id="Component.version_1168248385" Guid="6fe30b47-2577-43ad-9095-1861d15eeed4" Win64="yes">
-                <File Id="version_1168248385" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\version" />
+              <Component Id="Component.version_581827278" Guid="6fe30b47-2577-43ad-9095-18618b5d0c10" Win64="yes">
+                <File Id="version_581827278" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\version" />
               </Component>
 
               <Directory Id="INSTALLDIR.NgClient.locales" Name="locales">
 
-                <Component Id="Component.am.pak_1201093817" Guid="6fe30b47-2577-43ad-9095-186198bbb1a8" Win64="yes">
-                  <File Id="am.pak_1201093817" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\am.pak" />
+                <Component Id="Component.am.pak_41178516" Guid="6fe30b47-2577-43ad-9095-186159dcaada" Win64="yes">
+                  <File Id="am.pak_41178516" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\am.pak" />
                 </Component>
 
-                <Component Id="Component.ar.pak_1207742032" Guid="6fe30b47-2577-43ad-9095-18612512e9d2" Win64="yes">
-                  <File Id="ar.pak_1207742032" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\ar.pak" />
+                <Component Id="Component.ar.pak_1486561263" Guid="6fe30b47-2577-43ad-9095-1861171f2833" Win64="yes">
+                  <File Id="ar.pak_1486561263" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\ar.pak" />
                 </Component>
 
-                <Component Id="Component.bg.pak_1532537209" Guid="6fe30b47-2577-43ad-9095-1861db9760c0" Win64="yes">
-                  <File Id="bg.pak_1532537209" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\bg.pak" />
+                <Component Id="Component.bg.pak_694610550" Guid="6fe30b47-2577-43ad-9095-1861b9b5e1aa" Win64="yes">
+                  <File Id="bg.pak_694610550" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\bg.pak" />
                 </Component>
 
-                <Component Id="Component.bn.pak_1061831860" Guid="6fe30b47-2577-43ad-9095-1861d9ad0ebd" Win64="yes">
-                  <File Id="bn.pak_1061831860" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\bn.pak" />
+                <Component Id="Component.bn.pak_1005987677" Guid="6fe30b47-2577-43ad-9095-1861b93da170" Win64="yes">
+                  <File Id="bn.pak_1005987677" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\bn.pak" />
                 </Component>
 
-                <Component Id="Component.ca.pak_683399515" Guid="6fe30b47-2577-43ad-9095-1861f0d61426" Win64="yes">
-                  <File Id="ca.pak_683399515" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\ca.pak" />
+                <Component Id="Component.ca.pak_302718096" Guid="6fe30b47-2577-43ad-9095-186149a69548" Win64="yes">
+                  <File Id="ca.pak_302718096" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\ca.pak" />
                 </Component>
 
-                <Component Id="Component.cs.pak_1070642763" Guid="6fe30b47-2577-43ad-9095-1861d7e7c783" Win64="yes">
-                  <File Id="cs.pak_1070642763" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\cs.pak" />
+                <Component Id="Component.cs.pak_1358112746" Guid="6fe30b47-2577-43ad-9095-18612f6afdc4" Win64="yes">
+                  <File Id="cs.pak_1358112746" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\cs.pak" />
                 </Component>
 
-                <Component Id="Component.da.pak_664197467" Guid="6fe30b47-2577-43ad-9095-1861289c0d22" Win64="yes">
-                  <File Id="da.pak_664197467" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\da.pak" />
+                <Component Id="Component.da.pak_283516048" Guid="6fe30b47-2577-43ad-9095-1861a4e87aba" Win64="yes">
+                  <File Id="da.pak_283516048" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\da.pak" />
                 </Component>
 
-                <Component Id="Component.de.pak_1228847471" Guid="6fe30b47-2577-43ad-9095-18612b8ed7ce" Win64="yes">
-                  <File Id="de.pak_1228847471" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\de.pak" />
+                <Component Id="Component.de.pak_1876451180" Guid="6fe30b47-2577-43ad-9095-186117cf52aa" Win64="yes">
+                  <File Id="de.pak_1876451180" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\de.pak" />
                 </Component>
 
-                <Component Id="Component.el.pak_934067782" Guid="6fe30b47-2577-43ad-9095-1861577469ab" Win64="yes">
-                  <File Id="el.pak_934067782" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\el.pak" />
+                <Component Id="Component.el.pak_1311840103" Guid="6fe30b47-2577-43ad-9095-1861d0c231bd" Win64="yes">
+                  <File Id="el.pak_1311840103" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\el.pak" />
                 </Component>
 
-                <Component Id="Component.en_GB.pak_1338364855" Guid="6fe30b47-2577-43ad-9095-1861b3e67dee" Win64="yes">
-                  <File Id="en_GB.pak_1338364855" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\en-GB.pak" />
+                <Component Id="Component.en_GB.pak_681105876" Guid="6fe30b47-2577-43ad-9095-1861b5d280ca" Win64="yes">
+                  <File Id="en_GB.pak_681105876" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\en-GB.pak" />
                 </Component>
 
-                <Component Id="Component.en_US.pak_1301598693" Guid="6fe30b47-2577-43ad-9095-1861015e76e2" Win64="yes">
-                  <File Id="en_US.pak_1301598693" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\en-US.pak" />
+                <Component Id="Component.en_US.pak_713676802" Guid="6fe30b47-2577-43ad-9095-1861904e3d5f" Win64="yes">
+                  <File Id="en_US.pak_713676802" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\en-US.pak" />
                 </Component>
 
-                <Component Id="Component.es_419.pak_1748745961" Guid="6fe30b47-2577-43ad-9095-1861d35b4669" Win64="yes">
-                  <File Id="es_419.pak_1748745961" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\es-419.pak" />
+                <Component Id="Component.es_419.pak_1341712739" Guid="6fe30b47-2577-43ad-9095-18617d4e6c0a" Win64="yes">
+                  <File Id="es_419.pak_1341712739" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\es-419.pak" />
                 </Component>
 
-                <Component Id="Component.es.pak_1075230283" Guid="6fe30b47-2577-43ad-9095-186187d98066" Win64="yes">
-                  <File Id="es.pak_1075230283" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\es.pak" />
+                <Component Id="Component.es.pak_1336748010" Guid="6fe30b47-2577-43ad-9095-18617e22aeac" Win64="yes">
+                  <File Id="es.pak_1336748010" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\es.pak" />
                 </Component>
 
-                <Component Id="Component.et.pak_907692946" Guid="6fe30b47-2577-43ad-9095-186166b59cae" Win64="yes">
-                  <File Id="et.pak_907692946" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\et.pak" />
+                <Component Id="Component.et.pak_1466040703" Guid="6fe30b47-2577-43ad-9095-1861bdff12fe" Win64="yes">
+                  <File Id="et.pak_1466040703" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\et.pak" />
                 </Component>
 
-                <Component Id="Component.fa.pak_676911451" Guid="6fe30b47-2577-43ad-9095-186181211f44" Win64="yes">
-                  <File Id="fa.pak_676911451" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\fa.pak" />
+                <Component Id="Component.fa.pak_296230032" Guid="6fe30b47-2577-43ad-9095-1861c683cf21" Win64="yes">
+                  <File Id="fa.pak_296230032" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\fa.pak" />
                 </Component>
 
-                <Component Id="Component.fi.pak_1776295117" Guid="6fe30b47-2577-43ad-9095-186115bef1d7" Win64="yes">
-                  <File Id="fi.pak_1776295117" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\fi.pak" />
+                <Component Id="Component.fi.pak_1324515160" Guid="6fe30b47-2577-43ad-9095-1861a902da59" Win64="yes">
+                  <File Id="fi.pak_1324515160" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\fi.pak" />
                 </Component>
 
-                <Component Id="Component.fil.pak_1266767199" Guid="6fe30b47-2577-43ad-9095-18614fb7a06f" Win64="yes">
-                  <File Id="fil.pak_1266767199" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\fil.pak" />
+                <Component Id="Component.fil.pak_577506920" Guid="6fe30b47-2577-43ad-9095-18612aa71cd9" Win64="yes">
+                  <File Id="fil.pak_577506920" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\fil.pak" />
                 </Component>
 
-                <Component Id="Component.fr.pak_1218293328" Guid="6fe30b47-2577-43ad-9095-1861ae15c7de" Win64="yes">
-                  <File Id="fr.pak_1218293328" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\fr.pak" />
+                <Component Id="Component.fr.pak_1492787183" Guid="6fe30b47-2577-43ad-9095-1861b1eeeed3" Win64="yes">
+                  <File Id="fr.pak_1492787183" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\fr.pak" />
                 </Component>
 
-                <Component Id="Component.gu.pak_796968513" Guid="6fe30b47-2577-43ad-9095-18612ac4c26e" Win64="yes">
-                  <File Id="gu.pak_796968513" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\gu.pak" />
+                <Component Id="Component.gu.pak_1594489220" Guid="6fe30b47-2577-43ad-9095-1861cb42bee9" Win64="yes">
+                  <File Id="gu.pak_1594489220" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\gu.pak" />
                 </Component>
 
-                <Component Id="Component.he.pak_1254799727" Guid="6fe30b47-2577-43ad-9095-186143dbc8aa" Win64="yes">
-                  <File Id="he.pak_1254799727" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\he.pak" />
+                <Component Id="Component.he.pak_1867800428" Guid="6fe30b47-2577-43ad-9095-18619e336c31" Win64="yes">
+                  <File Id="he.pak_1867800428" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\he.pak" />
                 </Component>
 
-                <Component Id="Component.hi.pak_1763056845" Guid="6fe30b47-2577-43ad-9095-1861c635bcd7" Win64="yes">
-                  <File Id="hi.pak_1763056845" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\hi.pak" />
+                <Component Id="Component.hi.pak_1303150424" Guid="6fe30b47-2577-43ad-9095-1861c0dfd87d" Win64="yes">
+                  <File Id="hi.pak_1303150424" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\hi.pak" />
                 </Component>
 
-                <Component Id="Component.hr.pak_1205055056" Guid="6fe30b47-2577-43ad-9095-1861c831ade4" Win64="yes">
-                  <File Id="hr.pak_1205055056" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\hr.pak" />
+                <Component Id="Component.hr.pak_1471422447" Guid="6fe30b47-2577-43ad-9095-1861906380fd" Win64="yes">
+                  <File Id="hr.pak_1471422447" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\hr.pak" />
                 </Component>
 
-                <Component Id="Component.hu.pak_781567553" Guid="6fe30b47-2577-43ad-9095-1861698997db" Win64="yes">
-                  <File Id="hu.pak_781567553" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\hu.pak" />
+                <Component Id="Component.hu.pak_1613691268" Guid="6fe30b47-2577-43ad-9095-1861b8a7713d" Win64="yes">
+                  <File Id="hu.pak_1613691268" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\hu.pak" />
                 </Component>
 
-                <Component Id="Component.id.pak_1324954814" Guid="6fe30b47-2577-43ad-9095-18614728c488" Win64="yes">
-                  <File Id="id.pak_1324954814" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\id.pak" />
+                <Component Id="Component.id.pak_521269873" Guid="6fe30b47-2577-43ad-9095-18617f582404" Win64="yes">
+                  <File Id="id.pak_521269873" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\id.pak" />
                 </Component>
 
-                <Component Id="Component.it.pak_933645202" Guid="6fe30b47-2577-43ad-9095-1861a6879bdc" Win64="yes">
-                  <File Id="it.pak_933645202" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\it.pak" />
+                <Component Id="Component.it.pak_1474691455" Guid="6fe30b47-2577-43ad-9095-18613420fb7a" Win64="yes">
+                  <File Id="it.pak_1474691455" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\it.pak" />
                 </Component>
 
-                <Component Id="Component.ja.pak_702863707" Guid="6fe30b47-2577-43ad-9095-18619264d63f" Win64="yes">
-                  <File Id="ja.pak_702863707" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\ja.pak" />
+                <Component Id="Component.ja.pak_287579280" Guid="6fe30b47-2577-43ad-9095-18615c8789e7" Win64="yes">
+                  <File Id="ja.pak_287579280" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\ja.pak" />
                 </Component>
 
-                <Component Id="Component.kn.pak_1046693044" Guid="6fe30b47-2577-43ad-9095-1861c72e882b" Win64="yes">
-                  <File Id="kn.pak_1046693044" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\kn.pak" />
+                <Component Id="Component.kn.pak_1025451869" Guid="6fe30b47-2577-43ad-9095-1861c8664e2e" Win64="yes">
+                  <File Id="kn.pak_1025451869" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\kn.pak" />
                 </Component>
 
-                <Component Id="Component.ko.pak_905530543" Guid="6fe30b47-2577-43ad-9095-186159653220" Win64="yes">
-                  <File Id="ko.pak_905530543" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\ko.pak" />
+                <Component Id="Component.ko.pak_1166614370" Guid="6fe30b47-2577-43ad-9095-1861e170a477" Win64="yes">
+                  <File Id="ko.pak_1166614370" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\ko.pak" />
                 </Component>
 
-                <Component Id="Component.lt.pak_910379922" Guid="6fe30b47-2577-43ad-9095-1861cd9931f4" Win64="yes">
-                  <File Id="lt.pak_910379922" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\lt.pak" />
+                <Component Id="Component.lt.pak_1481179519" Guid="6fe30b47-2577-43ad-9095-18616de4a347" Win64="yes">
+                  <File Id="lt.pak_1481179519" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\lt.pak" />
                 </Component>
 
-                <Component Id="Component.lv.pak_649055804" Guid="6fe30b47-2577-43ad-9095-1861267a9514" Win64="yes">
-                  <File Id="lv.pak_649055804" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\lv.pak" />
+                <Component Id="Component.lv.pak_1610582411" Guid="6fe30b47-2577-43ad-9095-1861599a29cb" Win64="yes">
+                  <File Id="lv.pak_1610582411" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\lv.pak" />
                 </Component>
 
-                <Component Id="Component.ml.pak_916766278" Guid="6fe30b47-2577-43ad-9095-1861df3de3a8" Win64="yes">
-                  <File Id="ml.pak_916766278" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\ml.pak" />
+                <Component Id="Component.ml.pak_1329141607" Guid="6fe30b47-2577-43ad-9095-1861cb26b32c" Win64="yes">
+                  <File Id="ml.pak_1329141607" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\ml.pak" />
                 </Component>
 
-                <Component Id="Component.mr.pak_1199091280" Guid="6fe30b47-2577-43ad-9095-186107d2b02e" Win64="yes">
-                  <File Id="mr.pak_1199091280" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\mr.pak" />
+                <Component Id="Component.mr.pak_1460609007" Guid="6fe30b47-2577-43ad-9095-186158950ab5" Win64="yes">
+                  <File Id="mr.pak_1460609007" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\mr.pak" />
                 </Component>
 
-                <Component Id="Component.ms.pak_1057928779" Guid="6fe30b47-2577-43ad-9095-186139369cd7" Win64="yes">
-                  <File Id="ms.pak_1057928779" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\ms.pak" />
+                <Component Id="Component.ms.pak_1319446506" Guid="6fe30b47-2577-43ad-9095-1861c31e040c" Win64="yes">
+                  <File Id="ms.pak_1319446506" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\ms.pak" />
                 </Component>
 
-                <Component Id="Component.nb.pak_835375456" Guid="6fe30b47-2577-43ad-9095-1861d8fda041" Win64="yes">
-                  <File Id="nb.pak_835375456" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\nb.pak" />
+                <Component Id="Component.nb.pak_783114337" Guid="6fe30b47-2577-43ad-9095-1861e18e635c" Win64="yes">
+                  <File Id="nb.pak_783114337" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\nb.pak" />
                 </Component>
 
-                <Component Id="Component.nl.pak_918666822" Guid="6fe30b47-2577-43ad-9095-186118a4f0ff" Win64="yes">
-                  <File Id="nl.pak_918666822" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\nl.pak" />
+                <Component Id="Component.nl.pak_1314264935" Guid="6fe30b47-2577-43ad-9095-18614efc720f" Win64="yes">
+                  <File Id="nl.pak_1314264935" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\nl.pak" />
                 </Component>
 
-                <Component Id="Component.pl.pak_905428550" Guid="6fe30b47-2577-43ad-9095-186102037619" Win64="yes">
-                  <File Id="pl.pak_905428550" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\pl.pak" />
+                <Component Id="Component.pl.pak_1270617959" Guid="6fe30b47-2577-43ad-9095-1861df709db5" Win64="yes">
+                  <File Id="pl.pak_1270617959" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\pl.pak" />
                 </Component>
 
-                <Component Id="Component.pt_BR.pak_1572248430" Guid="6fe30b47-2577-43ad-9095-1861e1a18a35" Win64="yes">
-                  <File Id="pt_BR.pak_1572248430" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\pt-BR.pak" />
+                <Component Id="Component.pt_BR.pak_1621688143" Guid="6fe30b47-2577-43ad-9095-18610048422e" Win64="yes">
+                  <File Id="pt_BR.pak_1621688143" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\pt-BR.pak" />
                 </Component>
 
-                <Component Id="Component.pt_PT.pak_1576049052" Guid="6fe30b47-2577-43ad-9095-186185d01571" Win64="yes">
-                  <File Id="pt_PT.pak_1576049052" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\pt-PT.pak" />
+                <Component Id="Component.pt_PT.pak_1634139325" Guid="6fe30b47-2577-43ad-9095-18610505f21e" Win64="yes">
+                  <File Id="pt_PT.pak_1634139325" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\pt-PT.pak" />
                 </Component>
 
-                <Component Id="Component.ro.pak_886066351" Guid="6fe30b47-2577-43ad-9095-1861e7208185" Win64="yes">
-                  <File Id="ro.pak_886066351" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\ro.pak" />
+                <Component Id="Component.ro.pak_1116741474" Guid="6fe30b47-2577-43ad-9095-186140d72a7c" Win64="yes">
+                  <File Id="ro.pak_1116741474" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\ro.pak" />
                 </Component>
 
-                <Component Id="Component.ru.pak_751552065" Guid="6fe30b47-2577-43ad-9095-1861eaf7ce8c" Win64="yes">
-                  <File Id="ru.pak_751552065" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\ru.pak" />
+                <Component Id="Component.ru.pak_1553267076" Guid="6fe30b47-2577-43ad-9095-18616a9ade7b" Win64="yes">
+                  <File Id="ru.pak_1553267076" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\ru.pak" />
                 </Component>
 
-                <Component Id="Component.sk.pak_1452879043" Guid="6fe30b47-2577-43ad-9095-186194ae73fe" Win64="yes">
-                  <File Id="sk.pak_1452879043" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\sk.pak" />
+                <Component Id="Component.sk.pak_158206562" Guid="6fe30b47-2577-43ad-9095-18611b6a430e" Win64="yes">
+                  <File Id="sk.pak_158206562" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\sk.pak" />
                 </Component>
 
-                <Component Id="Component.sl.pak_894877254" Guid="6fe30b47-2577-43ad-9095-186130bfb604" Win64="yes">
-                  <File Id="sl.pak_894877254" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\sl.pak" />
+                <Component Id="Component.sl.pak_1260066663" Guid="6fe30b47-2577-43ad-9095-18616ae0a4d0" Win64="yes">
+                  <File Id="sl.pak_1260066663" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\sl.pak" />
                 </Component>
 
-                <Component Id="Component.sr.pak_1177202256" Guid="6fe30b47-2577-43ad-9095-18618077957f" Win64="yes">
-                  <File Id="sr.pak_1177202256" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\sr.pak" />
+                <Component Id="Component.sr.pak_1529683951" Guid="6fe30b47-2577-43ad-9095-18612fa2e7ee" Win64="yes">
+                  <File Id="sr.pak_1529683951" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\sr.pak" />
                 </Component>
 
-                <Component Id="Component.sv.pak_612552252" Guid="6fe30b47-2577-43ad-9095-186170277f83" Win64="yes">
-                  <File Id="sv.pak_612552252" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\sv.pak" />
+                <Component Id="Component.sv.pak_1677494667" Guid="6fe30b47-2577-43ad-9095-1861223da366" Win64="yes">
+                  <File Id="sv.pak_1677494667" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\sv.pak" />
                 </Component>
 
-                <Component Id="Component.sw.pak_471389751" Guid="6fe30b47-2577-43ad-9095-1861413e4796" Win64="yes">
-                  <File Id="sw.pak_471389751" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\sw.pak" />
+                <Component Id="Component.sw.pak_1536332166" Guid="6fe30b47-2577-43ad-9095-18619f8fe449" Win64="yes">
+                  <File Id="sw.pak_1536332166" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\sw.pak" />
                 </Component>
 
-                <Component Id="Component.ta.pak_698800475" Guid="6fe30b47-2577-43ad-9095-1861873d6b38" Win64="yes">
-                  <File Id="ta.pak_698800475" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\ta.pak" />
+                <Component Id="Component.ta.pak_318119056" Guid="6fe30b47-2577-43ad-9095-18616ab590ed" Win64="yes">
+                  <File Id="ta.pak_318119056" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\ta.pak" />
                 </Component>
 
-                <Component Id="Component.te.pak_1263450479" Guid="6fe30b47-2577-43ad-9095-18616d43df28" Win64="yes">
-                  <File Id="te.pak_1263450479" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\te.pak" />
+                <Component Id="Component.te.pak_1911054188" Guid="6fe30b47-2577-43ad-9095-18611efa3d64" Win64="yes">
+                  <File Id="te.pak_1911054188" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\te.pak" />
                 </Component>
 
-                <Component Id="Component.th.pak_766268586" Guid="6fe30b47-2577-43ad-9095-1861bb54d99e" Win64="yes">
-                  <File Id="th.pak_766268586" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\th.pak" />
+                <Component Id="Component.th.pak_2036317" Guid="6fe30b47-2577-43ad-9095-1861f702f970" Win64="yes">
+                  <File Id="th.pak_2036317" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\th.pak" />
                 </Component>
 
-                <Component Id="Component.tr.pak_1196404304" Guid="6fe30b47-2577-43ad-9095-186120dece6c" Win64="yes">
-                  <File Id="tr.pak_1196404304" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\tr.pak" />
+                <Component Id="Component.tr.pak_1514676207" Guid="6fe30b47-2577-43ad-9095-1861df80c192" Win64="yes">
+                  <File Id="tr.pak_1514676207" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\tr.pak" />
                 </Component>
 
-                <Component Id="Component.uk.pak_1457466563" Guid="6fe30b47-2577-43ad-9095-18613f9c6e51" Win64="yes">
-                  <File Id="uk.pak_1457466563" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\uk.pak" />
+                <Component Id="Component.uk.pak_141036130" Guid="6fe30b47-2577-43ad-9095-18618116910a" Win64="yes">
+                  <File Id="uk.pak_141036130" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\uk.pak" />
                 </Component>
 
-                <Component Id="Component.vi.pak_1741692109" Guid="6fe30b47-2577-43ad-9095-1861e45437d2" Win64="yes">
-                  <File Id="vi.pak_1741692109" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\vi.pak" />
+                <Component Id="Component.vi.pak_1359118168" Guid="6fe30b47-2577-43ad-9095-1861adc8ad9c" Win64="yes">
+                  <File Id="vi.pak_1359118168" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\vi.pak" />
                 </Component>
 
-                <Component Id="Component.zh_CN.pak_1918670513" Guid="6fe30b47-2577-43ad-9095-1861bff5716d" Win64="yes">
-                  <File Id="zh_CN.pak_1918670513" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\zh-CN.pak" />
+                <Component Id="Component.zh_CN.pak_1092690098" Guid="6fe30b47-2577-43ad-9095-18618277b14d" Win64="yes">
+                  <File Id="zh_CN.pak_1092690098" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\zh-CN.pak" />
                 </Component>
 
-                <Component Id="Component.zh_TW.pak_1922405500" Guid="6fe30b47-2577-43ad-9095-1861c1480cf8" Win64="yes">
-                  <File Id="zh_TW.pak_1922405500" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\zh-TW.pak" />
+                <Component Id="Component.zh_TW.pak_1074274181" Guid="6fe30b47-2577-43ad-9095-1861af3d6457" Win64="yes">
+                  <File Id="zh_TW.pak_1074274181" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\locales\zh-TW.pak" />
                 </Component>
 
               </Directory>
 
               <Directory Id="INSTALLDIR.NgClient.resources" Name="resources">
 
-                <Component Id="Component.electron.asar_23750353" Guid="6fe30b47-2577-43ad-9095-18617441eff3" Win64="yes">
-                  <File Id="electron.asar_23750353" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\electron.asar" />
+                <Component Id="Component.electron.asar_1861474341" Guid="6fe30b47-2577-43ad-9095-1861341e844e" Win64="yes">
+                  <File Id="electron.asar_1861474341" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\electron.asar" />
                 </Component>
 
                 <Directory Id="INSTALLDIR.NgClient.resources.app" Name="app">
 
-                  <Component Id="Component._.editorconfig_1186142232" Guid="6fe30b47-2577-43ad-9095-1861aeabe7e1" Win64="yes">
-                    <File Id="_.editorconfig_1186142232" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\.editorconfig" />
+                  <Component Id="Component._.editorconfig_1244222524" Guid="6fe30b47-2577-43ad-9095-186137e13b46" Win64="yes">
+                    <File Id="_.editorconfig_1244222524" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\.editorconfig" />
                   </Component>
 
-                  <Component Id="Component._.gitignore_409669537" Guid="6fe30b47-2577-43ad-9095-18613843e25d" Win64="yes">
-                    <File Id="_.gitignore_409669537" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\.gitignore" />
+                  <Component Id="Component._.gitignore_1454219458" Guid="6fe30b47-2577-43ad-9095-1861ac0247f9" Win64="yes">
+                    <File Id="_.gitignore_1454219458" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\.gitignore" />
                   </Component>
 
-                  <Component Id="Component.angular.json_593729206" Guid="6fe30b47-2577-43ad-9095-186122bd2ace" Win64="yes">
-                    <File Id="angular.json_593729206" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\angular.json" />
+                  <Component Id="Component.angular.json_2099139234" Guid="6fe30b47-2577-43ad-9095-1861f044c75c" Win64="yes">
+                    <File Id="angular.json_2099139234" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\angular.json" />
                   </Component>
 
-                  <Component Id="Component.browserslist_1183640330" Guid="6fe30b47-2577-43ad-9095-1861b0941b08" Win64="yes">
-                    <File Id="browserslist_1183640330" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\browserslist" />
+                  <Component Id="Component.browserslist_1917873463" Guid="6fe30b47-2577-43ad-9095-1861e2ce16f4" Win64="yes">
+                    <File Id="browserslist_1917873463" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\browserslist" />
                   </Component>
 
-                  <Component Id="Component.karma.conf.js_611535749" Guid="6fe30b47-2577-43ad-9095-186139b29ab9" Win64="yes">
-                    <File Id="karma.conf.js_611535749" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\karma.conf.js" />
+                  <Component Id="Component.karma.conf.js_2021083056" Guid="6fe30b47-2577-43ad-9095-186151c13578" Win64="yes">
+                    <File Id="karma.conf.js_2021083056" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\karma.conf.js" />
                   </Component>
 
-                  <Component Id="Component.package_lock.json_623046481" Guid="6fe30b47-2577-43ad-9095-1861cf1841bc" Win64="yes">
-                    <File Id="package_lock.json_623046481" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\package-lock.json" />
+                  <Component Id="Component.package_lock.json_1724013387" Guid="6fe30b47-2577-43ad-9095-18615b1324b9" Win64="yes">
+                    <File Id="package_lock.json_1724013387" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\package-lock.json" />
                   </Component>
 
-                  <Component Id="Component.package.json_807492016" Guid="6fe30b47-2577-43ad-9095-186129a37201" Win64="yes">
-                    <File Id="package.json_807492016" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\package.json" />
+                  <Component Id="Component.package.json_1299565569" Guid="6fe30b47-2577-43ad-9095-18618acf9608" Win64="yes">
+                    <File Id="package.json_1299565569" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\package.json" />
                   </Component>
 
-                  <Component Id="Component.README.md_1147325918" Guid="6fe30b47-2577-43ad-9095-1861a83f43d2" Win64="yes">
-                    <File Id="README.md_1147325918" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\README.md" />
+                  <Component Id="Component.README.md_1561183176" Guid="6fe30b47-2577-43ad-9095-1861a5781ccb" Win64="yes">
+                    <File Id="README.md_1561183176" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\README.md" />
                   </Component>
 
-                  <Component Id="Component.tsconfig.app.json_581423024" Guid="6fe30b47-2577-43ad-9095-186104f3a457" Win64="yes">
-                    <File Id="tsconfig.app.json_581423024" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\tsconfig.app.json" />
+                  <Component Id="Component.tsconfig.app.json_375022807" Guid="6fe30b47-2577-43ad-9095-1861f44c8dfd" Win64="yes">
+                    <File Id="tsconfig.app.json_375022807" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\tsconfig.app.json" />
                   </Component>
 
-                  <Component Id="Component.tsconfig.json_1507270905" Guid="6fe30b47-2577-43ad-9095-186118f2c407" Win64="yes">
-                    <File Id="tsconfig.json_1507270905" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\tsconfig.json" />
+                  <Component Id="Component.tsconfig.json_1672262945" Guid="6fe30b47-2577-43ad-9095-186113a5dcfd" Win64="yes">
+                    <File Id="tsconfig.json_1672262945" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\tsconfig.json" />
                   </Component>
 
-                  <Component Id="Component.tsconfig.spec.json_791015939" Guid="6fe30b47-2577-43ad-9095-186103001a95" Win64="yes">
-                    <File Id="tsconfig.spec.json_791015939" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\tsconfig.spec.json" />
+                  <Component Id="Component.tsconfig.spec.json_2146863552" Guid="6fe30b47-2577-43ad-9095-1861030e4f78" Win64="yes">
+                    <File Id="tsconfig.spec.json_2146863552" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\tsconfig.spec.json" />
                   </Component>
 
-                  <Component Id="Component.tslint.json_1805802068" Guid="6fe30b47-2577-43ad-9095-1861e0c546cb" Win64="yes">
-                    <File Id="tslint.json_1805802068" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\tslint.json" />
+                  <Component Id="Component.tslint.json_1051250882" Guid="6fe30b47-2577-43ad-9095-18618ca7bd3b" Win64="yes">
+                    <File Id="tslint.json_1051250882" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\tslint.json" />
                   </Component>
 
                   <Directory Id="INSTALLDIR.NgClient.resources.app.dist" Name="dist">
                     <Directory Id="INSTALLDIR.NgClient.resources.app.dist.AspWinServiceNgClient" Name="AspWinServiceNgClient">
 
-                      <Component Id="Component._3rdpartylicenses.txt_1938451649" Guid="6fe30b47-2577-43ad-9095-1861cb445321" Win64="yes">
-                        <File Id="_3rdpartylicenses.txt_1938451649" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\dist\AspWinServiceNgClient\3rdpartylicenses.txt" />
+                      <Component Id="Component._3rdpartylicenses.txt_1224260403" Guid="6fe30b47-2577-43ad-9095-18612ebec064" Win64="yes">
+                        <File Id="_3rdpartylicenses.txt_1224260403" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\dist\AspWinServiceNgClient\3rdpartylicenses.txt" />
                       </Component>
 
-                      <Component Id="Component.favicon.ico_478832615" Guid="6fe30b47-2577-43ad-9095-1861e39e21ce" Win64="yes">
-                        <File Id="favicon.ico_478832615" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\dist\AspWinServiceNgClient\favicon.ico" />
+                      <Component Id="Component.favicon.ico_445470173" Guid="6fe30b47-2577-43ad-9095-186144c0e97d" Win64="yes">
+                        <File Id="favicon.ico_445470173" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\dist\AspWinServiceNgClient\favicon.ico" />
                       </Component>
 
-                      <Component Id="Component.index.html_660592554" Guid="6fe30b47-2577-43ad-9095-1861295637b9" Win64="yes">
-                        <File Id="index.html_660592554" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\dist\AspWinServiceNgClient\index.html" />
+                      <Component Id="Component.index.html_52056443" Guid="6fe30b47-2577-43ad-9095-1861dba65b2a" Win64="yes">
+                        <File Id="index.html_52056443" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\dist\AspWinServiceNgClient\index.html" />
                       </Component>
 
-                      <Component Id="Component.main.af2b96061559d5be7ab3.js_485437290" Guid="6fe30b47-2577-43ad-9095-1861c2e87545" Win64="yes">
-                        <File Id="main.af2b96061559d5be7ab3.js_485437290" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\dist\AspWinServiceNgClient\main.af2b96061559d5be7ab3.js" />
+                      <Component Id="Component.main.af2b96061559d5be7ab3.js_2063952193" Guid="6fe30b47-2577-43ad-9095-1861e79cdae7" Win64="yes">
+                        <File Id="main.af2b96061559d5be7ab3.js_2063952193" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\dist\AspWinServiceNgClient\main.af2b96061559d5be7ab3.js" />
                       </Component>
 
-                      <Component Id="Component.polyfills_es5.93893f560e403d23958a.js_2137956491" Guid="6fe30b47-2577-43ad-9095-18613979fedb" Win64="yes">
-                        <File Id="polyfills_es5.93893f560e403d23958a.js_2137956491" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\dist\AspWinServiceNgClient\polyfills-es5.93893f560e403d23958a.js" />
+                      <Component Id="Component.polyfills_es5.93893f560e403d23958a.js_487846438" Guid="6fe30b47-2577-43ad-9095-1861cdb97b0a" Win64="yes">
+                        <File Id="polyfills_es5.93893f560e403d23958a.js_487846438" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\dist\AspWinServiceNgClient\polyfills-es5.93893f560e403d23958a.js" />
                       </Component>
 
-                      <Component Id="Component.polyfills.2d938c2725dce5a6a7bb.js_2042170649" Guid="6fe30b47-2577-43ad-9095-1861e172cd41" Win64="yes">
-                        <File Id="polyfills.2d938c2725dce5a6a7bb.js_2042170649" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\dist\AspWinServiceNgClient\polyfills.2d938c2725dce5a6a7bb.js" />
+                      <Component Id="Component.polyfills.2d938c2725dce5a6a7bb.js_550173282" Guid="6fe30b47-2577-43ad-9095-186169aa1871" Win64="yes">
+                        <File Id="polyfills.2d938c2725dce5a6a7bb.js_550173282" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\dist\AspWinServiceNgClient\polyfills.2d938c2725dce5a6a7bb.js" />
                       </Component>
 
-                      <Component Id="Component.runtime.465c2333d355155ec5f3.js_1945496104" Guid="6fe30b47-2577-43ad-9095-1861a4aa6eb3" Win64="yes">
-                        <File Id="runtime.465c2333d355155ec5f3.js_1945496104" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\dist\AspWinServiceNgClient\runtime.465c2333d355155ec5f3.js" />
+                      <Component Id="Component.runtime.465c2333d355155ec5f3.js_1456090385" Guid="6fe30b47-2577-43ad-9095-186174d83c09" Win64="yes">
+                        <File Id="runtime.465c2333d355155ec5f3.js_1456090385" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\dist\AspWinServiceNgClient\runtime.465c2333d355155ec5f3.js" />
                       </Component>
 
-                      <Component Id="Component.styles.03cde08922b33dca798c.css_437534473" Guid="6fe30b47-2577-43ad-9095-186141193d23" Win64="yes">
-                        <File Id="styles.03cde08922b33dca798c.css_437534473" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\dist\AspWinServiceNgClient\styles.03cde08922b33dca798c.css" />
+                      <Component Id="Component.styles.03cde08922b33dca798c.css_1653122879" Guid="6fe30b47-2577-43ad-9095-18615cd58dd9" Win64="yes">
+                        <File Id="styles.03cde08922b33dca798c.css_1653122879" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\dist\AspWinServiceNgClient\styles.03cde08922b33dca798c.css" />
                       </Component>
 
                       <Directory Id="INSTALLDIR.NgClient.resources.app.dist.AspWinServiceNgClient.assets" Name="assets">
 
-                        <Component Id="Component.green.ico_1848007047" Guid="6fe30b47-2577-43ad-9095-186158053648" Win64="yes">
-                          <File Id="green.ico_1848007047" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\dist\AspWinServiceNgClient\assets\green.ico" />
+                        <Component Id="Component.green.ico_1861434325" Guid="6fe30b47-2577-43ad-9095-18617c1bd11a" Win64="yes">
+                          <File Id="green.ico_1861434325" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\dist\AspWinServiceNgClient\assets\green.ico" />
                         </Component>
 
                       </Directory>
@@ -460,22 +460,22 @@
 
                   <Directory Id="INSTALLDIR.NgClient.resources.app.electron" Name="electron">
 
-                    <Component Id="Component.main.ts_1436680586" Guid="6fe30b47-2577-43ad-9095-18613196ce91" Win64="yes">
-                      <File Id="main.ts_1436680586" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\electron\main.ts" />
+                    <Component Id="Component.main.ts_114145075" Guid="6fe30b47-2577-43ad-9095-1861483e98a4" Win64="yes">
+                      <File Id="main.ts_114145075" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\electron\main.ts" />
                     </Component>
 
-                    <Component Id="Component.tsconfig.json_1607488974" Guid="6fe30b47-2577-43ad-9095-186111d91f70" Win64="yes">
-                      <File Id="tsconfig.json_1607488974" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\electron\tsconfig.json" />
+                    <Component Id="Component.tsconfig.json_2065852408" Guid="6fe30b47-2577-43ad-9095-186195d74687" Win64="yes">
+                      <File Id="tsconfig.json_2065852408" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\electron\tsconfig.json" />
                     </Component>
 
                     <Directory Id="INSTALLDIR.NgClient.resources.app.electron.dist" Name="dist">
 
-                      <Component Id="Component.main.js_886027626" Guid="6fe30b47-2577-43ad-9095-18619e11cb34" Win64="yes">
-                        <File Id="main.js_886027626" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\electron\dist\main.js" />
+                      <Component Id="Component.main.js_1365648845" Guid="6fe30b47-2577-43ad-9095-186171ede310" Win64="yes">
+                        <File Id="main.js_1365648845" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\electron\dist\main.js" />
                       </Component>
 
-                      <Component Id="Component.main.js.map_544490519" Guid="6fe30b47-2577-43ad-9095-1861833c07fb" Win64="yes">
-                        <File Id="main.js.map_544490519" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\electron\dist\main.js.map" />
+                      <Component Id="Component.main.js.map_1532082219" Guid="6fe30b47-2577-43ad-9095-1861204552dd" Win64="yes">
+                        <File Id="main.js.map_1532082219" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\electron\dist\main.js.map" />
                       </Component>
 
                     </Directory>
@@ -485,12 +485,12 @@
 
               <Directory Id="INSTALLDIR.NgClient.swiftshader" Name="swiftshader">
 
-                <Component Id="Component.libEGL.dll_997106169" Guid="6fe30b47-2577-43ad-9095-1861bfa27165" Win64="yes">
-                  <File Id="libEGL.dll_997106169" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\swiftshader\libEGL.dll" />
+                <Component Id="Component.libEGL.dll_46351721" Guid="6fe30b47-2577-43ad-9095-1861553e2d53" Win64="yes">
+                  <File Id="libEGL.dll_46351721" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\swiftshader\libEGL.dll" />
                 </Component>
 
-                <Component Id="Component.libGLESv2.dll_2134066332" Guid="6fe30b47-2577-43ad-9095-18619d348556" Win64="yes">
-                  <File Id="libGLESv2.dll_2134066332" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\swiftshader\libGLESv2.dll" />
+                <Component Id="Component.libGLESv2.dll_1583605252" Guid="6fe30b47-2577-43ad-9095-1861a002be3f" Win64="yes">
+                  <File Id="libGLESv2.dll_1583605252" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\swiftshader\libGLESv2.dll" />
                 </Component>
 
               </Directory>
@@ -498,24 +498,24 @@
 
             <Directory Id="INSTALLDIR.Service" Name="Service">
 
-              <Component Id="Component.appsettings.Development.json_753540139" Guid="6fe30b47-2577-43ad-9095-18614707d22f" Win64="yes">
-                <File Id="appsettings.Development.json_753540139" Source="..\AspWinService\bin\Debug\netcoreapp2.2\win7-x64\appsettings.Development.json" />
+              <Component Id="Component.appsettings.Development.json_133866731" Guid="6fe30b47-2577-43ad-9095-1861000b76c6" Win64="yes">
+                <File Id="appsettings.Development.json_133866731" Source="..\AspWinService\bin\Debug\netcoreapp2.2\win7-x64\appsettings.Development.json" />
               </Component>
 
-              <Component Id="Component.appsettings.json_1013788144" Guid="6fe30b47-2577-43ad-9095-1861e9d48c41" Win64="yes">
-                <File Id="appsettings.json_1013788144" Source="..\AspWinService\bin\Debug\netcoreapp2.2\win7-x64\appsettings.json" />
+              <Component Id="Component.appsettings.json_1660606814" Guid="6fe30b47-2577-43ad-9095-1861ba5bcfde" Win64="yes">
+                <File Id="appsettings.json_1660606814" Source="..\AspWinService\bin\Debug\netcoreapp2.2\win7-x64\appsettings.json" />
               </Component>
 
-              <Component Id="Component.AspWinService.deps.json_2000007491" Guid="6fe30b47-2577-43ad-9095-1861dd396c66" Win64="yes">
-                <File Id="AspWinService.deps.json_2000007491" Source="..\AspWinService\bin\Debug\netcoreapp2.2\win7-x64\AspWinService.deps.json" />
+              <Component Id="Component.AspWinService.deps.json_1375880388" Guid="6fe30b47-2577-43ad-9095-1861c99a023d" Win64="yes">
+                <File Id="AspWinService.deps.json_1375880388" Source="..\AspWinService\bin\Debug\netcoreapp2.2\win7-x64\AspWinService.deps.json" />
               </Component>
 
-              <Component Id="Component.AspWinService.dll_1684723021" Guid="6fe30b47-2577-43ad-9095-18612496b641" Win64="yes">
-                <File Id="AspWinService.dll_1684723021" Source="..\AspWinService\bin\Debug\netcoreapp2.2\win7-x64\AspWinService.dll" />
+              <Component Id="Component.AspWinService.dll_1131691315" Guid="6fe30b47-2577-43ad-9095-1861b5172535" Win64="yes">
+                <File Id="AspWinService.dll_1131691315" Source="..\AspWinService\bin\Debug\netcoreapp2.2\win7-x64\AspWinService.dll" />
               </Component>
 
-              <Component Id="Component.AspWinService.exe_272050879" Guid="6fe30b47-2577-43ad-9095-1861bf004b33" Win64="yes">
-                <File Id="AspWinService.exe_272050879" Source="..\AspWinService\bin\Debug\netcoreapp2.2\win7-x64\AspWinService.exe" />
+              <Component Id="Component.AspWinService.exe_825082561" Guid="6fe30b47-2577-43ad-9095-1861fc3a90e3" Win64="yes">
+                <File Id="AspWinService.exe_825082561" Source="..\AspWinService\bin\Debug\netcoreapp2.2\win7-x64\AspWinService.exe" />
 
                 <ServiceInstall Id="AspWinService" Name="AspWinService" DisplayName="AspWinService" Description="AspWinService" Type="ownProcess" Start="auto" ErrorControl="normal">
                   <ServiceConfig DelayedAutoStart="yes" PreShutdownDelay="180000" ServiceSid="none" OnInstall="yes" OnReinstall="no" OnUninstall="no" />
@@ -527,34 +527,38 @@
                 <ServiceControl Id="RemoveAspWinService" Name="AspWinService" Remove="uninstall" Wait="yes" />
               </Component>
 
-              <Component Id="Component.AspWinService.pdb_609954491" Guid="6fe30b47-2577-43ad-9095-18611cc5864e" Win64="yes">
-                <File Id="AspWinService.pdb_609954491" Source="..\AspWinService\bin\Debug\netcoreapp2.2\win7-x64\AspWinService.pdb" />
+              <Component Id="Component.AspWinService.pdb_1602895147" Guid="6fe30b47-2577-43ad-9095-1861ba01d4c8" Win64="yes">
+                <File Id="AspWinService.pdb_1602895147" Source="..\AspWinService\bin\Debug\netcoreapp2.2\win7-x64\AspWinService.pdb" />
               </Component>
 
-              <Component Id="Component.AspWinService.runtimeconfig.dev.json_1081021388" Guid="6fe30b47-2577-43ad-9095-1861522c8c0c" Win64="yes">
-                <File Id="AspWinService.runtimeconfig.dev.json_1081021388" Source="..\AspWinService\bin\Debug\netcoreapp2.2\win7-x64\AspWinService.runtimeconfig.dev.json" />
+              <Component Id="Component.AspWinService.runtimeconfig.dev.json_931704152" Guid="6fe30b47-2577-43ad-9095-1861b23e84f2" Win64="yes">
+                <File Id="AspWinService.runtimeconfig.dev.json_931704152" Source="..\AspWinService\bin\Debug\netcoreapp2.2\win7-x64\AspWinService.runtimeconfig.dev.json" />
               </Component>
 
-              <Component Id="Component.AspWinService.runtimeconfig.json_1632724648" Guid="6fe30b47-2577-43ad-9095-18612b18332c" Win64="yes">
-                <File Id="AspWinService.runtimeconfig.json_1632724648" Source="..\AspWinService\bin\Debug\netcoreapp2.2\win7-x64\AspWinService.runtimeconfig.json" />
+              <Component Id="Component.AspWinService.runtimeconfig.json_1936634179" Guid="6fe30b47-2577-43ad-9095-1861c9c5b29b" Win64="yes">
+                <File Id="AspWinService.runtimeconfig.json_1936634179" Source="..\AspWinService\bin\Debug\netcoreapp2.2\win7-x64\AspWinService.runtimeconfig.json" />
               </Component>
 
-              <Component Id="Component.hostfxr.dll_83753011" Guid="6fe30b47-2577-43ad-9095-1861d41cfe23" Win64="yes">
-                <File Id="hostfxr.dll_83753011" Source="..\AspWinService\bin\Debug\netcoreapp2.2\win7-x64\hostfxr.dll" />
+              <Component Id="Component.hostfxr.dll_2048435324" Guid="6fe30b47-2577-43ad-9095-18617739e025" Win64="yes">
+                <File Id="hostfxr.dll_2048435324" Source="..\AspWinService\bin\Debug\netcoreapp2.2\win7-x64\hostfxr.dll" />
               </Component>
 
-              <Component Id="Component.hostpolicy.dll_2004616583" Guid="6fe30b47-2577-43ad-9095-186127ca8625" Win64="yes">
-                <File Id="hostpolicy.dll_2004616583" Source="..\AspWinService\bin\Debug\netcoreapp2.2\win7-x64\hostpolicy.dll" />
+              <Component Id="Component.hostpolicy.dll_1576380147" Guid="6fe30b47-2577-43ad-9095-186159734ac2" Win64="yes">
+                <File Id="hostpolicy.dll_1576380147" Source="..\AspWinService\bin\Debug\netcoreapp2.2\win7-x64\hostpolicy.dll" />
               </Component>
 
-              <Component Id="Component.registerService.ps1_53307786" Guid="6fe30b47-2577-43ad-9095-18618ea2d850" Win64="yes">
-                <File Id="registerService.ps1_53307786" Source="..\AspWinService\bin\Debug\netcoreapp2.2\win7-x64\registerService.ps1" />
+              <Component Id="Component.registerService.ps1_172649213" Guid="6fe30b47-2577-43ad-9095-1861a27a401c" Win64="yes">
+                <File Id="registerService.ps1_172649213" Source="..\AspWinService\bin\Debug\netcoreapp2.2\win7-x64\registerService.ps1" />
+              </Component>
+
+              <Component Id="Component.VersionInfo.json_335512436" Guid="6fe30b47-2577-43ad-9095-18611c780fe7" Win64="yes">
+                <File Id="VersionInfo.json_335512436" Source="..\AspWinService\bin\Debug\netcoreapp2.2\win7-x64\VersionInfo.json" />
               </Component>
 
               <Directory Id="INSTALLDIR.Service.Properties" Name="Properties">
 
-                <Component Id="Component.launchSettings.json_324515412" Guid="6fe30b47-2577-43ad-9095-1861382f61ea" Win64="yes">
-                  <File Id="launchSettings.json_324515412" Source="..\AspWinService\bin\Debug\netcoreapp2.2\win7-x64\Properties\launchSettings.json" />
+                <Component Id="Component.launchSettings.json_88159788" Guid="6fe30b47-2577-43ad-9095-186112866cba" Win64="yes">
+                  <File Id="launchSettings.json_88159788" Source="..\AspWinService\bin\Debug\netcoreapp2.2\win7-x64\Properties\launchSettings.json" />
                 </Component>
 
               </Directory>
@@ -562,7 +566,7 @@
           </Directory>
         </Directory>
 
-        <Component Id="Registry.1" Guid="6fe30b47-2577-43ad-9095-1861b742561b" KeyPath="yes" Win64="yes">
+        <Component Id="Registry.1" Guid="6fe30b47-2577-43ad-9095-1861b742561c" KeyPath="yes" Win64="yes">
           <RegistryKey Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Run">
             <RegistryValue Id="AspWinServiceClient1_" Type="string" KeyPath="no" Value="[INSTALLDIR]Client\AspWinServiceClient.exe" Name="AspWinServiceClient1" />
           </RegistryKey>
@@ -574,9 +578,9 @@
       </Directory>
     </Directory>
 
-    <Upgrade Id="6fe30b47-2577-43ad-9095-1861ba25889c">
-      <UpgradeVersion Minimum="0.0.0.0" Maximum="1.0.1.0" IncludeMinimum="yes" IncludeMaximum="no" Property="UPGRADEFOUND" />
-      <UpgradeVersion Minimum="1.0.1.0" IncludeMinimum="no" Property="NEWPRODUCTFOUND" />
+    <Upgrade Id="6fe30b47-2577-43ad-9095-1861ba25889d">
+      <UpgradeVersion Minimum="0.0.0.0" Maximum="1.0.1" IncludeMinimum="yes" IncludeMaximum="no" Property="UPGRADEFOUND" />
+      <UpgradeVersion Minimum="1.0.1" IncludeMinimum="no" Property="NEWPRODUCTFOUND" />
     </Upgrade>
 
     <CustomAction Id="PreventDowngrading" Error="Newer version already installed" />
@@ -587,127 +591,128 @@
     <Property Id="REBOOT" Value="ReallySuppress" />
 
     <Feature Id="Complete" Title="Complete" Absent="allow" Level="1">
-      <ComponentRef Id="Component.AspWinServiceClient.deps.json_1909267160" />
-      <ComponentRef Id="Component.AspWinServiceClient.dll_1112370877" />
-      <ComponentRef Id="Component.AspWinServiceClient.exe_760219783" />
-      <ComponentRef Id="Component.AspWinServiceClient.pdb_1918907931" />
-      <ComponentRef Id="Component.AspWinServiceClient.runtimeconfig.dev.json_845192893" />
-      <ComponentRef Id="Component.AspWinServiceClient.runtimeconfig.json_394758940" />
-      <ComponentRef Id="Component.Newtonsoft.Json.dll_1271207601" />
-      <ComponentRef Id="Component.Newtonsoft.Json.xml_1456365034" />
-      <ComponentRef Id="Component.readme.txt_1854374722" />
-      <ComponentRef Id="Component.configuration.ico_1261712260" />
-      <ComponentRef Id="Component.configuration.png_987155585" />
-      <ComponentRef Id="Component.minimize_alternative.png_98642905" />
-      <ComponentRef Id="Component.minimize.png_1705659976" />
-      <ComponentRef Id="Component.asp_win_service_ng_client.exe_91998933" />
-      <ComponentRef Id="Component.chrome_100_percent.pak_269906047" />
-      <ComponentRef Id="Component.chrome_200_percent.pak_270151070" />
-      <ComponentRef Id="Component.d3dcompiler_47.dll_1532266269" />
-      <ComponentRef Id="Component.ffmpeg.dll_1842988182" />
-      <ComponentRef Id="Component.icudtl.dat_307900920" />
-      <ComponentRef Id="Component.libEGL.dll_878853445" />
-      <ComponentRef Id="Component.libGLESv2.dll_1958011432" />
-      <ComponentRef Id="Component.LICENSE_396138561" />
-      <ComponentRef Id="Component.LICENSES.chromium.html_1164142971" />
-      <ComponentRef Id="Component.natives_blob.bin_1461699108" />
-      <ComponentRef Id="Component.resources.pak_538941389" />
-      <ComponentRef Id="Component.snapshot_blob.bin_472925060" />
-      <ComponentRef Id="Component.v8_context_snapshot.bin_2139794297" />
-      <ComponentRef Id="Component.version_1168248385" />
-      <ComponentRef Id="Component.am.pak_1201093817" />
-      <ComponentRef Id="Component.ar.pak_1207742032" />
-      <ComponentRef Id="Component.bg.pak_1532537209" />
-      <ComponentRef Id="Component.bn.pak_1061831860" />
-      <ComponentRef Id="Component.ca.pak_683399515" />
-      <ComponentRef Id="Component.cs.pak_1070642763" />
-      <ComponentRef Id="Component.da.pak_664197467" />
-      <ComponentRef Id="Component.de.pak_1228847471" />
-      <ComponentRef Id="Component.el.pak_934067782" />
-      <ComponentRef Id="Component.en_GB.pak_1338364855" />
-      <ComponentRef Id="Component.en_US.pak_1301598693" />
-      <ComponentRef Id="Component.es_419.pak_1748745961" />
-      <ComponentRef Id="Component.es.pak_1075230283" />
-      <ComponentRef Id="Component.et.pak_907692946" />
-      <ComponentRef Id="Component.fa.pak_676911451" />
-      <ComponentRef Id="Component.fi.pak_1776295117" />
-      <ComponentRef Id="Component.fil.pak_1266767199" />
-      <ComponentRef Id="Component.fr.pak_1218293328" />
-      <ComponentRef Id="Component.gu.pak_796968513" />
-      <ComponentRef Id="Component.he.pak_1254799727" />
-      <ComponentRef Id="Component.hi.pak_1763056845" />
-      <ComponentRef Id="Component.hr.pak_1205055056" />
-      <ComponentRef Id="Component.hu.pak_781567553" />
-      <ComponentRef Id="Component.id.pak_1324954814" />
-      <ComponentRef Id="Component.it.pak_933645202" />
-      <ComponentRef Id="Component.ja.pak_702863707" />
-      <ComponentRef Id="Component.kn.pak_1046693044" />
-      <ComponentRef Id="Component.ko.pak_905530543" />
-      <ComponentRef Id="Component.lt.pak_910379922" />
-      <ComponentRef Id="Component.lv.pak_649055804" />
-      <ComponentRef Id="Component.ml.pak_916766278" />
-      <ComponentRef Id="Component.mr.pak_1199091280" />
-      <ComponentRef Id="Component.ms.pak_1057928779" />
-      <ComponentRef Id="Component.nb.pak_835375456" />
-      <ComponentRef Id="Component.nl.pak_918666822" />
-      <ComponentRef Id="Component.pl.pak_905428550" />
-      <ComponentRef Id="Component.pt_BR.pak_1572248430" />
-      <ComponentRef Id="Component.pt_PT.pak_1576049052" />
-      <ComponentRef Id="Component.ro.pak_886066351" />
-      <ComponentRef Id="Component.ru.pak_751552065" />
-      <ComponentRef Id="Component.sk.pak_1452879043" />
-      <ComponentRef Id="Component.sl.pak_894877254" />
-      <ComponentRef Id="Component.sr.pak_1177202256" />
-      <ComponentRef Id="Component.sv.pak_612552252" />
-      <ComponentRef Id="Component.sw.pak_471389751" />
-      <ComponentRef Id="Component.ta.pak_698800475" />
-      <ComponentRef Id="Component.te.pak_1263450479" />
-      <ComponentRef Id="Component.th.pak_766268586" />
-      <ComponentRef Id="Component.tr.pak_1196404304" />
-      <ComponentRef Id="Component.uk.pak_1457466563" />
-      <ComponentRef Id="Component.vi.pak_1741692109" />
-      <ComponentRef Id="Component.zh_CN.pak_1918670513" />
-      <ComponentRef Id="Component.zh_TW.pak_1922405500" />
-      <ComponentRef Id="Component.electron.asar_23750353" />
-      <ComponentRef Id="Component._.editorconfig_1186142232" />
-      <ComponentRef Id="Component._.gitignore_409669537" />
-      <ComponentRef Id="Component.angular.json_593729206" />
-      <ComponentRef Id="Component.browserslist_1183640330" />
-      <ComponentRef Id="Component.karma.conf.js_611535749" />
-      <ComponentRef Id="Component.package_lock.json_623046481" />
-      <ComponentRef Id="Component.package.json_807492016" />
-      <ComponentRef Id="Component.README.md_1147325918" />
-      <ComponentRef Id="Component.tsconfig.app.json_581423024" />
-      <ComponentRef Id="Component.tsconfig.json_1507270905" />
-      <ComponentRef Id="Component.tsconfig.spec.json_791015939" />
-      <ComponentRef Id="Component.tslint.json_1805802068" />
-      <ComponentRef Id="Component._3rdpartylicenses.txt_1938451649" />
-      <ComponentRef Id="Component.favicon.ico_478832615" />
-      <ComponentRef Id="Component.index.html_660592554" />
-      <ComponentRef Id="Component.main.af2b96061559d5be7ab3.js_485437290" />
-      <ComponentRef Id="Component.polyfills_es5.93893f560e403d23958a.js_2137956491" />
-      <ComponentRef Id="Component.polyfills.2d938c2725dce5a6a7bb.js_2042170649" />
-      <ComponentRef Id="Component.runtime.465c2333d355155ec5f3.js_1945496104" />
-      <ComponentRef Id="Component.styles.03cde08922b33dca798c.css_437534473" />
-      <ComponentRef Id="Component.green.ico_1848007047" />
-      <ComponentRef Id="Component.main.ts_1436680586" />
-      <ComponentRef Id="Component.tsconfig.json_1607488974" />
-      <ComponentRef Id="Component.main.js_886027626" />
-      <ComponentRef Id="Component.main.js.map_544490519" />
-      <ComponentRef Id="Component.libEGL.dll_997106169" />
-      <ComponentRef Id="Component.libGLESv2.dll_2134066332" />
-      <ComponentRef Id="Component.appsettings.Development.json_753540139" />
-      <ComponentRef Id="Component.appsettings.json_1013788144" />
-      <ComponentRef Id="Component.AspWinService.deps.json_2000007491" />
-      <ComponentRef Id="Component.AspWinService.dll_1684723021" />
-      <ComponentRef Id="Component.AspWinService.exe_272050879" />
-      <ComponentRef Id="Component.AspWinService.pdb_609954491" />
-      <ComponentRef Id="Component.AspWinService.runtimeconfig.dev.json_1081021388" />
-      <ComponentRef Id="Component.AspWinService.runtimeconfig.json_1632724648" />
-      <ComponentRef Id="Component.hostfxr.dll_83753011" />
-      <ComponentRef Id="Component.hostpolicy.dll_2004616583" />
-      <ComponentRef Id="Component.registerService.ps1_53307786" />
-      <ComponentRef Id="Component.launchSettings.json_324515412" />
+      <ComponentRef Id="Component.AspWinServiceClient.deps.json_1612635789" />
+      <ComponentRef Id="Component.AspWinServiceClient.dll_1570476851" />
+      <ComponentRef Id="Component.AspWinServiceClient.exe_113463473" />
+      <ComponentRef Id="Component.AspWinServiceClient.pdb_1932399013" />
+      <ComponentRef Id="Component.AspWinServiceClient.runtimeconfig.dev.json_1999697628" />
+      <ComponentRef Id="Component.AspWinServiceClient.runtimeconfig.json_1656657983" />
+      <ComponentRef Id="Component.Newtonsoft.Json.dll_616098905" />
+      <ComponentRef Id="Component.Newtonsoft.Json.xml_949198604" />
+      <ComponentRef Id="Component.readme.txt_1043029524" />
+      <ComponentRef Id="Component.configuration.ico_1049749835" />
+      <ComponentRef Id="Component.configuration.png_623307072" />
+      <ComponentRef Id="Component.minimize_alternative.png_811846767" />
+      <ComponentRef Id="Component.minimize.png_1342132378" />
+      <ComponentRef Id="Component.asp_win_service_ng_client.exe_1180887993" />
+      <ComponentRef Id="Component.chrome_100_percent.pak_2014218607" />
+      <ComponentRef Id="Component.chrome_200_percent.pak_2014396240" />
+      <ComponentRef Id="Component.d3dcompiler_47.dll_392915082" />
+      <ComponentRef Id="Component.ffmpeg.dll_1404618524" />
+      <ComponentRef Id="Component.icudtl.dat_1915328059" />
+      <ComponentRef Id="Component.libEGL.dll_721793012" />
+      <ComponentRef Id="Component.libGLESv2.dll_1534616519" />
+      <ComponentRef Id="Component.LICENSE_1379998712" />
+      <ComponentRef Id="Component.LICENSES.chromium.html_244396485" />
+      <ComponentRef Id="Component.natives_blob.bin_1148628008" />
+      <ComponentRef Id="Component.resources.pak_300477966" />
+      <ComponentRef Id="Component.snapshot_blob.bin_244741027" />
+      <ComponentRef Id="Component.v8_context_snapshot.bin_696409151" />
+      <ComponentRef Id="Component.version_581827278" />
+      <ComponentRef Id="Component.am.pak_41178516" />
+      <ComponentRef Id="Component.ar.pak_1486561263" />
+      <ComponentRef Id="Component.bg.pak_694610550" />
+      <ComponentRef Id="Component.bn.pak_1005987677" />
+      <ComponentRef Id="Component.ca.pak_302718096" />
+      <ComponentRef Id="Component.cs.pak_1358112746" />
+      <ComponentRef Id="Component.da.pak_283516048" />
+      <ComponentRef Id="Component.de.pak_1876451180" />
+      <ComponentRef Id="Component.el.pak_1311840103" />
+      <ComponentRef Id="Component.en_GB.pak_681105876" />
+      <ComponentRef Id="Component.en_US.pak_713676802" />
+      <ComponentRef Id="Component.es_419.pak_1341712739" />
+      <ComponentRef Id="Component.es.pak_1336748010" />
+      <ComponentRef Id="Component.et.pak_1466040703" />
+      <ComponentRef Id="Component.fa.pak_296230032" />
+      <ComponentRef Id="Component.fi.pak_1324515160" />
+      <ComponentRef Id="Component.fil.pak_577506920" />
+      <ComponentRef Id="Component.fr.pak_1492787183" />
+      <ComponentRef Id="Component.gu.pak_1594489220" />
+      <ComponentRef Id="Component.he.pak_1867800428" />
+      <ComponentRef Id="Component.hi.pak_1303150424" />
+      <ComponentRef Id="Component.hr.pak_1471422447" />
+      <ComponentRef Id="Component.hu.pak_1613691268" />
+      <ComponentRef Id="Component.id.pak_521269873" />
+      <ComponentRef Id="Component.it.pak_1474691455" />
+      <ComponentRef Id="Component.ja.pak_287579280" />
+      <ComponentRef Id="Component.kn.pak_1025451869" />
+      <ComponentRef Id="Component.ko.pak_1166614370" />
+      <ComponentRef Id="Component.lt.pak_1481179519" />
+      <ComponentRef Id="Component.lv.pak_1610582411" />
+      <ComponentRef Id="Component.ml.pak_1329141607" />
+      <ComponentRef Id="Component.mr.pak_1460609007" />
+      <ComponentRef Id="Component.ms.pak_1319446506" />
+      <ComponentRef Id="Component.nb.pak_783114337" />
+      <ComponentRef Id="Component.nl.pak_1314264935" />
+      <ComponentRef Id="Component.pl.pak_1270617959" />
+      <ComponentRef Id="Component.pt_BR.pak_1621688143" />
+      <ComponentRef Id="Component.pt_PT.pak_1634139325" />
+      <ComponentRef Id="Component.ro.pak_1116741474" />
+      <ComponentRef Id="Component.ru.pak_1553267076" />
+      <ComponentRef Id="Component.sk.pak_158206562" />
+      <ComponentRef Id="Component.sl.pak_1260066663" />
+      <ComponentRef Id="Component.sr.pak_1529683951" />
+      <ComponentRef Id="Component.sv.pak_1677494667" />
+      <ComponentRef Id="Component.sw.pak_1536332166" />
+      <ComponentRef Id="Component.ta.pak_318119056" />
+      <ComponentRef Id="Component.te.pak_1911054188" />
+      <ComponentRef Id="Component.th.pak_2036317" />
+      <ComponentRef Id="Component.tr.pak_1514676207" />
+      <ComponentRef Id="Component.uk.pak_141036130" />
+      <ComponentRef Id="Component.vi.pak_1359118168" />
+      <ComponentRef Id="Component.zh_CN.pak_1092690098" />
+      <ComponentRef Id="Component.zh_TW.pak_1074274181" />
+      <ComponentRef Id="Component.electron.asar_1861474341" />
+      <ComponentRef Id="Component._.editorconfig_1244222524" />
+      <ComponentRef Id="Component._.gitignore_1454219458" />
+      <ComponentRef Id="Component.angular.json_2099139234" />
+      <ComponentRef Id="Component.browserslist_1917873463" />
+      <ComponentRef Id="Component.karma.conf.js_2021083056" />
+      <ComponentRef Id="Component.package_lock.json_1724013387" />
+      <ComponentRef Id="Component.package.json_1299565569" />
+      <ComponentRef Id="Component.README.md_1561183176" />
+      <ComponentRef Id="Component.tsconfig.app.json_375022807" />
+      <ComponentRef Id="Component.tsconfig.json_1672262945" />
+      <ComponentRef Id="Component.tsconfig.spec.json_2146863552" />
+      <ComponentRef Id="Component.tslint.json_1051250882" />
+      <ComponentRef Id="Component._3rdpartylicenses.txt_1224260403" />
+      <ComponentRef Id="Component.favicon.ico_445470173" />
+      <ComponentRef Id="Component.index.html_52056443" />
+      <ComponentRef Id="Component.main.af2b96061559d5be7ab3.js_2063952193" />
+      <ComponentRef Id="Component.polyfills_es5.93893f560e403d23958a.js_487846438" />
+      <ComponentRef Id="Component.polyfills.2d938c2725dce5a6a7bb.js_550173282" />
+      <ComponentRef Id="Component.runtime.465c2333d355155ec5f3.js_1456090385" />
+      <ComponentRef Id="Component.styles.03cde08922b33dca798c.css_1653122879" />
+      <ComponentRef Id="Component.green.ico_1861434325" />
+      <ComponentRef Id="Component.main.ts_114145075" />
+      <ComponentRef Id="Component.tsconfig.json_2065852408" />
+      <ComponentRef Id="Component.main.js_1365648845" />
+      <ComponentRef Id="Component.main.js.map_1532082219" />
+      <ComponentRef Id="Component.libEGL.dll_46351721" />
+      <ComponentRef Id="Component.libGLESv2.dll_1583605252" />
+      <ComponentRef Id="Component.appsettings.Development.json_133866731" />
+      <ComponentRef Id="Component.appsettings.json_1660606814" />
+      <ComponentRef Id="Component.AspWinService.deps.json_1375880388" />
+      <ComponentRef Id="Component.AspWinService.dll_1131691315" />
+      <ComponentRef Id="Component.AspWinService.exe_825082561" />
+      <ComponentRef Id="Component.AspWinService.pdb_1602895147" />
+      <ComponentRef Id="Component.AspWinService.runtimeconfig.dev.json_931704152" />
+      <ComponentRef Id="Component.AspWinService.runtimeconfig.json_1936634179" />
+      <ComponentRef Id="Component.hostfxr.dll_2048435324" />
+      <ComponentRef Id="Component.hostpolicy.dll_1576380147" />
+      <ComponentRef Id="Component.registerService.ps1_172649213" />
+      <ComponentRef Id="Component.VersionInfo.json_335512436" />
+      <ComponentRef Id="Component.launchSettings.json_88159788" />
       <ComponentRef Id="Registry.1" />
     </Feature>
 

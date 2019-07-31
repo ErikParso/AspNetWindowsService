@@ -2,10 +2,8 @@
 using System;
 using System.IO;
 using System.Net.Http;
-using System.Threading;
 using System.Windows;
 using System.Windows.Forms;
-using Application = System.Windows.Application;
 
 namespace AspWinServiceClient
 {
@@ -58,14 +56,14 @@ namespace AspWinServiceClient
 
         private async void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            var values = await _httpClient.GetAsync("api/version").Result.Content.ReadAsStringAsync();
+            var values = await _httpClient.GetAsync("api/installer").Result.Content.ReadAsStringAsync();
             output.Text = "Versions: " + values;
             _notifyIcon.ShowBalloonTip(3000, "Helios client manager", "Values was received", ToolTipIcon.Info);
         }
 
         private async void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            await _httpClient.PostAsync("api/version", new StringContent("Hello. Please, check versions and update us if needed. Thank you."));
+            await _httpClient.PostAsync("api/installer", new StringContent("Hello. Please, check versions and update us if needed. Thank you."));
         }
 
         private class Info {
