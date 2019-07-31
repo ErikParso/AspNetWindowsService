@@ -61,6 +61,7 @@ namespace AspWinService.Controllers
 
                 string myExeDir = new FileInfo(Assembly.GetEntryAssembly().Location).Directory.ToString();
                 string msiPath = Path.Combine(myExeDir, @"Installer\MyProduct.msi");
+                //TODO: not working 
                 ProcessExtensions.StartProcessAsCurrentUser(msiPath);
             }
         }

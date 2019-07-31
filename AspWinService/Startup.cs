@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using AspWinService.Model;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 using System.IO;
 using System.Reflection;
 
@@ -37,11 +39,26 @@ namespace AspWinService
 
             app.UseMvc();
 
+            RunServiceClient();
+
+            CreateInstallationConfig();
+        }
+
+        private static void RunServiceClient()
+        {
             var servicePath = new FileInfo(Assembly.GetEntryAssembly().Location).DirectoryName;
             var clientPath = Path.Combine(servicePath, "..", "Client", "AspWinServiceClient.exe");
             var ngClientPath = Path.Combine(servicePath, "..", "NgClient", "asp-win-service-ng-client.exe");
             ProcessExtensions.StartProcessAsCurrentUser(clientPath);
             ProcessExtensions.StartProcessAsCurrentUser(ngClientPath);
+        }
+
+        private static void CreateInstallationConfig()
+        {
+            if (!File.Exists(Constants.installedClientsFile))
+            {
+                File.WriteAllText(Constants.installedClientsFile, JsonConvert.SerializeObject(new ClientInstallationInfo[] { }));
+            }
         }
     }
 }

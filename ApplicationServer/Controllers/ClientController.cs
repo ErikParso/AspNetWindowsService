@@ -12,7 +12,8 @@ namespace ApplicationServer.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> GetClientVersion()
         {
-            return Ok(JsonConvert.DeserializeObject<dynamic>(System.IO.File.ReadAllText("Client/VersionInfo.json")).version);
+            string version = JsonConvert.DeserializeObject<dynamic>(System.IO.File.ReadAllText("Client/VersionInfo.json")).version;
+            return Ok(version);
         }
 
         [HttpGet("download")]

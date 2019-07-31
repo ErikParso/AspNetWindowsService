@@ -37,7 +37,7 @@ namespace ServiceSetup
                 Platform = Platform.x64,
                 GUID = new Guid("6fe30b47-2577-43ad-9095-1861ba25889d"),
                 Version = new Version(serviceVersion),                                                              
-                MajorUpgradeStrategy = MajorUpgradeStrategy.Default,
+                MajorUpgradeStrategy = MajorUpgradeStrategy.Default
             };
 
             project.RebootSupressing = RebootSupressing.ReallySuppress;
