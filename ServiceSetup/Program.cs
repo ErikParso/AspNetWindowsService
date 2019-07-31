@@ -1,7 +1,4 @@
-﻿using Microsoft.Deployment.WindowsInstaller;
-using System;
-using System.Diagnostics;
-using System.Linq;
+﻿using System;
 using WixSharp;
 
 namespace ServiceSetup
@@ -10,7 +7,7 @@ namespace ServiceSetup
     {
         private const string serviceFiles = @"C:\Users\eparso\source\repos\AspWinService\AspWinService\bin\Release\netcoreapp2.2\win7-x64\publish";
         private const string clientFiles = @"C:\Users\eparso\source\repos\AspWinService\AspWinServiceClient\bin\Debug\netcoreapp3.0";
-        private const string electronClientFiles = @"C:\Users\eparso\source\repos\AspWinService\AspWinServiceNgClient\—platform=win32-win32-x64";
+        private const string electronClientFiles = @"C:\Users\eparso\source\repos\AspWinService\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64";
 
         static void Main()
         {

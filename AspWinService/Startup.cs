@@ -39,7 +39,7 @@ namespace AspWinService
 
             var servicePath = new FileInfo(Assembly.GetEntryAssembly().Location).DirectoryName;
             var clientPath = Path.Combine(servicePath, "..", "Client", "AspWinServiceClient.exe");
-            var ngClientPath = Path.Combine(servicePath, "..", "NgClient", "—platform=win32.exe");
+            var ngClientPath = Path.Combine(servicePath, "..", "NgClient", "asp-win-service-ng-client.exe");
             ProcessExtensions.StartProcessAsCurrentUser(clientPath);
             ProcessExtensions.StartProcessAsCurrentUser(ngClientPath);
         }
