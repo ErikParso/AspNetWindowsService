@@ -5,7 +5,8 @@ namespace ServiceSetup
 {
     class Program
     {
-        private const string serviceFiles = @"C:\Users\eparso\source\repos\AspWinService\AspWinService\bin\Release\netcoreapp2.2\win7-x64\publish";
+        private const string serviceFilesDebug = @"C:\Users\eparso\source\repos\AspWinService\AspWinService\bin\Debug\netcoreapp2.2\win7-x64";
+        private const string serviceFilesRelease = @"C:\Users\eparso\source\repos\AspWinService\AspWinService\bin\Release\netcoreapp2.2\win7-x64\publish";
         private const string clientFiles = @"C:\Users\eparso\source\repos\AspWinService\AspWinServiceClient\bin\Debug\netcoreapp3.0";
         private const string electronClientFiles = @"C:\Users\eparso\source\repos\AspWinService\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64";
 
@@ -20,7 +21,7 @@ namespace ServiceSetup
                                 new Dir("NgClient",
                                     new Files(System.IO.Path.Combine(electronClientFiles, "*.*"))),
                                 new Dir("Service",
-                                    new Files(System.IO.Path.Combine(serviceFiles, "*.*")))),
+                                    new Files(System.IO.Path.Combine(serviceFilesDebug, "*.*")))),
                               new RegValue(RegistryHive.LocalMachine, @"SOFTWARE\Microsoft\Windows\CurrentVersion\Run",
                                 "AspWinServiceClient1", @"[INSTALLDIR]Client\AspWinServiceClient.exe")
                               {
