@@ -1,18 +1,28 @@
 import { Component, OnInit, Input, EventEmitter } from '@angular/core';
 import { ElectronService } from 'ngx-electron';
 import { ChildProcessService } from 'ngx-childprocess';
+import { Observable } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import { State, localVersionSelector, loadVersions } from './app.reducer';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  title = 'AspWinServiceNgClient';
+export class AppComponent implements OnInit {
+
+  public version$: Observable<string>;
 
   constructor(
     public electronService: ElectronService,
-    public childProcessService: ChildProcessService) { }
+    public childProcessService: ChildProcessService,
+    private store: Store<State>) { }
+
+  ngOnInit(): void {
+    this.version$ = this.store.pipe(select(localVersionSelector));
+    this.store.dispatch(loadVersions());
+  }
 
   hideWindow() {
     this.electronService.remote.getCurrentWindow().hide();

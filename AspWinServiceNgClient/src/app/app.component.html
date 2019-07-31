@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <span>Client Manager</span>
+    <span>Client Manager {{version$ | async}}</span>
     <span class="spacer"></span>
     <button mat-icon-button (click)="hideWindow()" *ngIf="electronService.isElectronApp">
       <mat-icon>minimize</mat-icon>
