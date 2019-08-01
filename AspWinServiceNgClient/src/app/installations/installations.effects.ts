@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, act, ofType, Effect } from '@ngrx/effects';
 import { InstallationsService } from './installations.service';
-import { map, mergeMap, catchError, tap, concatMap, takeWhile } from 'rxjs/operators';
+import { map, mergeMap, catchError, tap, concatMap, takeWhile, exhaustMap } from 'rxjs/operators';
 import * as actions from './installations.actions';
 import { of } from 'rxjs';
 
@@ -25,7 +25,7 @@ export class InstallationsEffects {
             ))
     ));
 
-    @Effect({dispatch: false}) runClient$ = createEffect(() => this.actions$.pipe(
+    runClient$ = createEffect(() => this.actions$.pipe(
         ofType<actions.RunClientAction>(actions.InstallationsActions.runClient),
         mergeMap((action) => this.installationsService.runClientApplication(action.payload)
             .pipe(
