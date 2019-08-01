@@ -34,7 +34,7 @@ namespace AspWinService.Controllers
             var clientsInfoString = System.IO.File.ReadAllText(Constants.installedClientsFile);
             var clientsInfo = JsonConvert.DeserializeObject<IEnumerable<ClientInstallationInfo>>(clientsInfoString);
             var installDir = clientsInfo.Where(c => c.ClientName == clientName).First().InstallDir;
-            ProcessExtensions.StartProcessAsCurrentUser(Path.Combine(installDir, "HeliosGreenClient.exe"));
+            ProcessExtensions.StartProcessAsCurrentUser(Path.Combine(installDir, "HeliosGreenClient.exe"), null, installDir);
             return Ok();
         }
 
