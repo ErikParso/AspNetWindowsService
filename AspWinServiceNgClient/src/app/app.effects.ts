@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { map, mergeMap, catchError, tap, concatMap, takeWhile } from 'rxjs/operators';
+import { map, mergeMap } from 'rxjs/operators';
 import { createEffect, ofType, Actions } from '@ngrx/effects';
 import { VersionService } from './version.service';
-import { Store } from '@ngrx/store';
-import { State, loadVersions, loadVersionsSuccess } from './app.reducer';
+import { loadVersions, loadVersionsSuccess } from './app.reducer';
 
 @Injectable()
 export class AppEffects {

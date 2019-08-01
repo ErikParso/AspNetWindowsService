@@ -11,7 +11,7 @@ export class VersionService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public getServiceVersions(): Observable<{local: string, latest: string}> {
-    return this.httpClient.get<{local: string, latest: string}>(this.serviceVersionsUrl);
+  public getServiceVersions(): Observable<{local: string, latest: string, client: string}> {
+    return this.httpClient.get<{local: string, latest: string, client: string}>(this.serviceVersionsUrl);
   }
 }

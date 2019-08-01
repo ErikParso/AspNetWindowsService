@@ -15,8 +15,13 @@ export const initialState: VersionInfo = {
     latesVersion: '0.0.0'
 };
 
-export const loadVersions = createAction('[App] Load versions');
-export const loadVersionsSuccess = createAction('[App] Load versions success', props<{ local: string, latest: string }>());
+export const loadVersions = createAction(
+    '[App] Load versions'
+);
+export const loadVersionsSuccess = createAction(
+    '[App] Load versions success',
+    props<{ local: string, latest: string }>()
+);
 
 export const versionInfoSelector = (state: State) => state.versionInfo;
 export const localVersionSelector = createSelector(

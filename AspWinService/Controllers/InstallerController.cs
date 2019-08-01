@@ -18,7 +18,7 @@ namespace AspWinService.Controllers
         {
             return Ok(new {
                 Local = GetCurrentVersion(),
-                Latest = await GetLatestVersion()
+                Latest = await GetLatestVersion(),
             });
         }
 

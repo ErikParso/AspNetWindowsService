@@ -26,6 +26,7 @@
     "@angular/router": "~8.1.1",
     "@ngrx/effects": "^8.1.0",
     "@ngrx/store": "^8.1.0",
+    "@ngrx/store-devtools": "^8.2.0",
     "ngx-childprocess": "0.0.6",
     "ngx-electron": "^2.1.1",
     "rxjs": "~6.4.0",

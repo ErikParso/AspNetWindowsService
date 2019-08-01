@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { ClientInstallationInfo } from '../models/clientInstallationInfo';
-import { Store, select } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { State } from 'src/app/app.reducer';
 import * as reducer from '../instalations.reducer';
 import * as actions from '../installations.actions';
@@ -13,17 +12,21 @@ import * as actions from '../installations.actions';
 })
 export class InstallationListComponent implements OnInit {
 
-  public installations$: Observable<ClientInstallationInfo[]>;
-  public currentInstallation$: Observable<ClientInstallationInfo>;
+  public installations: ClientInstallationInfo[];
+  public latestClientVersion: string;
 
   displayedColumns: string[] = ['clientName', 'version', 'tools']; // 'installDir'
 
   constructor(private store: Store<State>) { }
 
   ngOnInit() {
-    this.installations$ = this.store.pipe(select(reducer.allInstallationsSelector));
-    this.currentInstallation$ = this.store.pipe(select(reducer.currentInstallationSelector));
+    this.store.select(reducer.allInstallationsSelector)
+      .subscribe(data => this.installations = data);
+    this.store.select(reducer.latestClientVersionSelector)
+      .subscribe(version => this.latestClientVersion = version);
+
     this.store.dispatch(actions.loadInstallations());
+    this.store.dispatch(actions.loadLatestClientVersion());
   }
 
   setCurrentInstallation(row: ClientInstallationInfo) {

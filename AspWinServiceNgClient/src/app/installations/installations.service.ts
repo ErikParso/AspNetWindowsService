@@ -16,6 +16,10 @@ export class InstallationsService {
     return this.httpClient.get<ClientInstallationInfo[]>(this.clientInstallationsUrl);
   }
 
+  public getLatestClientVersion(): Observable<string> {
+    return this.httpClient.get(this.clientInstallationsUrl + '/latestVersion', {responseType: 'text'});
+  }
+
   public runClientApplication(clientName: string): Observable<boolean> {
     this.httpClient.post(this.clientInstallationsUrl + '/' + clientName, null).subscribe();
     return of(true);

@@ -6,12 +6,14 @@ import * as actions from './installations.actions';
 export interface InstalationsState {
     allInstallations: ClientInstallationInfo[];
     currentInstallation: ClientInstallationInfo;
+    latestClientVersion: string;
     errorMessage: string;
 }
 
 export const initialState: InstalationsState = {
     allInstallations: [],
     currentInstallation: null,
+    latestClientVersion: '0.0.0',
     errorMessage: null
 };
 
@@ -36,10 +38,16 @@ export const errorMessageSelector = createSelector(
     (state: InstalationsState) => state.errorMessage
 );
 
+export const latestClientVersionSelector = createSelector(
+    installationsSelector,
+    (state: InstalationsState) => state.latestClientVersion
+);
+
 const installationsReducer = createReducer<InstalationsState>(
     initialState,
     on(actions.loadInstallationsSuccess, (s, p) => ({ ...s, allInstallations: p.payload })),
-    on(actions.loadInstallationsError, (s, p) => ({ ...s, errorMessage: p.payload }))
+    on(actions.loadInstallationsError, (s, p) => ({ ...s, errorMessage: p.payload })),
+    on(actions.loadLatestClientVersionSuccess, (s, p) => ({ ...s, latestClientVersion: p.payload }))
 );
 
 export function reducer(state: InstalationsState, action: Action) {

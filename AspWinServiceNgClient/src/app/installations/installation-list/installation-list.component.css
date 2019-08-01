@@ -22,3 +22,9 @@ table {
  .col-tools {
    width: 20px;
  }
+
+ .warn-icon {
+    display: inline;
+    vertical-align: middle;
+    font-size: 20px;
+ }

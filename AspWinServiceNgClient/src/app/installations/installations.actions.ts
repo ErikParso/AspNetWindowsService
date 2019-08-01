@@ -6,7 +6,9 @@ export enum InstallationsActions {
     loadInstallationsSuccess = '[Installations] Load installations success',
     loadInstallationsError = '[Installations] Load installations error',
     runClient = '[Installations] Run client application',
-    runClientSuccess = '[Installations] Run client application success'
+    runClientSuccess = '[Installations] Run client application success',
+    loadLatestClientVersion = '[installations] Load latest client version',
+    loadLatestClientVersionSuccess = '[installations] Load latest client version success'
 }
 
 export const loadInstallations = createAction(
@@ -32,3 +34,11 @@ export const runClientSuccess = createAction(
     InstallationsActions.runClientSuccess
 );
 
+export const loadLatestClientVersion = createAction(
+    InstallationsActions.loadLatestClientVersion
+);
+
+export const loadLatestClientVersionSuccess = createAction(
+    InstallationsActions.loadLatestClientVersionSuccess,
+    props<{ payload: string }>()
+);

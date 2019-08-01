@@ -1,9 +1,9 @@
 <div class="table-container">
-  <table mat-table [dataSource]="installations$ | async">
+  <table mat-table [dataSource]="installations">
 
     <ng-container matColumnDef="clientName">
       <th mat-header-cell  *matHeaderCellDef> Name </th>
-      <td mat-cell *matCellDef="let element" [class.currentRow]="(currentInstallation$ | async) == element">
+      <td mat-cell *matCellDef="let element">
         {{element.clientName}}
         <!-- <div class="mat-small install-dir-string"> {{element.installDir}} </div> -->
       </td>
@@ -11,21 +11,24 @@
 
     <ng-container matColumnDef="installDir">
       <th mat-header-cell *matHeaderCellDef> Loacation </th>
-      <td mat-cell *matCellDef="let element" [class.currentRow]="(currentInstallation$ | async) == element">
+      <td mat-cell *matCellDef="let element">
         <div class="mat-small">{{element.installDir}}</div>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="version">
       <th mat-header-cell *matHeaderCellDef> Version </th>
-      <td mat-cell *matCellDef="let element" [class.currentRow]="(currentInstallation$ | async) == element">
+      <td mat-cell *matCellDef="let element">
         {{element.version}}
+        <mat-icon class="warn-icon" color="warn" *ngIf="latestClientVersion !== element.version">
+          warning
+        </mat-icon>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="tools">
       <th mat-header-cell ngClass="col-tools" *matHeaderCellDef></th>
-      <td mat-cell ngClass="col-tools" *matCellDef="let element" [class.currentRow]="(currentInstallation$ | async) == element">
+      <td mat-cell ngClass="col-tools" *matCellDef="let element">
         <button mat-icon-button (click)="runApplication(element)">
           <mat-icon color="primary">play_circle_filled</mat-icon>
         </button>
