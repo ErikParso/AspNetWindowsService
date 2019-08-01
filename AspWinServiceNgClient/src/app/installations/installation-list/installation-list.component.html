@@ -1,3 +1,38 @@
-<p>
-  <label *ngFor="let installation of installations$ | async">{{installation.clientName}}</label>
-</p>
+<div class="table-container">
+  <table mat-table [dataSource]="installations$ | async">
+
+    <ng-container matColumnDef="clientName">
+      <th mat-header-cell  *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element" [class.currentRow]="(currentInstallation$ | async) == element">
+        {{element.clientName}}
+        <div class="mat-small">{{element.installDir}}</div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="installDir">
+      <th mat-header-cell *matHeaderCellDef> Loacation </th>
+      <td mat-cell *matCellDef="let element" [class.currentRow]="(currentInstallation$ | async) == element">
+        <div class="mat-small">{{element.installDir}}</div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="version">
+      <th mat-header-cell *matHeaderCellDef> Version </th>
+      <td mat-cell *matCellDef="let element" [class.currentRow]="(currentInstallation$ | async) == element">
+        {{element.version}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="tools" ngClass="col-tools">
+      <th mat-header-cell ngClass="col-tools" *matHeaderCellDef></th>
+      <td mat-cell ngClass="col-tools" *matCellDef="let element" [class.currentRow]="(currentInstallation$ | async) == element">
+        <button mat-icon-button (click)="runApplication(element)">
+          <mat-icon color="primary">play_circle_filled</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="setCurrentInstallation(row)"></tr>
+  </table>
+</div>

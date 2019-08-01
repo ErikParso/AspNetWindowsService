@@ -1,8 +1,12 @@
+$headerHeight: 60px;
+
 mat-toolbar {
-  position: fixed;
+  z-index: 10;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
+  height: $headerHeight;
 }
 
 .spacer {
@@ -11,9 +15,10 @@ mat-toolbar {
 
 .content {
   position: absolute;
-  top: 60px;
+  top: $headerHeight;
   left: 0;
   right: 0;
   bottom: 0;
+  margin-top: 10px;
 }
 
