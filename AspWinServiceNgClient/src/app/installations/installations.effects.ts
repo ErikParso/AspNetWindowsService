@@ -17,6 +17,14 @@ export class InstallationsEffects {
             ))
     ));
 
+    runClient$ = createEffect(() => this.actions$.pipe(
+        ofType<actions.RunClientAction>(actions.InstallationsActions.runClient),
+        mergeMap((action) => this.installationsService.runClientApplication(action.payload)
+            .pipe(
+                map(result => actions.runClientSuccess()),
+            ))
+    ));
+
     constructor(
         private actions$: Actions,
         private installationsService: InstallationsService

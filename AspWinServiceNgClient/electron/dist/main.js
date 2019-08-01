@@ -24,8 +24,8 @@ function createWindow() {
     var display = electron.screen.getPrimaryDisplay();
     var screenWidth = display.workAreaSize.width;
     var screenHeight = display.workAreaSize.height;
-    var browserWidth = 350;
-    var browserHeight = 500;
+    var browserWidth = 370;
+    var browserHeight = 550;
     var margin = 10;
     win = new electron_1.BrowserWindow({
         width: browserWidth,

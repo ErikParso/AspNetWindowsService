@@ -31,7 +31,6 @@ export class InstallationListComponent implements OnInit {
   }
 
   runApplication(row: ClientInstallationInfo) {
-
+    this.store.dispatch(new actions.RunClientAction(row.clientName));
   }
-
 }

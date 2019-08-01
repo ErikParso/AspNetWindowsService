@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -25,6 +26,16 @@ namespace AspWinService.Controllers
         public async Task<IActionResult> GetLatestVersion()
         {
             return Ok(await GetLatestVersionCore());
+        }
+
+        [HttpPost("{clientName}")]
+        public IActionResult RunClient(string clientName)
+        {
+            var clientsInfoString = System.IO.File.ReadAllText(Constants.installedClientsFile);
+            var clientsInfo = JsonConvert.DeserializeObject<IEnumerable<ClientInstallationInfo>>(clientsInfoString);
+            var installDir = clientsInfo.Where(c => c.ClientName == clientName).First().InstallDir;
+            ProcessExtensions.StartProcessAsCurrentUser(Path.Combine(installDir, "HeliosGreenClient.exe"));
+            return Ok();
         }
 
         [HttpPost]
@@ -58,7 +69,7 @@ namespace AspWinService.Controllers
             // Save client installation information.
             var clientsInfoString = System.IO.File.ReadAllText(Constants.installedClientsFile);
             var clientsInfo = JsonConvert.DeserializeObject<List<ClientInstallationInfo>>(clientsInfoString);
-            var version = JsonConvert.DeserializeObject<dynamic>(System.IO.File.ReadAllText(Path.Combine(installDir, "VersionInfo.json"))).version;  
+            var version = JsonConvert.DeserializeObject<dynamic>(System.IO.File.ReadAllText(Path.Combine(installDir, "VersionInfo.json"))).version;
             clientsInfo.Add(new ClientInstallationInfo()
             {
                 ClientName = model.ClientName,
