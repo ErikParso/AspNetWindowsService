@@ -22,12 +22,10 @@ table {
 
 .col-tools {
    width: 80px;
-   min-width: 80px;
 }
 
 .col-version {
-   width: 80px;
-   min-width: 80px;
+   width: 90px;
 }
 
 .col-name-wrap {
