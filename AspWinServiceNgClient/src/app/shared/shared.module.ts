@@ -1,4 +1,3 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { NgxElectronModule } from 'ngx-electron';
@@ -13,10 +12,8 @@ import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   exports: [
     HttpClientModule,
-    BrowserModule,
     NgxElectronModule,
     NgxChildProcessModule,
-    BrowserAnimationsModule,
     MatToolbarModule,
     MatButtonModule,
     MatIconModule

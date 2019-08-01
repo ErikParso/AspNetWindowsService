@@ -1,3 +1,3 @@
 <p>
-  installation-list works!
+  <label *ngFor="let installation of installations$ | async">{{installation.clientName}}</label>
 </p>

@@ -1,6 +1,7 @@
 import { ClientInstallationInfo } from './models/clientInstallationInfo';
 import { Action, createReducer, on, createSelector } from '@ngrx/store';
 import * as fromRoot from '../app.reducer';
+import * as actions from './installations.actions';
 
 export interface InstalationsState {
     allInstallations: ClientInstallationInfo[];
@@ -37,6 +38,8 @@ export const errorMessageSelector = createSelector(
 
 const installationsReducer = createReducer<InstalationsState>(
     initialState,
+    on(actions.loadInstallationsSuccess, (s, p) => ({ ...s, allInstallations: p.payload })),
+    on(actions.loadInstallationsError, (s, p) => ({ ...s, errorMessage: p.payload }))
 );
 
 export function reducer(state: InstalationsState, action: Action) {

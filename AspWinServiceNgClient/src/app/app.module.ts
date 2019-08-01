@@ -7,12 +7,16 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { reducerToken, reducerProvider } from './app.reducer';
 import { AppEffects } from './app.effects';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
     SharedModule,
     AppRoutingModule,
     StoreModule.forRoot(reducerToken),
