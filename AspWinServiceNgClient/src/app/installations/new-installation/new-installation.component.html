@@ -12,6 +12,9 @@
 
     <mat-form-field class="field-install-dir">
       <input matInput placeholder="Installation directory" formControlName="installDir" [errorStateMatcher]="matcher">
+      <button mat-icon-button matSuffix (click)="selectDir()" *ngIf="electronService.isElectronApp">
+          <mat-icon>folder_open</mat-icon>
+      </button>
       <mat-error *ngIf="installationForm.get('installDir').hasError('required')">
         Installation directory is required
       </mat-error>
@@ -19,8 +22,8 @@
   </div>
 
   <div mat-dialog-actions>
-    <button mat-button>Cancel</button>
-    <button mat-button cdkFocusInitial [disabled]="!installationForm.valid">Ok</button>
+    <button mat-button (click)="cancel()">Cancel</button>
+    <button mat-button (click)="ok()" cdkFocusInitial [disabled]="!installationForm.valid">Ok</button>
   </div>
 
 </form>

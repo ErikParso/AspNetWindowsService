@@ -10,6 +10,9 @@ export enum InstallationsActions {
     loadLatestClientVersion = '[Installations] Load latest client version',
     loadLatestClientVersionSuccess = '[Installations] Load latest client version success',
     setCurrentInstallation = '[Installations] Set current installation',
+    installNewClient = '[Installations] Install new client',
+    installNewClientSuccess = '[Installations] Install new client success',
+    installNewClientError = '[Installations] Install new client error',
 }
 
 export const loadInstallations = createAction(
@@ -47,4 +50,19 @@ export const loadLatestClientVersionSuccess = createAction(
 export const setCurrentInstallation = createAction(
     InstallationsActions.setCurrentInstallation,
     props<{ payload: ClientInstallationInfo }>()
+);
+
+export const InstallNewClient = createAction(
+    InstallationsActions.installNewClientSuccess,
+    props<{ payload: { clientName: string, installDir: string } }>()
+);
+
+export const InstallNewClientSuccess = createAction(
+    InstallationsActions.installNewClientSuccess,
+    props<{ payload: ClientInstallationInfo }>()
+);
+
+export const InstallNewClientError = createAction(
+    InstallationsActions.installNewClientError,
+    props<{ payload: string }>()
 );

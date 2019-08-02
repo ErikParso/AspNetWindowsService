@@ -1,10 +1,9 @@
-import { Component, OnInit, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ElectronService } from 'ngx-electron';
 import { ChildProcessService } from 'ngx-childprocess';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { State, localVersionSelector, loadVersions } from './app.reducer';
-import { dialog } from 'electron';
 
 @Component({
   selector: 'app-root',
@@ -42,10 +41,5 @@ export class AppComponent implements OnInit {
     } else {
       // TODO: Find how to run .exe from browser and angular app.
     }
-  }
-
-  selectDir() {
-    this.electronService.remote.dialog.showOpenDialog(this.electronService.remote.getCurrentWindow(), { properties: ["openDirectory"] })
-      .then(result => console.log(result.filePaths));
   }
 }

@@ -49,3 +49,9 @@ table {
    vertical-align: middle;
    font-size: 20px;
 }
+
+mat-progress-spinner {
+   display: inline;
+   vertical-align: middle;
+   margin: 10px;
+}

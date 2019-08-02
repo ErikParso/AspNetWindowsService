@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NewInstallationComponent } from '../new-installation/new-installation.component';
+import { Store } from '@ngrx/store';
+import { State } from 'src/app/app.reducer';
+import * as actions from '../installations.actions';
 
 @Component({
   selector: 'app-installation-tools',
@@ -9,7 +12,9 @@ import { NewInstallationComponent } from '../new-installation/new-installation.c
 })
 export class InstallationToolsComponent implements OnInit {
 
-  constructor(public dialog: MatDialog) { }
+  constructor(
+    public dialog: MatDialog,
+    public store: Store<State>) { }
 
   ngOnInit() {
   }
@@ -20,7 +25,9 @@ export class InstallationToolsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-
+      this.store.dispatch(actions.InstallNewClient({
+        payload: { clientName: result.clientName, installDir: result.clientName }
+      }));
     });
   }
 }

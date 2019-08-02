@@ -20,16 +20,19 @@
       <th class="col-version" mat-header-cell *matHeaderCellDef> Version </th>
       <td class="col-version" mat-cell *matCellDef="let element">
         {{element.version}}
-        <mat-icon class="warn-icon" color="warn" *ngIf="(latestClientVersion$ | async) !== element.version">
+        <mat-icon class="warn-icon" color="warn"
+          *ngIf="element.version !== 'installing' && (latestClientVersion$ | async) !== element.version">
           warning
         </mat-icon>
+        <mat-progress-spinner diameter="20" *ngIf="element.version === 'installing'" color="primary" mode="indeterminate">
+        </mat-progress-spinner>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="tools">
       <th mat-header-cell ngClass="col-tools" *matHeaderCellDef></th>
       <td mat-cell ngClass="col-tools" *matCellDef="let element">
-        <ng-container *ngIf="(currentInstallations$ | async) === element">
+        <ng-container *ngIf="element.version !== 'installing' && (currentInstallations$ | async) === element">
           <button mat-icon-button (click)="runApplication(element)">
             <mat-icon color="primary">play_circle_filled</mat-icon>
           </button>
