@@ -51,6 +51,8 @@ export class InstallationListComponent implements OnInit {
       }
     });
 
-    dialogRef.afterClosed().subscribe(() => console.log('message shown'));
+    dialogRef.afterClosed().subscribe(() => {
+      this.store.dispatch(actions.removeCleint({payload: row}));
+    });
   }
 }

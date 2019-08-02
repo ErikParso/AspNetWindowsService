@@ -76,6 +76,11 @@ const installationsReducer = createReducer<InstalationsState>(
                 return { ...i };
             }
         })
+    })),
+    on(actions.removeCleint, (s, p) => ({
+        ...s,
+        allInstallations: s.allInstallations
+            .filter(i => !(i.clientName === p.payload.clientName && i.installDir === p.payload.installDir))
     }))
 );
 
