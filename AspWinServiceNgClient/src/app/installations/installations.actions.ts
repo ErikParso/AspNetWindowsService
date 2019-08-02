@@ -52,17 +52,17 @@ export const setCurrentInstallation = createAction(
     props<{ payload: ClientInstallationInfo }>()
 );
 
-export const InstallNewClient = createAction(
-    InstallationsActions.installNewClientSuccess,
+export const installNewClient = createAction(
+    InstallationsActions.installNewClient,
     props<{ payload: { clientName: string, installDir: string } }>()
 );
 
-export const InstallNewClientSuccess = createAction(
+export const installNewClientSuccess = createAction(
     InstallationsActions.installNewClientSuccess,
     props<{ payload: ClientInstallationInfo }>()
 );
 
-export const InstallNewClientError = createAction(
+export const installNewClientError = createAction(
     InstallationsActions.installNewClientError,
-    props<{ payload: string }>()
+    props<{ payload: { message: string, clientName: string } }>()
 );

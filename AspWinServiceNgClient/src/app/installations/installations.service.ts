@@ -23,4 +23,8 @@ export class InstallationsService {
   public runClientApplication(clientName: string): Observable<object> {
     return this.httpClient.post(this.clientInstallationsUrl + '/' + clientName, null);
   }
+
+  public installNewClient(clientName: string, installDir: string): Observable<ClientInstallationInfo>  {
+    return this.httpClient.post<ClientInstallationInfo>(this.clientInstallationsUrl, {clientName, installDir});
+  }
 }

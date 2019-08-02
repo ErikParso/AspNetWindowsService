@@ -49,12 +49,23 @@ const installationsReducer = createReducer<InstalationsState>(
     on(actions.loadInstallationsError, (s, p) => ({ ...s, errorMessage: p.payload })),
     on(actions.loadLatestClientVersionSuccess, (s, p) => ({ ...s, latestClientVersion: p.payload })),
     on(actions.setCurrentInstallation, (s, p) => ({ ...s, currentInstallation: p.payload })),
-    on(actions.InstallNewClient, (s, p) => ({
-        ...s, allInstallations: s.allInstallations.concat({
+    on(actions.installNewClient, (s, p) => ({
+        ...s,
+        allInstallations: s.allInstallations.concat({
             clientName: p.payload.clientName,
             installDir: p.payload.installDir,
             version: 'installing'
         } as ClientInstallationInfo)
+    })),
+    on(actions.installNewClientSuccess, (s, p) => ({
+        ...s,
+        allInstallations: s.allInstallations.map(i => {
+            if (i.clientName === p.payload.clientName) {
+                return { ...i, installDir: p.payload.installDir, version: p.payload.version };
+            } else {
+                return { ...i };
+            }
+        })
     }))
 );
 

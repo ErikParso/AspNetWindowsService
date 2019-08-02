@@ -50,8 +50,7 @@ table {
    font-size: 20px;
 }
 
-mat-progress-spinner {
-   display: inline;
+.spinner {
+   display: inline-table;
    vertical-align: middle;
-   margin: 10px;
 }

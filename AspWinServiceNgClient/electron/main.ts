@@ -31,7 +31,7 @@ function createWindow() {
     const display = electron.screen.getPrimaryDisplay();
     const screenWidth = display.workAreaSize.width;
     const screenHeight = display.workAreaSize.height;
-    const browserWidth = 370;
+    const browserWidth = 400;
     const browserHeight = 550;
     const margin = 10;
 

@@ -70,15 +70,16 @@ namespace AspWinService.Controllers
             var clientsInfoString = System.IO.File.ReadAllText(Constants.installedClientsFile);
             var clientsInfo = JsonConvert.DeserializeObject<List<ClientInstallationInfo>>(clientsInfoString);
             var version = JsonConvert.DeserializeObject<dynamic>(System.IO.File.ReadAllText(Path.Combine(installDir, "VersionInfo.json"))).version;
-            clientsInfo.Add(new ClientInstallationInfo()
+            var clientInfo = new ClientInstallationInfo()
             {
                 ClientName = model.ClientName,
                 InstallDir = installDir,
                 Version = version
-            });
+            };
+            clientsInfo.Add(clientInfo);
             System.IO.File.WriteAllText(Constants.installedClientsFile, JsonConvert.SerializeObject(clientsInfo));
 
-            return Ok();
+            return Ok(clientInfo);
         }
 
         private async Task<string> GetLatestVersionCore()

@@ -24,7 +24,7 @@
           *ngIf="element.version !== 'installing' && (latestClientVersion$ | async) !== element.version">
           warning
         </mat-icon>
-        <mat-progress-spinner diameter="20" *ngIf="element.version === 'installing'" color="primary" mode="indeterminate">
+        <mat-progress-spinner class="spinner" [diameter]="15" *ngIf="element.version === 'installing'" color="primary" mode="indeterminate">
         </mat-progress-spinner>
       </td>
     </ng-container>
