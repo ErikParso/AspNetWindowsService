@@ -1,7 +1,8 @@
 $headerHeight: 60px;
+$footerHeight: 60px;
 
-mat-toolbar {
-  z-index: 10;
+.header {
+  z-index: 10000;
   position: absolute;
   top: 0;
   left: 0;
@@ -18,7 +19,16 @@ mat-toolbar {
   top: $headerHeight;
   left: 0;
   right: 0;
-  bottom: 0;
-  margin-top: 10px;
+  bottom: $footerHeight;
 }
+
+.footer {
+  z-index: 100000;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: $footerHeight;
+}
+
 

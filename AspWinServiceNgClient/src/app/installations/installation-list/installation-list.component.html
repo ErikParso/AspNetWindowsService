@@ -30,12 +30,12 @@
       <th mat-header-cell ngClass="col-tools" *matHeaderCellDef></th>
       <td mat-cell ngClass="col-tools" *matCellDef="let element">
         <ng-container *ngIf="(currentInstallations$ | async) === element">
-            <button mat-icon-button (click)="runApplication(element)">
-                <mat-icon color="primary">play_circle_filled</mat-icon>
-              </button>
-              <button mat-icon-button *ngIf="(latestClientVersion$ | async) !== element.version">
-                <mat-icon color="primary">update</mat-icon>
-              </button>
+          <button mat-icon-button (click)="runApplication(element)">
+            <mat-icon color="primary">play_circle_filled</mat-icon>
+          </button>
+          <button mat-icon-button *ngIf="(latestClientVersion$ | async) !== element.version">
+            <mat-icon color="primary">update</mat-icon>
+          </button>
         </ng-container>
       </td>
     </ng-container>

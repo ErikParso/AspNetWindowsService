@@ -1,17 +1,17 @@
 import { Routes, RouterModule } from '@angular/router';
 import { InstallationListComponent } from './installation-list/installation-list.component';
-import { InstallationsComponent } from './installations.component';
+import { InstallationToolsComponent } from './installation-tools/installation-tools.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: InstallationsComponent,
-    children: [
-      {
-        path: '',
-        component: InstallationListComponent
-      }
-    ]
+    component: InstallationListComponent,
+    outlet: 'content',
+  },
+  {
+    path: '',
+    component: InstallationToolsComponent,
+    outlet: 'footer',
   }
 ];
 

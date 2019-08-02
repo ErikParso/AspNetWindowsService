@@ -1,4 +1,4 @@
-<mat-toolbar color="primary" class="mat-elevation-z2">
+<mat-toolbar color="primary" class="header mat-elevation-z2">
   <mat-toolbar-row>
     <span>Client Manager {{version$ | async}}</span>
     <span class="spacer"></span>
@@ -15,5 +15,14 @@
 </mat-toolbar>
 
 <div class="content">
-  <router-outlet></router-outlet>
+  <router-outlet name="content"></router-outlet>
 </div>
+
+<mat-toolbar color="primary" class="footer mat-elevation-z2">
+  <mat-toolbar-row>
+    <router-outlet name="footer"></router-outlet>
+  </mat-toolbar-row> 
+</mat-toolbar>
+
+
+

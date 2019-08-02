@@ -1,0 +1,26 @@
+<form [formGroup]="installationForm" class="new-installation-form">
+
+  <h1 mat-dialog-title>New installation</h1>
+
+  <div mat-dialog-content>
+    <mat-form-field class="field-client-name">
+      <input matInput placeholder="Client name" formControlName="clientName" [errorStateMatcher]="matcher">
+      <mat-error *ngIf="installationForm.get('clientName').hasError('required')">
+        Client name is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="field-install-dir">
+      <input matInput placeholder="Installation directory" formControlName="installDir" [errorStateMatcher]="matcher">
+      <mat-error *ngIf="installationForm.get('installDir').hasError('required')">
+        Installation directory is required
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-button>Cancel</button>
+    <button mat-button cdkFocusInitial [disabled]="!installationForm.valid">Ok</button>
+  </div>
+
+</form>

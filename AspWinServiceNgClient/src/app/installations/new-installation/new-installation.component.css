@@ -1,0 +1,11 @@
+.field-client-name {
+    width: 100%;
+}
+
+.field-install-dir {
+    width: 100%;
+}
+
+mat-form-field {
+    display: block;
+}
