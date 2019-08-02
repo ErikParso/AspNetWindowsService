@@ -23,7 +23,7 @@
 
   <div mat-dialog-actions>
     <button mat-button (click)="cancel()">Cancel</button>
-    <button mat-button (click)="ok()" cdkFocusInitial [disabled]="!installationForm.valid">Ok</button>
+    <button mat-button (click)="ok()" [disabled]="!installationForm.valid">Ok</button>
   </div>
 
 </form>

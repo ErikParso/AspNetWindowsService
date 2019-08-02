@@ -5,6 +5,8 @@ import { State } from 'src/app/app.reducer';
 import * as reducer from '../instalations.reducer';
 import * as actions from '../installations.actions';
 import { Observable } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { MessageBoxComponent } from 'src/app/shared/message-box/message-box.component';
 
 @Component({
   selector: 'app-installation-list',
@@ -19,7 +21,9 @@ export class InstallationListComponent implements OnInit {
 
   displayedColumns: string[] = ['clientName', 'version', 'tools']; // 'installDir'
 
-  constructor(private store: Store<State>) { }
+  constructor(
+    private store: Store<State>,
+    public dialog: MatDialog) { }
 
   ngOnInit() {
     this.installations$ = this.store.select(reducer.allInstallationsSelector);
@@ -36,5 +40,17 @@ export class InstallationListComponent implements OnInit {
 
   runApplication(row: ClientInstallationInfo) {
     this.store.dispatch(new actions.RunClientAction(row.clientName));
+  }
+
+  errorClick(row: ClientInstallationInfo) {
+    const dialogRef = this.dialog.open(MessageBoxComponent, {
+      width: '80%', maxWidth: '500px',
+      data: {
+        title: 'Installation failed', 
+        message: `Client ${row.clientName} installation to dorectory ${row.installDir} failed. ${row.errorMessage}`
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(() => console.log('message shown'));
   }
 }

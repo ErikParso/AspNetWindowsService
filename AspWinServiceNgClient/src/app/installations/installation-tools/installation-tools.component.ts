@@ -25,9 +25,11 @@ export class InstallationToolsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.store.dispatch(actions.installNewClient({
-        payload: { clientName: result.clientName, installDir: result.installDir }
-      }));
+      if (result) {
+        this.store.dispatch(actions.installNewClient({
+          payload: { clientName: result.clientName, installDir: result.installDir }
+        }));
+      }
     });
   }
 }

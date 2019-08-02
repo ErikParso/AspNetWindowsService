@@ -66,6 +66,16 @@ const installationsReducer = createReducer<InstalationsState>(
                 return { ...i };
             }
         })
+    })),
+    on(actions.installNewClientError, (s, p) => ({
+        ...s,
+        allInstallations: s.allInstallations.map(i => {
+            if (i.clientName === p.payload.clientName) {
+                return { ...i, version: 'error', errorMessage: p.payload.message };
+            } else {
+                return { ...i };
+            }
+        })
     }))
 );
 
