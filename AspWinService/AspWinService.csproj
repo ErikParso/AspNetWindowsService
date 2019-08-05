@@ -41,6 +41,7 @@
     <PackageReference Include="Microsoft.Extensions.Primitives" Version="2.2.0" />
     <PackageReference Include="Microsoft.Net.Http.Headers" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.EventLog" Version="2.2.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
   </ItemGroup>
   <ItemGroup>
     <None Update="registerService.ps1">
