@@ -3,7 +3,7 @@
     <button mat-icon-button (click)="runApplication(currentInstallation)">
       <mat-icon>play_circle_filled</mat-icon>
     </button>
-    <button mat-icon-button *ngIf="(latestClientVersion$ | async) !== currentInstallation.version">
+    <button mat-icon-button *ngIf="(latestClientVersion$ | async) !== currentInstallation.version" (click)="updateClient(currentInstallation)">
       <mat-icon>update</mat-icon>
     </button>
   </ng-container>

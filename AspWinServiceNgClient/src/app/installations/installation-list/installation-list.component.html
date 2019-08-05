@@ -3,7 +3,8 @@
 
     <ng-container matColumnDef="clientName">
       <th class="col-name-trim" mat-header-cell *matHeaderCellDef> Name </th>
-      <td class="col-name-trim" [class.currentRow]="(currentInstallations$ | async) == element" mat-cell *matCellDef="let element">
+      <td class="col-name-trim" [class.currentRow]="(currentInstallations$ | async) == element" mat-cell
+        *matCellDef="let element">
         {{element.clientName}}
         <!-- <div class="mat-small"> {{element.installDir}} </div> -->
       </td>
@@ -18,14 +19,15 @@
 
     <ng-container matColumnDef="version">
       <th class="col-version" mat-header-cell *matHeaderCellDef> Version </th>
-      <td class="col-version" mat-cell [class.currentRow]="(currentInstallations$ | async) == element" *matCellDef="let element">
-        {{element.version}}   
+      <td class="col-version" mat-cell [class.currentRow]="(currentInstallations$ | async) == element"
+        *matCellDef="let element">
+        {{element.version}}
         <button mat-icon-button *ngIf="element.version === 'error'" (click)="errorClick(element)">
           <mat-icon class="warn-icon" color="warn">
             warning
           </mat-icon>
-        </button>    
-        <mat-progress-spinner class="spinner" [diameter]="15" *ngIf="element.version === 'installing'" color="primary" mode="indeterminate">
+        </button>
+        <mat-progress-spinner class="spinner" [diameter]="15" *ngIf="element.version === 'installing'" mode="indeterminate">
         </mat-progress-spinner>
       </td>
     </ng-container>

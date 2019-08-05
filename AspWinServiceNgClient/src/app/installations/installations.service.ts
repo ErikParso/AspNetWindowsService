@@ -17,14 +17,18 @@ export class InstallationsService {
   }
 
   public getLatestClientVersion(): Observable<string> {
-    return this.httpClient.get(this.clientInstallationsUrl + '/latestVersion', {responseType: 'text'});
+    return this.httpClient.get(this.clientInstallationsUrl + '/latestVersion', { responseType: 'text' });
   }
 
   public runClientApplication(clientName: string): Observable<object> {
     return this.httpClient.post(this.clientInstallationsUrl + '/' + clientName, null);
   }
 
-  public installNewClient(clientName: string, installDir: string): Observable<ClientInstallationInfo>  {
-    return this.httpClient.post<ClientInstallationInfo>(this.clientInstallationsUrl, {clientName, installDir});
+  public installNewClient(clientName: string, installDir: string): Observable<ClientInstallationInfo> {
+    return this.httpClient.post<ClientInstallationInfo>(this.clientInstallationsUrl, { clientName, installDir });
+  }
+
+  public updateClient(installDir: string): Observable<ClientInstallationInfo> {
+    return this.httpClient.put<ClientInstallationInfo>(this.clientInstallationsUrl, { installDir });
   }
 }

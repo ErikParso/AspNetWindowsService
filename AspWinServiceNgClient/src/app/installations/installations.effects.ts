@@ -42,6 +42,15 @@ export class InstallationsEffects {
             ))
     ));
 
+    updateClient$ = createEffect(() => this.actions$.pipe(
+        ofType(actions.updateClient),
+        mergeMap(({ payload }) => this.installationsService.updateClient(payload.installDir)
+            .pipe(
+                map(info => actions.updateClientSuccess({ payload: info })),
+                catchError((e) => of(actions.updateClientError({ payload: { message: e.message, clientName: payload.clientName } })))
+            ))
+    ));
+
     constructor(
         private actions$: Actions,
         private installationsService: InstallationsService

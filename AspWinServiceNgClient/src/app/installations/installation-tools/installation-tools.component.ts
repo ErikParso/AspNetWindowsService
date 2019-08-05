@@ -31,6 +31,10 @@ export class InstallationToolsComponent implements OnInit {
     this.store.dispatch(new actions.RunClientAction(row.clientName));
   }
 
+  updateClient(row: ClientInstallationInfo) {
+    this.store.dispatch(actions.updateClient({payload: row}));
+  }
+
   addNewClient() {
     const dialogRef = this.dialog.open(NewInstallationComponent, {
       width: '80%', maxWidth: '500px'

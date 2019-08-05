@@ -68,7 +68,7 @@ namespace AspWinService.Controllers
 
             // Save client installation information.
             var clientsInfoString = System.IO.File.ReadAllText(Constants.installedClientsFile);
-            var clientsInfo = JsonConvert.DeserializeObject<List<ClientInstallationInfo>>(clientsInfoString);
+            var clientsInfo = JsonConvert.DeserializeObject<List<ClientInstallationInfo>>(clientsInfoString).ToList();
             var version = JsonConvert.DeserializeObject<dynamic>(System.IO.File.ReadAllText(Path.Combine(installDir, "VersionInfo.json"))).version;
             var clientInfo = new ClientInstallationInfo()
             {
@@ -76,6 +76,48 @@ namespace AspWinService.Controllers
                 InstallDir = installDir,
                 Version = version
             };
+            clientsInfo.Add(clientInfo);
+            System.IO.File.WriteAllText(Constants.installedClientsFile, JsonConvert.SerializeObject(clientsInfo));
+
+            return Ok(clientInfo);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateClient(ClientUpdateRequest model)
+        {
+            var installDir = model.InstallDir;
+
+            if (Directory.Exists(installDir))
+                Directory.Delete(installDir, true);
+
+            Directory.CreateDirectory(installDir);
+
+            var zipPath = Path.Combine(installDir, "HeliosGreen.zip");
+
+            // Download zipped client.
+            using (var httpClient = new HttpClient())
+            {
+                using (var request = new HttpRequestMessage(HttpMethod.Get, $"http://localhost:5100/api/client/download"))
+                {
+                    using (
+                        Stream contentStream = await (await httpClient.SendAsync(request)).Content.ReadAsStreamAsync(),
+                        stream = new FileStream(zipPath, FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite))
+                    {
+                        await contentStream.CopyToAsync(stream);
+                    }
+                }
+            }
+
+            // Unzip client and delete zip.
+            ZipFile.ExtractToDirectory(zipPath, installDir);
+            System.IO.File.Delete(zipPath);
+
+            // Save client installation information.
+            var clientsInfoString = System.IO.File.ReadAllText(Constants.installedClientsFile);
+            var clientsInfo = JsonConvert.DeserializeObject<IEnumerable<ClientInstallationInfo>>(clientsInfoString).ToList();
+            var clientInfo = clientsInfo.Where(c => c.InstallDir == installDir).First();
+            clientInfo.Version = JsonConvert.DeserializeObject<dynamic>(System.IO.File.ReadAllText(Path.Combine(installDir, "VersionInfo.json"))).version;
+            clientsInfo.RemoveAll(c => c.InstallDir == installDir);
             clientsInfo.Add(clientInfo);
             System.IO.File.WriteAllText(Constants.installedClientsFile, JsonConvert.SerializeObject(clientsInfo));
 

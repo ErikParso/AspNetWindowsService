@@ -2,6 +2,7 @@ import { ClientInstallationInfo } from './models/clientInstallationInfo';
 import { Action, createReducer, on, createSelector } from '@ngrx/store';
 import * as fromRoot from '../app.reducer';
 import * as actions from './installations.actions';
+import { reportInvalidActions } from '@ngrx/effects/src/effect_notification';
 
 export interface InstalationsState {
     allInstallations: ClientInstallationInfo[];
@@ -85,6 +86,35 @@ const installationsReducer = createReducer<InstalationsState>(
         ...s,
         allInstallations: s.allInstallations
             .filter(i => !(i.clientName === p.payload.clientName && i.installDir === p.payload.installDir))
+    })),
+    on(actions.updateClient, (s, p) => ({
+        ...s,
+        allInstallations: s.allInstallations.map(i => {
+            if (i.clientName === p.payload.clientName) {
+                i.version = 'installing';
+            }
+            return i;
+        })
+    })),
+    on(actions.updateClientSuccess, (s, p) => ({
+        ...s,
+        allInstallations: s.allInstallations.map(i => {
+            if (i.clientName === p.payload.clientName) {
+                i.installDir = p.payload.installDir;
+                i.version = p.payload.version;
+            }
+            return i;
+        })
+    })),
+    on(actions.updateClientError, (s, p) => ({
+        ...s,
+        allInstallations: s.allInstallations.map(i => {
+            if (i.clientName === p.payload.clientName) {
+                i.version = 'error';
+                i.errorMessage = p.payload.message;
+            }
+            return i;
+        })
     }))
 );
 
