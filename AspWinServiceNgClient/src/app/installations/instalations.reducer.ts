@@ -45,7 +45,11 @@ export const latestClientVersionSelector = createSelector(
 
 const installationsReducer = createReducer<InstalationsState>(
     initialState,
-    on(actions.loadInstallationsSuccess, (s, p) => ({ ...s, allInstallations: p.payload })),
+    on(actions.loadInstallationsSuccess, (s, p) => ({
+        ...s,
+        allInstallations: p.payload,
+        currentInstallation: p.payload.length ? p.payload[0] : null
+    })),
     on(actions.loadInstallationsError, (s, p) => ({ ...s, errorMessage: p.payload })),
     on(actions.loadLatestClientVersionSuccess, (s, p) => ({ ...s, latestClientVersion: p.payload })),
     on(actions.setCurrentInstallation, (s, p) => ({ ...s, currentInstallation: p.payload })),
