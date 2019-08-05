@@ -51,6 +51,15 @@ export class InstallationsEffects {
             ))
     ));
 
+    deleteClient$ = createEffect(() => this.actions$.pipe(
+        ofType(actions.deleteClient),
+        mergeMap(({ payload }) => this.installationsService.deleteClient(payload.clientName)
+            .pipe(
+                map(info => actions.deleteClientSuccess({payload: info})),
+                catchError((e) => of(actions.deleteClientError({ payload: { message: e.message, clientName: payload.clientName } })))
+            ))
+    ));
+
     constructor(
         private actions$: Actions,
         private installationsService: InstallationsService

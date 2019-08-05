@@ -124,6 +124,21 @@ namespace AspWinService.Controllers
             return Ok(clientInfo);
         }
 
+        [HttpDelete()]
+        public IActionResult DeleteClient([FromBody]ClientDeleteRequest model)
+        {
+            var clientsInfoString = System.IO.File.ReadAllText(Constants.installedClientsFile);
+            var clientsInfo = JsonConvert.DeserializeObject<IEnumerable<ClientInstallationInfo>>(clientsInfoString).ToList();
+            var clientInfo = clientsInfo.Where(c => c.ClientName == model.ClientName).First();
+
+            if (Directory.Exists(clientInfo.InstallDir))
+                Directory.Delete(clientInfo.InstallDir, true);
+            clientsInfo.Remove(clientInfo);
+            System.IO.File.WriteAllText(Constants.installedClientsFile, JsonConvert.SerializeObject(clientsInfo));
+
+            return Ok(clientInfo);
+        }
+
         private async Task<string> GetLatestVersionCore()
         {
             using (var httpClient = new HttpClient())

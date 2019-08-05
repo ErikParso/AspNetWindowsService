@@ -2,7 +2,6 @@ import { ClientInstallationInfo } from './models/clientInstallationInfo';
 import { Action, createReducer, on, createSelector } from '@ngrx/store';
 import * as fromRoot from '../app.reducer';
 import * as actions from './installations.actions';
-import { reportInvalidActions } from '@ngrx/effects/src/effect_notification';
 
 export interface InstalationsState {
     allInstallations: ClientInstallationInfo[];
@@ -91,7 +90,7 @@ const installationsReducer = createReducer<InstalationsState>(
         ...s,
         allInstallations: s.allInstallations.map(i => {
             if (i.clientName === p.payload.clientName) {
-                i.version = 'installing';
+                i.version = 'updating';
             }
             return i;
         })
@@ -107,6 +106,29 @@ const installationsReducer = createReducer<InstalationsState>(
         })
     })),
     on(actions.updateClientError, (s, p) => ({
+        ...s,
+        allInstallations: s.allInstallations.map(i => {
+            if (i.clientName === p.payload.clientName) {
+                i.version = 'error';
+                i.errorMessage = p.payload.message;
+            }
+            return i;
+        })
+    })),
+    on(actions.deleteClient, (s, p) => ({
+        ...s,
+        allInstallations: s.allInstallations.map(i => {
+            if (i.clientName === p.payload.clientName) {
+                i.version = 'deleting';
+            }
+            return i;
+        })
+    })),
+    on(actions.deleteClientSuccess, (s, p) => ({
+        ...s,
+        allInstallations: s.allInstallations.filter(i => i.clientName !== p.payload.clientName)
+    })),
+    on(actions.deleteClientError, (s, p) => ({
         ...s,
         allInstallations: s.allInstallations.map(i => {
             if (i.clientName === p.payload.clientName) {

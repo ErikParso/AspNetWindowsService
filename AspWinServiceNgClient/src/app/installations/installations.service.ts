@@ -31,4 +31,8 @@ export class InstallationsService {
   public updateClient(installDir: string): Observable<ClientInstallationInfo> {
     return this.httpClient.put<ClientInstallationInfo>(this.clientInstallationsUrl, { installDir });
   }
+
+  public deleteClient(clientName: string): Observable<ClientInstallationInfo> {
+    return this.httpClient.request<ClientInstallationInfo>('delete', this.clientInstallationsUrl, { body: { clientName } });
+  }
 }

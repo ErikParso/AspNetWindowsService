@@ -27,7 +27,7 @@
             warning
           </mat-icon>
         </button>
-        <mat-progress-spinner class="spinner" [diameter]="15" *ngIf="element.version === 'installing'" mode="indeterminate">
+        <mat-progress-spinner class="spinner" [diameter]="15" *ngIf="workInProgress(element)" mode="indeterminate">
         </mat-progress-spinner>
       </td>
     </ng-container>

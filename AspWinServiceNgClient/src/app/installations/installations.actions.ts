@@ -16,7 +16,10 @@ export enum InstallationsActions {
     removeClient = '[Installations] Remove client',
     updateClient = '[Installation] Update client',
     updateClientSuccess = '[Installation] Update client success',
-    updateClientError = '[Installation] Update client error'
+    updateClientError = '[Installation] Update client error',
+    deleteClient = '[Installation] Delete client',
+    deleteClientSuccess = '[Installation] Delete client success',
+    deleteClientError = '[Installation] Delete client error',
 }
 
 export const loadInstallations = createAction(
@@ -88,5 +91,20 @@ export const updateClientSuccess = createAction(
 
 export const updateClientError = createAction(
     InstallationsActions.updateClientError,
+    props<{ payload: { message: string, clientName: string } }>()
+);
+
+export const deleteClient = createAction(
+    InstallationsActions.deleteClient,
+    props<{ payload: ClientInstallationInfo }>()
+);
+
+export const deleteClientSuccess = createAction(
+    InstallationsActions.deleteClientSuccess,
+    props<{ payload: ClientInstallationInfo }>()
+);
+
+export const deleteClientError = createAction(
+    InstallationsActions.deleteClientError,
     props<{ payload: { message: string, clientName: string } }>()
 );

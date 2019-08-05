@@ -51,4 +51,8 @@ export class InstallationListComponent implements OnInit {
       this.store.dispatch(actions.removeCleint({ payload: row }));
     });
   }
+
+  workInProgress(row: ClientInstallationInfo) {
+    return row.version === 'installing' || row.version === 'updating' || row.version === 'deleting';
+  }
 }

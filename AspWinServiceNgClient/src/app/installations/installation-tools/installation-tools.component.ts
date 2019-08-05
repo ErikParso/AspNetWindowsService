@@ -35,6 +35,10 @@ export class InstallationToolsComponent implements OnInit {
     this.store.dispatch(actions.updateClient({payload: row}));
   }
 
+  deleteClient(row: ClientInstallationInfo) {
+    this.store.dispatch(actions.deleteClient({payload: row}));
+  }
+
   addNewClient() {
     const dialogRef = this.dialog.open(NewInstallationComponent, {
       width: '80%', maxWidth: '500px'
@@ -47,5 +51,9 @@ export class InstallationToolsComponent implements OnInit {
         }));
       }
     });
+  }
+
+  workInProgress(row: ClientInstallationInfo) {
+    return row.version === 'installing' || row.version === 'updating' || row.version === 'deleting';
   }
 }
