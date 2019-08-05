@@ -11,7 +11,7 @@ import { MessageBoxComponent } from 'src/app/shared/message-box/message-box.comp
 @Component({
   selector: 'app-installation-list',
   templateUrl: './installation-list.component.html',
-  styleUrls: ['./installation-list.component.css']
+  styleUrls: ['./installation-list.component.scss']
 })
 export class InstallationListComponent implements OnInit {
 
@@ -19,7 +19,7 @@ export class InstallationListComponent implements OnInit {
   public latestClientVersion$: Observable<string>;
   public currentInstallations$: Observable<ClientInstallationInfo>;
 
-  displayedColumns: string[] = ['clientName', 'version', 'tools']; // 'installDir'
+  displayedColumns: string[] = ['clientName', 'version']; // 'installDir'
 
   constructor(
     private store: Store<State>,
@@ -38,21 +38,17 @@ export class InstallationListComponent implements OnInit {
     this.store.dispatch(actions.setCurrentInstallation({ payload: row }));
   }
 
-  runApplication(row: ClientInstallationInfo) {
-    this.store.dispatch(new actions.RunClientAction(row.clientName));
-  }
-
   errorClick(row: ClientInstallationInfo) {
     const dialogRef = this.dialog.open(MessageBoxComponent, {
       width: '80%', maxWidth: '500px',
       data: {
-        title: 'Installation failed', 
+        title: 'Installation failed',
         message: `Client ${row.clientName} installation to dorectory ${row.installDir} failed. ${row.errorMessage}`
       }
     });
 
     dialogRef.afterClosed().subscribe(() => {
-      this.store.dispatch(actions.removeCleint({payload: row}));
+      this.store.dispatch(actions.removeCleint({ payload: row }));
     });
   }
 }

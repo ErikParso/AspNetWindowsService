@@ -4,11 +4,6 @@ table {
    min-width: 100%;
 }
 
-.currentRow {
-   background: royalblue;
-   color: white;
-}
-
 .table-container {
    display: flex;
    position: absolute;
@@ -21,11 +16,11 @@ table {
 }
 
 .col-tools {
-   width: 80px;
+   width: 50px;
 }
 
 .col-version {
-   width: 90px;
+   width: 80px;
 }
 
 .col-name-wrap {
@@ -36,7 +31,7 @@ table {
    padding-right: 10px;
 }
 
-.col-name-trim  {
+.col-name-trim {
    white-space: nowrap;
    text-overflow: ellipsis;
    overflow: hidden;

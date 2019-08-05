@@ -4,6 +4,9 @@ import { NewInstallationComponent } from '../new-installation/new-installation.c
 import { Store } from '@ngrx/store';
 import { State } from 'src/app/app.reducer';
 import * as actions from '../installations.actions';
+import { Observable } from 'rxjs';
+import { ClientInstallationInfo } from '../models/clientInstallationInfo';
+import { currentInstallationSelector, latestClientVersionSelector } from '../instalations.reducer';
 
 @Component({
   selector: 'app-installation-tools',
@@ -12,11 +15,20 @@ import * as actions from '../installations.actions';
 })
 export class InstallationToolsComponent implements OnInit {
 
+  public currentInstallation$: Observable<ClientInstallationInfo>;
+  public latestClientVersion$: Observable<string>;
+
   constructor(
     public dialog: MatDialog,
     public store: Store<State>) { }
 
   ngOnInit() {
+    this.currentInstallation$ = this.store.select(currentInstallationSelector);
+    this.latestClientVersion$ = this.store.select(latestClientVersionSelector);
+  }
+
+  runApplication(row: ClientInstallationInfo) {
+    this.store.dispatch(new actions.RunClientAction(row.clientName));
   }
 
   addNewClient() {

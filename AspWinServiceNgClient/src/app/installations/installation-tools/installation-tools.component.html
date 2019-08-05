@@ -1,4 +1,14 @@
-<span class="spacer"></span>
+<ng-container *ngIf="currentInstallation$ | async; let currentInstallation;">
+  <ng-container *ngIf="currentInstallation.version !== 'installing' && currentInstallation.version !== 'error'">
+    <button mat-icon-button (click)="runApplication(currentInstallation)">
+      <mat-icon>play_circle_filled</mat-icon>
+    </button>
+    <button mat-icon-button *ngIf="(latestClientVersion$ | async) !== currentInstallation.version">
+      <mat-icon>update</mat-icon>
+    </button>
+  </ng-container>
+</ng-container>
+
 <button mat-icon-button (click)="addNewClient()">
   <mat-icon>library_add</mat-icon>
 </button>
