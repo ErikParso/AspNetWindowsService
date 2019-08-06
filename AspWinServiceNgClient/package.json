@@ -10,7 +10,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "electron": "ng build --prod --base-href ./ && tsc --p electron && electron .",
-    "electron-package": "ng build --prod && electron-packager . --no-prune --ignore=/node_modules --ignore=/e2e --ignore=/src --overwrite"
+    "electron-package": "ng build --prod && electron-packager . --no-prune --ignore=/node_modules --ignore=/e2e --ignore=/src --ignore=/asp-win-service-ng-client-win32-x64 --overwrite"
   },
   "private": true,
   "dependencies": {

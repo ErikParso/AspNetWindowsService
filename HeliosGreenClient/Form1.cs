@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Net.Http;
 using System.Reflection;
@@ -14,6 +15,7 @@ namespace HeliosGreenClient
             InitializeComponent();
             Text = Assembly.GetEntryAssembly().Location;
             label1.Text = JsonConvert.DeserializeObject<dynamic>(File.ReadAllText("versionInfo.json")).version;
+            label3.Text = Environment.CommandLine;
         }
 
         private async void SimpleButton1_Click(object sender, System.EventArgs e)

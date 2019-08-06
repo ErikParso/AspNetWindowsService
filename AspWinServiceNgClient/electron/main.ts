@@ -49,6 +49,8 @@ function createWindow() {
         }
     });
 
+    win.hide();
+
     win.loadURL(
         url.format({
             pathname: path.join(__dirname, `/../../dist/AspWinServiceNgClient/index.html`),

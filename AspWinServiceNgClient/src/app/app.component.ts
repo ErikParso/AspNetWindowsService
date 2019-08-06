@@ -4,6 +4,7 @@ import { ChildProcessService } from 'ngx-childprocess';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { State, localVersionSelector, loadVersions } from './app.reducer';
+import { AssociationsService } from './associations.service';
 
 @Component({
   selector: 'app-root',
@@ -15,11 +16,19 @@ export class AppComponent implements OnInit {
   public version$: Observable<string>;
 
   constructor(
+    public associationsService: AssociationsService,
     public electronService: ElectronService,
     public childProcessService: ChildProcessService,
     private store: Store<State>) { }
 
   ngOnInit(): void {
+    const startupFile = this.getStartupFile();
+    // const startupFile = 'C:\\HeliosGreenFiles\\shortcutEdit.hegc';
+    if (startupFile) {
+      this.associationsService.openFileInClient(startupFile)
+        .subscribe(() => this.electronService.remote.getCurrentWindow().close());
+    }
+
     this.version$ = this.store.pipe(select(localVersionSelector));
     this.store.dispatch(loadVersions());
   }
@@ -41,5 +50,14 @@ export class AppComponent implements OnInit {
     } else {
       // TODO: Find how to run .exe from browser and angular app.
     }
+  }
+
+  private getStartupFile(): string {
+    const filePathRegex = new RegExp('.+\\.[a-zA-Z0-9_]+$');
+    return this.electronService.isElectronApp &&
+      this.electronService.remote.process.argv.length === 2 &&
+      filePathRegex.exec(this.electronService.remote.process.argv[1])
+      ? this.electronService.remote.process.argv[1]
+      : null;
   }
 }

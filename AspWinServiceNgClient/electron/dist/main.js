@@ -40,6 +40,7 @@ function createWindow() {
             nodeIntegration: true
         }
     });
+    win.hide();
     win.loadURL(url.format({
         pathname: path.join(__dirname, "/../../dist/AspWinServiceNgClient/index.html"),
         protocol: 'file:',

@@ -1,13 +1,11 @@
 ﻿using AspWinService.Model;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Win32;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 namespace AspWinService.Controllers
 {
@@ -34,6 +32,25 @@ namespace AspWinService.Controllers
             System.IO.File.WriteAllText(Constants.installedClientsFile, JsonConvert.SerializeObject(clientsInfo));
 
             return Ok();
+        }
+
+        [HttpPost("runClient")]
+        public IActionResult RunClient([FromBody]RunAssociatedClientRequest model)
+        {
+            var extension = Path.GetExtension(model.FilePath);
+            var clientsInfoString = System.IO.File.ReadAllText(Constants.installedClientsFile);
+            var clientsInfo = JsonConvert.DeserializeObject<IEnumerable<ClientInstallationInfo>>(clientsInfoString).ToList();
+            var clientInfo = clientsInfo.FirstOrDefault(c => c.Extensions?.Contains(extension) ?? false);
+
+            if (clientInfo != null)
+            {
+                ProcessExtensions.StartProcessAsCurrentUser(Path.Combine(clientInfo.InstallDir, "HeliosGreenClient.exe"), model.FilePath, clientInfo.InstallDir);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest($"There is no client associated to files with extension {extension}.");
+            }
         }
 
     }
