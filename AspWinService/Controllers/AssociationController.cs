@@ -2,10 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Win32;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 
 namespace AspWinService.Controllers
 {
@@ -13,6 +15,8 @@ namespace AspWinService.Controllers
     [ApiController]
     public class AssociationController : ControllerBase
     {
+        private const string exeName = "asp-win-service-ng-client.exe";
+
         [HttpPost]
         public IActionResult AddFileAssociation([FromBody]AssociationRequest model)
         {
@@ -20,8 +24,9 @@ namespace AspWinService.Controllers
             var clientsInfo = JsonConvert.DeserializeObject<IEnumerable<ClientInstallationInfo>>(clientsInfoString).ToList();
             var clientInfo = clientsInfo.First(c => c.InstallDir == model.InstallDir);
             var servicePath = new FileInfo(Assembly.GetEntryAssembly().Location).DirectoryName;
-            var ngClientPath = Path.Combine(servicePath, "..", "NgClient", "asp-win-service-ng-client.exe");
-            CreateFileAssociation(model.Extension, $"HgFile", $"Helios green {clientInfo.ClientName} file", ngClientPath);
+            var ngClientPath = Path.Combine(servicePath, "..", "NgClient", exeName);
+
+            FileAssociations.SetAssociation(model.Extension, $"HG_{clientInfo.ClientName}", $"Helios Green {clientInfo.ClientName} file.", ngClientPath);
 
             if (clientInfo.Extensions == null)
                 clientInfo.Extensions = new List<string>();
@@ -31,33 +36,5 @@ namespace AspWinService.Controllers
             return Ok();
         }
 
-        /// <summary>
-        /// Create a new file association
-        /// </summary>
-        /// <param name="extension">Extension of the file type, including the seperator) (ie: ".torrent")</param>
-        /// <param name="key">File Type Key (can be referenced to create multiple extensions for one file type)</param>
-        /// <param name="description">Description for the file type</param>
-        /// <param name="path">Path (ie. '"C:\Executable.exe" "%1"')</param>
-        private void CreateFileAssociation(string extension, string key, string description, string path)
-        {
-            RegistryKey classes = Registry.ClassesRoot;
-            RegistryKey extensionKey = classes.CreateSubKey(extension);
-            extensionKey.SetValue(null, key);
-
-            RegistryKey typeKey = classes.CreateSubKey(key);
-            typeKey.SetValue(null, description);
-
-            RegistryKey shellKey = typeKey.CreateSubKey("shell");
-            RegistryKey shellOpenKey = shellKey.CreateSubKey("open");
-            RegistryKey shellOpenCommandKey = shellOpenKey.CreateSubKey("command");
-            shellOpenCommandKey.SetValue(null, path);
-        }
-
-        private  bool DoesFileAssociationExists(string extension)
-        {
-            RegistryKey classes = Registry.ClassesRoot;
-            RegistryKey extensionKey = classes.OpenSubKey(extension);
-            return (extensionKey != null);
-        }
     }
 }
