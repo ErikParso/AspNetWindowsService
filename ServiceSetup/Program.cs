@@ -8,10 +8,8 @@ namespace ServiceSetup
     class Program
     {
         private const string serviceFiles = @"C:\Users\eparso\source\repos\AspWinService\AspWinService\bin\Debug\netcoreapp2.2\win7-x64";
-        //private const string serviceFiles = @"C:\Users\eparso\source\repos\AspWinService\AspWinService\bin\Release\netcoreapp2.2\win7-x64\publish";
-        //private const string clientFiles = @"C:\Users\eparso\source\repos\AspWinService\AspWinServiceClient\bin\Debug\netcoreapp3.0";
         private const string electronClientFiles = @"C:\Users\eparso\source\repos\AspWinService\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64";
-        private const string msiDeployPath = @"C:\Users\eparso\source\repos\AspWinService\ApplicationServer\bin\Debug\netcoreapp3.0\Installer";
+        private const string msiDeployPath = @"C:\Users\eparso\source\repos\AspWinService\ApplicationServer\bin\Debug\netcoreapp2.2\win7-x64\Installer";
 
         private const string serviceAppFileName = "asp-win-service-ng-client.exe";
         private const string uriScheme = "heliosGreenService";

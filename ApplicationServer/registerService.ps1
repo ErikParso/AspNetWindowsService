@@ -1,12 +1,13 @@
-$serviceName = "AspWinService"
+$serviceName = "ApplicationServer"
 $path = (Get-Location)
 
 sc.exe delete $serviceName
+
 New-Service `
     -Name $serviceName `
-    -BinaryPathName "$path/AspWinService.exe" `
-    -Description "Asp net core application hosted in windows service." `
-    -DisplayName "Asp windows service" `
+    -BinaryPathName "$path/ApplicationServer.exe" `
+    -Description "Helios Green application server simulation." `
+    -DisplayName "ApplicationServer" `
     -StartupType Automatic
 
 Read-Host -Prompt "Press Enter to exit"

@@ -500,10 +500,6 @@
                 <File Id="hostpolicy.dll_1576380147" Source="..\AspWinService\bin\Debug\netcoreapp2.2\win7-x64\hostpolicy.dll" />
               </Component>
 
-              <Component Id="Component.registerService.ps1_172649213" Guid="6fe30b47-2577-43ad-9095-1861a27a401c" Win64="yes">
-                <File Id="registerService.ps1_172649213" Source="..\AspWinService\bin\Debug\netcoreapp2.2\win7-x64\registerService.ps1" />
-              </Component>
-
               <Component Id="Component.VersionInfo.json_335512436" Guid="6fe30b47-2577-43ad-9095-18611c780fe7" Win64="yes">
                 <File Id="VersionInfo.json_335512436" Source="..\AspWinService\bin\Debug\netcoreapp2.2\win7-x64\VersionInfo.json" />
               </Component>
@@ -680,7 +676,6 @@
       <ComponentRef Id="Component.AspWinService.runtimeconfig.json_1936634179" />
       <ComponentRef Id="Component.hostfxr.dll_2048435324" />
       <ComponentRef Id="Component.hostpolicy.dll_1576380147" />
-      <ComponentRef Id="Component.registerService.ps1_172649213" />
       <ComponentRef Id="Component.VersionInfo.json_335512436" />
       <ComponentRef Id="Component.launchSettings.json_88159788" />
       <ComponentRef Id="Registry.1" />

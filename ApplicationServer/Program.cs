@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting.WindowsServices;
 using Microsoft.Extensions.Hosting;
+using System.Diagnostics;
 using System.IO;
-using System.Reflection;
 
 namespace ApplicationServer
 {
@@ -9,15 +11,22 @@ namespace ApplicationServer
     {
         public static void Main(string[] args)
         {
-            Directory.SetCurrentDirectory(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location));
-            CreateHostBuilder(args).Build().Run();
+            var pathToExe = Process.GetCurrentProcess().MainModule.FileName;
+            var pathToContentRoot = Path.GetDirectoryName(pathToExe);
+            Directory.SetCurrentDirectory(pathToContentRoot);
+
+            var builder = CreateWebHostBuilder(args);
+            var host = builder.Build();
+
+            host.RunAsService();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)
+                .UseContentRoot(Directory.GetCurrentDirectory())
+                .UseKestrel()
+                .UseUrls(urls: "http://localhost:5100")
+                .UseIISIntegration()
+                .UseStartup<Startup>();
     }
 }
