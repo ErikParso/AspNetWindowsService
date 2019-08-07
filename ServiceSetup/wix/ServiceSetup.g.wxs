@@ -519,6 +519,43 @@
           </Directory>
         </Directory>
       </Directory>
+
+      <Directory Id="ProgramFilesFolder" Name="ProgramFilesFolder">
+
+        <Component Id="Registry.1" Guid="6fe30b47-2577-43ad-9095-1861b742561c" Win64="no" KeyPath="yes">
+          <RegistryKey Root="HKLM" Key="SOFTWARE\Classes\heliosGreenService">
+            <RegistryValue Id="RegValue" Type="string" KeyPath="no" Value="URL: Helios Green Service Protocol" />
+          </RegistryKey>
+
+          <CreateFolder />
+          <RemoveFolder Id="ProgramFilesFolder" On="uninstall" />
+        </Component>
+
+        <Component Id="Registry.2" Guid="6fe30b47-2577-43ad-9095-1861b743561c" Win64="no">
+          <RegistryKey Root="HKLM" Key="SOFTWARE\Classes\heliosGreenService">
+            <RegistryValue Id="URL_Protocol" Type="string" KeyPath="yes" Value="" Name="URL Protocol" />
+          </RegistryKey>
+
+          <CreateFolder />
+        </Component>
+
+        <Component Id="Registry.3" Guid="6fe30b47-2577-43ad-9095-1861b744561c" Win64="no">
+          <RegistryKey Root="HKLM" Key="SOFTWARE\Classes\heliosGreenService\DefaultIcon">
+            <RegistryValue Id="RegValue.1" Type="string" KeyPath="yes" Value="[INSTALLDIR]NgClient\asp-win-service-ng-client.exe" />
+          </RegistryKey>
+
+          <CreateFolder />
+        </Component>
+
+        <Component Id="Registry.4" Guid="6fe30b47-2577-43ad-9095-1861b73d561c" Win64="no">
+          <RegistryKey Root="HKLM" Key="SOFTWARE\Classes\heliosGreenService\shell\open\command">
+            <RegistryValue Id="RegValue.2" Type="expandable" KeyPath="yes" Value="&quot;[INSTALLDIR]NgClient\asp-win-service-ng-client.exe&quot; &quot;%1&quot;" />
+          </RegistryKey>
+
+          <CreateFolder />
+        </Component>
+
+      </Directory>
     </Directory>
 
     <Upgrade Id="6fe30b47-2577-43ad-9095-1861ba25889d">
@@ -646,6 +683,10 @@
       <ComponentRef Id="Component.registerService.ps1_172649213" />
       <ComponentRef Id="Component.VersionInfo.json_335512436" />
       <ComponentRef Id="Component.launchSettings.json_88159788" />
+      <ComponentRef Id="Registry.1" />
+      <ComponentRef Id="Registry.2" />
+      <ComponentRef Id="Registry.3" />
+      <ComponentRef Id="Registry.4" />
     </Feature>
 
     <InstallExecuteSequence>

@@ -17,7 +17,7 @@ namespace AspWinService.Controllers
         [HttpGet]
         public IActionResult GetClients()
         {
-            var clientsInfoString = System.IO.File.ReadAllText(Constants.installedClientsFile);
+            var clientsInfoString = System.IO.File.ReadAllText(Constants.InstalledClientsFileName);
             var clientsInfo = JsonConvert.DeserializeObject<IEnumerable<ClientInstallationInfo>>(clientsInfoString);
             return Ok(clientsInfo);
         }
@@ -31,7 +31,7 @@ namespace AspWinService.Controllers
         [HttpPost("{clientName}")]
         public IActionResult RunClient(string clientName)
         {
-            var clientsInfoString = System.IO.File.ReadAllText(Constants.installedClientsFile);
+            var clientsInfoString = System.IO.File.ReadAllText(Constants.InstalledClientsFileName);
             var clientsInfo = JsonConvert.DeserializeObject<IEnumerable<ClientInstallationInfo>>(clientsInfoString);
             var installDir = clientsInfo.Where(c => c.ClientName == clientName).First().InstallDir;
             ProcessExtensions.StartProcessAsCurrentUser(Path.Combine(installDir, "HeliosGreenClient.exe"), null, installDir);
@@ -67,7 +67,7 @@ namespace AspWinService.Controllers
             System.IO.File.Delete(zipPath);
 
             // Save client installation information.
-            var clientsInfoString = System.IO.File.ReadAllText(Constants.installedClientsFile);
+            var clientsInfoString = System.IO.File.ReadAllText(Constants.InstalledClientsFileName);
             var clientsInfo = JsonConvert.DeserializeObject<List<ClientInstallationInfo>>(clientsInfoString).ToList();
             var version = JsonConvert.DeserializeObject<dynamic>(System.IO.File.ReadAllText(Path.Combine(installDir, "VersionInfo.json"))).version;
             var clientInfo = new ClientInstallationInfo()
@@ -77,7 +77,7 @@ namespace AspWinService.Controllers
                 Version = version
             };
             clientsInfo.Add(clientInfo);
-            System.IO.File.WriteAllText(Constants.installedClientsFile, JsonConvert.SerializeObject(clientsInfo));
+            System.IO.File.WriteAllText(Constants.InstalledClientsFileName, JsonConvert.SerializeObject(clientsInfo));
 
             return Ok(clientInfo);
         }
@@ -113,13 +113,13 @@ namespace AspWinService.Controllers
             System.IO.File.Delete(zipPath);
 
             // Save client installation information.
-            var clientsInfoString = System.IO.File.ReadAllText(Constants.installedClientsFile);
+            var clientsInfoString = System.IO.File.ReadAllText(Constants.InstalledClientsFileName);
             var clientsInfo = JsonConvert.DeserializeObject<IEnumerable<ClientInstallationInfo>>(clientsInfoString).ToList();
             var clientInfo = clientsInfo.Where(c => c.InstallDir == installDir).First();
             clientInfo.Version = JsonConvert.DeserializeObject<dynamic>(System.IO.File.ReadAllText(Path.Combine(installDir, "VersionInfo.json"))).version;
             clientsInfo.RemoveAll(c => c.InstallDir == installDir);
             clientsInfo.Add(clientInfo);
-            System.IO.File.WriteAllText(Constants.installedClientsFile, JsonConvert.SerializeObject(clientsInfo));
+            System.IO.File.WriteAllText(Constants.InstalledClientsFileName, JsonConvert.SerializeObject(clientsInfo));
 
             return Ok(clientInfo);
         }
@@ -127,14 +127,14 @@ namespace AspWinService.Controllers
         [HttpDelete()]
         public IActionResult DeleteClient([FromBody]ClientDeleteRequest model)
         {
-            var clientsInfoString = System.IO.File.ReadAllText(Constants.installedClientsFile);
+            var clientsInfoString = System.IO.File.ReadAllText(Constants.InstalledClientsFileName);
             var clientsInfo = JsonConvert.DeserializeObject<IEnumerable<ClientInstallationInfo>>(clientsInfoString).ToList();
             var clientInfo = clientsInfo.Where(c => c.ClientName == model.ClientName).First();
 
             if (Directory.Exists(clientInfo.InstallDir))
                 Directory.Delete(clientInfo.InstallDir, true);
             clientsInfo.Remove(clientInfo);
-            System.IO.File.WriteAllText(Constants.installedClientsFile, JsonConvert.SerializeObject(clientsInfo));
+            System.IO.File.WriteAllText(Constants.InstalledClientsFileName, JsonConvert.SerializeObject(clientsInfo));
 
             return Ok(clientInfo);
         }

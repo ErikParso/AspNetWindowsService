@@ -13,6 +13,10 @@ namespace ServiceSetup
         private const string electronClientFiles = @"C:\Users\eparso\source\repos\AspWinService\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64";
         private const string msiDeployPath = @"C:\Users\eparso\source\repos\AspWinService\ApplicationServer\bin\Debug\netcoreapp3.0\Installer";
 
+        private const string serviceAppFileName = "asp-win-service-ng-client.exe";
+        private const string uriScheme = "heliosGreenService";
+        private const string friendlyName = "Helios Green Service Protocol";
+
         static void Main()
         {
             //System.Diagnostics.Debugger.Break();
@@ -25,7 +29,11 @@ namespace ServiceSetup
                                 new Dir("NgClient",
                                     new Files(Path.Combine(electronClientFiles, "*.*"))),
                                 new Dir("Service",
-                                    new Files(Path.Combine(serviceFiles, "*.*")))))
+                                    new Files(Path.Combine(serviceFiles, "*.*")))),
+                              new RegValue(RegistryHive.LocalMachine, $@"SOFTWARE\Classes\{uriScheme}", string.Empty, $"URL: {friendlyName}"),
+                              new RegValue(RegistryHive.LocalMachine, $@"SOFTWARE\Classes\{uriScheme}", "URL Protocol", string.Empty),
+                              new RegValue(RegistryHive.LocalMachine, $@"SOFTWARE\Classes\{uriScheme}\DefaultIcon", string.Empty, $@"[INSTALLDIR]NgClient\{serviceAppFileName}"),
+                              new RegValue(RegistryHive.LocalMachine, $@"SOFTWARE\Classes\{uriScheme}\shell\open\command", string.Empty, $"\"[INSTALLDIR]NgClient\\{serviceAppFileName}\" \"%1\""))
             {
                 Platform = Platform.x64,
                 GUID = new Guid("6fe30b47-2577-43ad-9095-1861ba25889d"),

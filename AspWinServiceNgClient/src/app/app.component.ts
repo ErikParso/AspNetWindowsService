@@ -22,6 +22,7 @@ export class AppComponent implements OnInit {
     private store: Store<State>) { }
 
   ngOnInit(): void {
+    console.log(this.electronService.remote.process.argv);
     const startupFile = this.getStartupFile();
     // const startupFile = 'C:\\HeliosGreenFiles\\shortcutEdit.hegc';
     if (startupFile) {

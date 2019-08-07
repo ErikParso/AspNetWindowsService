@@ -61,9 +61,9 @@ namespace AspWinService
 
         private static void CreateInstallationConfig()
         {
-            if (!File.Exists(Constants.installedClientsFile))
+            if (!File.Exists(Constants.InstalledClientsFileName))
             {
-                File.WriteAllText(Constants.installedClientsFile, JsonConvert.SerializeObject(new ClientInstallationInfo[] { }));
+                File.WriteAllText(Constants.InstalledClientsFileName, JsonConvert.SerializeObject(new ClientInstallationInfo[] { }));
             }
         }
     }
