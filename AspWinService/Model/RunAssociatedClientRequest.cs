@@ -8,5 +8,6 @@ namespace AspWinService.Model
     public class RunAssociatedClientRequest
     {
         public string FilePath { get; set; }
+        public string Uri { get; set; }
     }
 }

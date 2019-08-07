@@ -23,10 +23,17 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.electronService.remote.process.argv);
+
     const startupFile = this.getStartupFile();
-    // const startupFile = 'C:\\HeliosGreenFiles\\shortcutEdit.hegc';
+    const uriScheme = this.getUriScheme();
+
     if (startupFile) {
       this.associationsService.openFileInClient(startupFile)
+        .subscribe(() => this.electronService.remote.getCurrentWindow().close());
+    }
+
+    if (uriScheme) {
+      this.associationsService.startClientFromUri(uriScheme)
         .subscribe(() => this.electronService.remote.getCurrentWindow().close());
     }
 
@@ -58,6 +65,14 @@ export class AppComponent implements OnInit {
     return this.electronService.isElectronApp &&
       this.electronService.remote.process.argv.length === 2 &&
       filePathRegex.exec(this.electronService.remote.process.argv[1])
+      ? this.electronService.remote.process.argv[1]
+      : null;
+  }
+
+  private getUriScheme(): string {
+    return this.electronService.isElectronApp &&
+      this.electronService.remote.process.argv.length === 2 &&
+      this.electronService.remote.process.argv[1].startsWith('heliosgreenservice:')
       ? this.electronService.remote.process.argv[1]
       : null;
   }

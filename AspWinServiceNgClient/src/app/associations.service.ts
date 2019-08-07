@@ -14,4 +14,8 @@ export class AssociationsService {
   public openFileInClient(filePath: string): Observable<object> {
     return this.httpclient.post<object>(this.associationsUrl, { filePath });
   }
+
+  startClientFromUri(uri: string): Observable<object> {
+    return this.httpclient.post<object>(this.associationsUrl, { uri });
+  }
 }
