@@ -10,6 +10,8 @@ New-Service `
     -DisplayName "ApplicationServer" `
     -StartupType Automatic
 
+sc.exe start $serviceName
+
 Read-Host -Prompt "Press Enter to exit"
 
 # $serviceName = "AspWinService"
