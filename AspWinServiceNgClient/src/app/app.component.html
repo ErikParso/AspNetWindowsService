@@ -2,7 +2,7 @@
   <mat-toolbar-row>
     <span>Client Manager</span>
     <button mat-icon-button *ngIf="(localVersion$|async) !== (latestVersion$ | async)" (click)="showUpgradeInfo()">
-      <mat-icon>info</mat-icon>
+      <mat-icon>arrow_upward</mat-icon>
     </button>
     <span class="spacer"></span>
     <button mat-icon-button (click)="hideWindow()" *ngIf="electronService.isElectronApp">

@@ -6,7 +6,7 @@
 </auto-generated>
 -->
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Id="6fe30b47-2577-43ad-9095-1861ca25189d" Name="MyProduct" Language="1033" Codepage="Windows-1252" Version="1.0.8" UpgradeCode="6fe30b47-2577-43ad-9095-1861ba25889d" Manufacturer="eparso">
+  <Product Id="6fe30b47-2577-43ad-9095-1861ca25389d" Name="MyProduct" Language="1033" Codepage="Windows-1252" Version="1.0.10" UpgradeCode="6fe30b47-2577-43ad-9095-1861ba25889d" Manufacturer="eparso">
     <Package InstallerVersion="200" Compressed="yes" Platform="x64" SummaryCodepage="Windows-1252" Languages="1033" />
     <Media Id="1" Cabinet="MyProduct.cab" EmbedCab="yes" />
 
@@ -367,8 +367,8 @@
                         <File Id="index.html_52056443" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\dist\AspWinServiceNgClient\index.html" />
                       </Component>
 
-                      <Component Id="Component.main.7b792b606d115cef7c87.js_1893889484" Guid="6fe30b47-2577-43ad-9095-1861014bcf1f" Win64="yes">
-                        <File Id="main.7b792b606d115cef7c87.js_1893889484" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\dist\AspWinServiceNgClient\main.7b792b606d115cef7c87.js" />
+                      <Component Id="Component.main.7c4df2634a9901e587b6.js_708194501" Guid="6fe30b47-2577-43ad-9095-18618460c5fb" Win64="yes">
+                        <File Id="main.7c4df2634a9901e587b6.js_708194501" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\dist\AspWinServiceNgClient\main.7c4df2634a9901e587b6.js" />
                       </Component>
 
                       <Component Id="Component.polyfills_es5.93893f560e403d23958a.js_487846438" Guid="6fe30b47-2577-43ad-9095-1861cdb97b0a" Win64="yes">
@@ -555,8 +555,8 @@
     </Directory>
 
     <Upgrade Id="6fe30b47-2577-43ad-9095-1861ba25889d">
-      <UpgradeVersion Minimum="0.0.0.0" Maximum="1.0.8" IncludeMinimum="yes" IncludeMaximum="no" Property="UPGRADEFOUND" />
-      <UpgradeVersion Minimum="1.0.8" IncludeMinimum="no" Property="NEWPRODUCTFOUND" />
+      <UpgradeVersion Minimum="0.0.0.0" Maximum="1.0.10" IncludeMinimum="yes" IncludeMaximum="no" Property="UPGRADEFOUND" />
+      <UpgradeVersion Minimum="1.0.10" IncludeMinimum="no" Property="NEWPRODUCTFOUND" />
     </Upgrade>
 
     <CustomAction Id="PreventDowngrading" Error="Newer version already installed" />
@@ -652,7 +652,7 @@
       <ComponentRef Id="Component._5.3e4b58734594d7498470.js_177708622" />
       <ComponentRef Id="Component.favicon.ico_445470173" />
       <ComponentRef Id="Component.index.html_52056443" />
-      <ComponentRef Id="Component.main.7b792b606d115cef7c87.js_1893889484" />
+      <ComponentRef Id="Component.main.7c4df2634a9901e587b6.js_708194501" />
       <ComponentRef Id="Component.polyfills_es5.93893f560e403d23958a.js_487846438" />
       <ComponentRef Id="Component.polyfills.2d938c2725dce5a6a7bb.js_550173282" />
       <ComponentRef Id="Component.runtime.e6f8725d53fcc8c96561.js_10590767" />
