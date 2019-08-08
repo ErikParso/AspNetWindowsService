@@ -14,4 +14,8 @@ export class VersionService {
   public getServiceVersions(): Observable<{local: string, latest: string, client: string}> {
     return this.httpClient.get<{local: string, latest: string, client: string}>(this.serviceVersionsUrl);
   }
+
+  public downloadInstaller(): Observable<string> {
+    return this.httpClient.post(this.serviceVersionsUrl, null, { responseType: 'text' });
+  }
 }

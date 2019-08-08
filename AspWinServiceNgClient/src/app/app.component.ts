@@ -7,6 +7,7 @@ import { State, localVersionSelector, loadVersions, latestVersionSelector } from
 import { AssociationsService } from './associations.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MessageBoxComponent } from './shared/message-box/message-box.component';
+import { VersionService } from './version.service';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,7 @@ export class AppComponent implements OnInit {
   public latestVersion$: Observable<string>;
 
   constructor(
+    public versionService: VersionService,
     public associationsService: AssociationsService,
     public electronService: ElectronService,
     public childProcessService: ChildProcessService,
@@ -95,7 +97,9 @@ export class AppComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((data) => {
       if (data) {
-        this.electronService.remote.getCurrentWindow().close();
+        this.versionService.downloadInstaller().subscribe((path) => {
+          this.childProcessService.childProcess.exec(`\"${path}\"`, [], {});
+        });
       }
     });
   }

@@ -23,47 +23,28 @@ namespace AspWinService.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CheckVersionsAndUpgrade()
+        public async Task<IActionResult> DownloadInstaller()
         {
-            try
+            using (var httpClient = new HttpClient())
             {
-                await CheckVersionsAndUpgradeAsync();
-            }
-            catch (Exception e)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, e);
-            }
-            return Ok("Installation started.");
-        }
-
-        private async Task CheckVersionsAndUpgradeAsync()
-        {
-            var latest = await GetLatestVersion();
-            var current = GetCurrentVersion();
-
-            if (latest != current)
-            {
-                using (var httpClient = new HttpClient())
+                using (var request = new HttpRequestMessage(HttpMethod.Get, $"http://localhost:5100/api/installer/download"))
                 {
-                    using (var request = new HttpRequestMessage(HttpMethod.Get, $"http://localhost:5100/api/installer/download"))
-                    {
-                        if (!Directory.Exists("Installer"))
-                            Directory.CreateDirectory("Installer");
+                    if (!Directory.Exists("Installer"))
+                        Directory.CreateDirectory("Installer");
 
-                        using (
-                            Stream contentStream = await (await httpClient.SendAsync(request)).Content.ReadAsStreamAsync(), 
-                            stream = new FileStream("Installer/MyProduct.msi", FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite))
-                        {
-                            await contentStream.CopyToAsync(stream);
-                        }
+                    using (
+                        Stream contentStream = await (await httpClient.SendAsync(request)).Content.ReadAsStreamAsync(),
+                        stream = new FileStream("Installer/MyProduct.msi", FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite))
+                    {
+                        await contentStream.CopyToAsync(stream);
                     }
                 }
-
-                string myExeDir = new FileInfo(Assembly.GetEntryAssembly().Location).Directory.ToString();
-                string msiPath = Path.Combine(myExeDir, @"Installer\MyProduct.msi");
-                //TODO: not working 
-                ProcessExtensions.StartProcessAsCurrentUser(msiPath);
             }
+
+            string myExeDir = new FileInfo(Assembly.GetEntryAssembly().Location).Directory.ToString();
+            string msiPath = Path.Combine(myExeDir, @"Installer\MyProduct.msi");
+
+            return Ok(msiPath);
         }
 
         private async Task<string> GetLatestVersion()
