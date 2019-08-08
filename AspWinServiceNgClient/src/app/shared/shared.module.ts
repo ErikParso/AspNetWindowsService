@@ -14,12 +14,14 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MessageBoxComponent } from './message-box/message-box.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
     MessageBoxComponent
   ],
   imports: [
+    CommonModule,
     HttpClientModule,
     MatDialogModule,
     MatButtonModule,

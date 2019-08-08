@@ -5,6 +5,11 @@
     <span class="mat-body">{{data.message}}</span>
   </div>
 
-  <div mat-dialog-actions>
+  <div mat-dialog-actions *ngIf="!data.yesNo">
     <button mat-button (click)="ok()">Got it !</button>
+  </div>
+
+  <div mat-dialog-actions *ngIf="data.yesNo">
+    <button mat-button (click)="ok()">Yes</button>
+    <button mat-button (click)="cancel()">Cancel</button>
   </div>

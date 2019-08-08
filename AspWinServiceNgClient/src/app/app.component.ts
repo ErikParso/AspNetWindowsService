@@ -3,8 +3,10 @@ import { ElectronService } from 'ngx-electron';
 import { ChildProcessService } from 'ngx-childprocess';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { State, localVersionSelector, loadVersions } from './app.reducer';
+import { State, localVersionSelector, loadVersions, latestVersionSelector } from './app.reducer';
 import { AssociationsService } from './associations.service';
+import { MatDialog } from '@angular/material/dialog';
+import { MessageBoxComponent } from './shared/message-box/message-box.component';
 
 @Component({
   selector: 'app-root',
@@ -13,13 +15,15 @@ import { AssociationsService } from './associations.service';
 })
 export class AppComponent implements OnInit {
 
-  public version$: Observable<string>;
+  public localVersion$: Observable<string>;
+  public latestVersion$: Observable<string>;
 
   constructor(
     public associationsService: AssociationsService,
     public electronService: ElectronService,
     public childProcessService: ChildProcessService,
-    private store: Store<State>) { }
+    private store: Store<State>,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
     console.log(this.electronService.remote.process.argv);
@@ -37,7 +41,8 @@ export class AppComponent implements OnInit {
         .subscribe(() => this.electronService.remote.getCurrentWindow().close());
     }
 
-    this.version$ = this.store.pipe(select(localVersionSelector));
+    this.localVersion$ = this.store.select(localVersionSelector);
+    this.latestVersion$ = this.store.select(latestVersionSelector);
     this.store.dispatch(loadVersions());
   }
 
@@ -75,5 +80,23 @@ export class AppComponent implements OnInit {
       this.electronService.remote.process.argv[1].startsWith('heliosgreenservice:')
       ? this.electronService.remote.process.argv[1]
       : null;
+  }
+
+  showUpgradeInfo() {
+    const dialogRef = this.dialog.open(MessageBoxComponent, {
+      width: '80%', maxWidth: '500px',
+      data: {
+        title: 'Upgrade available',
+        message: `There is an upgrade available for this Client Manager.
+         Do you want to download and install new version ? Client Manager will close.`,
+        yesNo: true
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((data) => {
+      if (data) {
+        this.electronService.remote.getCurrentWindow().close();
+      }
+    });
   }
 }

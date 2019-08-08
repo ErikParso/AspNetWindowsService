@@ -1,6 +1,9 @@
 <mat-toolbar color="primary" class="header mat-elevation-z2">
   <mat-toolbar-row>
-    <span>Client Manager {{version$ | async}}</span>
+    <span>Client Manager</span>
+    <button mat-icon-button *ngIf="(localVersion$|async) !== (latestVersion$ | async)" (click)="showUpgradeInfo()">
+      <mat-icon>info</mat-icon>
+    </button>
     <span class="spacer"></span>
     <button mat-icon-button (click)="hideWindow()" *ngIf="electronService.isElectronApp">
       <mat-icon>minimize</mat-icon>
@@ -8,7 +11,7 @@
     <button mat-icon-button (click)="closeWindow()" *ngIf="electronService.isElectronApp">
       <mat-icon>close</mat-icon>
     </button>
-  </mat-toolbar-row> 
+  </mat-toolbar-row>
 </mat-toolbar>
 
 <div class="content">
@@ -18,8 +21,5 @@
 <mat-toolbar color="primary" class="footer mat-elevation-z2">
   <mat-toolbar-row>
     <router-outlet name="footer"></router-outlet>
-  </mat-toolbar-row> 
+  </mat-toolbar-row>
 </mat-toolbar>
-
-
-

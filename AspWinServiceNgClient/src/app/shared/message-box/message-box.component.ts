@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 export interface DialogData {
+  yesNo: boolean;
   message: string;
   title: string;
 }
@@ -18,6 +19,10 @@ export class MessageBoxComponent {
     @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 
   ok() {
-    this.dialogRef.close();
+    this.dialogRef.close(true);
+  }
+
+  cancel() {
+    this.dialogRef.close(false);
   }
 }
