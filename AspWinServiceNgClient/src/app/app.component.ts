@@ -90,7 +90,7 @@ export class AppComponent implements OnInit {
       data: {
         title: 'Upgrade available',
         message: `There is an upgrade available for this Client Manager.
-         Do you want to download and install new version ? Client Manager will close.`,
+         Do you want to download and install new version ? Client Manager will restart.`,
         yesNo: true
       }
     });
@@ -98,7 +98,10 @@ export class AppComponent implements OnInit {
     dialogRef.afterClosed().subscribe((data) => {
       if (data) {
         this.versionService.downloadInstaller().subscribe((path) => {
-          this.childProcessService.childProcess.exec(`\"${path}\"`, [], {});
+          this.childProcessService.childProcess.exec(`\"${path}\"`, [], null);
+          new Promise( resolve => setTimeout(resolve, 1000)).then(() => {
+            this.electronService.remote.getCurrentWindow().close();
+          });
         });
       }
     });
