@@ -15,7 +15,7 @@ namespace AspWinService.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok("hello");
+            return Ok("hello from v 1.0.11");
         }
     }
 }
