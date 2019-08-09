@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ElectronService } from 'ngx-electron';
 import { ChildProcessService } from 'ngx-childprocess';
 import { Observable } from 'rxjs';
-import { Store, select } from '@ngrx/store';
-import { State, localVersionSelector, loadVersions, latestVersionSelector } from './app.reducer';
+import { Store } from '@ngrx/store';
+import * as reducer from './app.reducer';
 import { AssociationsService } from './associations.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MessageBoxComponent } from './shared/message-box/message-box.component';
 import { VersionService } from './version.service';
+import { UpgradeInfo } from './upgradeInfo.enum';
 
 @Component({
   selector: 'app-root',
@@ -16,15 +17,18 @@ import { VersionService } from './version.service';
 })
 export class AppComponent implements OnInit {
 
+  public upgradeState = UpgradeInfo;
+
   public localVersion$: Observable<string>;
   public latestVersion$: Observable<string>;
+  public upgradeState$: Observable<UpgradeInfo>;
 
   constructor(
     public versionService: VersionService,
     public associationsService: AssociationsService,
     public electronService: ElectronService,
     public childProcessService: ChildProcessService,
-    private store: Store<State>,
+    private store: Store<reducer.State>,
     public dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -43,9 +47,10 @@ export class AppComponent implements OnInit {
         .subscribe(() => this.electronService.remote.getCurrentWindow().close());
     }
 
-    this.localVersion$ = this.store.select(localVersionSelector);
-    this.latestVersion$ = this.store.select(latestVersionSelector);
-    this.store.dispatch(loadVersions());
+    this.localVersion$ = this.store.select(reducer.localVersionSelector);
+    this.latestVersion$ = this.store.select(reducer.latestVersionSelector);
+    this.upgradeState$ = this.store.select(reducer.upgradeStateSelector);
+    this.store.dispatch(reducer.loadVersions());
   }
 
   hideWindow() {
@@ -56,15 +61,22 @@ export class AppComponent implements OnInit {
     this.electronService.remote.getCurrentWindow().close();
   }
 
-  runApplication() {
-    const executablePath = 'C:\\ProgramData\\Asseco Solutions\\NorisWin32Clients\\Source99-E5\\NorisWin32.exe';
-    const params = ['--incognito'];
+  showUpgradeInfo() {
+    const dialogRef = this.dialog.open(MessageBoxComponent, {
+      width: '80%', maxWidth: '500px',
+      data: {
+        title: 'Upgrade available',
+        message: `There is an upgrade available for this Client Manager.
+         Do you want to download and install new version ? Client Manager will restart.`,
+        yesNo: true
+      }
+    });
 
-    if (this.electronService.isElectronApp) {
-      this.childProcessService.childProcess.execFile(executablePath, params, null, null);
-    } else {
-      // TODO: Find how to run .exe from browser and angular app.
-    }
+    dialogRef.afterClosed().subscribe((data) => {
+      if (data) {
+        this.store.dispatch(reducer.downloadUpgradePackage());
+      }
+    });
   }
 
   private getStartupFile(): string {
@@ -82,28 +94,5 @@ export class AppComponent implements OnInit {
       this.electronService.remote.process.argv[1].startsWith('heliosgreenservice:')
       ? this.electronService.remote.process.argv[1]
       : null;
-  }
-
-  showUpgradeInfo() {
-    const dialogRef = this.dialog.open(MessageBoxComponent, {
-      width: '80%', maxWidth: '500px',
-      data: {
-        title: 'Upgrade available',
-        message: `There is an upgrade available for this Client Manager.
-         Do you want to download and install new version ? Client Manager will restart.`,
-        yesNo: true
-      }
-    });
-
-    dialogRef.afterClosed().subscribe((data) => {
-      if (data) {
-        this.versionService.downloadInstaller().subscribe((path) => {
-          this.childProcessService.childProcess.exec(`\"${path}\"`, [], null);
-          new Promise( resolve => setTimeout(resolve, 1000)).then(() => {
-            this.electronService.remote.getCurrentWindow().close();
-          });
-        });
-      }
-    });
   }
 }

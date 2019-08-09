@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using System.Net.Http;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AspWinService.Controllers
@@ -43,6 +44,8 @@ namespace AspWinService.Controllers
 
             string myExeDir = new FileInfo(Assembly.GetEntryAssembly().Location).Directory.ToString();
             string msiPath = Path.Combine(myExeDir, @"Installer\MyProduct.msi");
+
+            Thread.Sleep(5000);
 
             return Ok(msiPath);
         }
