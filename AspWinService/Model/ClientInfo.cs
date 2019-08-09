@@ -2,7 +2,7 @@
 
 namespace AspWinService.Model
 {
-    public class ClientInstallationInfo
+    public class ClientInfo
     {
         public string ClientName { get; set; }
 

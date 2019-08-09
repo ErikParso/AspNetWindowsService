@@ -18,7 +18,7 @@ namespace AspWinService.Controllers
         public IActionResult GetClients()
         {
             var clientsInfoString = System.IO.File.ReadAllText(Constants.InstalledClientsFileName);
-            var clientsInfo = JsonConvert.DeserializeObject<IEnumerable<ClientInstallationInfo>>(clientsInfoString);
+            var clientsInfo = JsonConvert.DeserializeObject<IEnumerable<ClientInfo>>(clientsInfoString);
             return Ok(clientsInfo);
         }
 
@@ -32,7 +32,7 @@ namespace AspWinService.Controllers
         public IActionResult RunClient(string clientName)
         {
             var clientsInfoString = System.IO.File.ReadAllText(Constants.InstalledClientsFileName);
-            var clientsInfo = JsonConvert.DeserializeObject<IEnumerable<ClientInstallationInfo>>(clientsInfoString);
+            var clientsInfo = JsonConvert.DeserializeObject<IEnumerable<ClientInfo>>(clientsInfoString);
             var installDir = clientsInfo.Where(c => c.ClientName == clientName).First().InstallDir;
             ProcessExtensions.StartProcessAsCurrentUser(Path.Combine(installDir, "HeliosGreenClient.exe"), null, installDir);
             return Ok();
@@ -68,9 +68,9 @@ namespace AspWinService.Controllers
 
             // Save client installation information.
             var clientsInfoString = System.IO.File.ReadAllText(Constants.InstalledClientsFileName);
-            var clientsInfo = JsonConvert.DeserializeObject<List<ClientInstallationInfo>>(clientsInfoString).ToList();
+            var clientsInfo = JsonConvert.DeserializeObject<List<ClientInfo>>(clientsInfoString).ToList();
             var version = JsonConvert.DeserializeObject<dynamic>(System.IO.File.ReadAllText(Path.Combine(installDir, "VersionInfo.json"))).version;
-            var clientInfo = new ClientInstallationInfo()
+            var clientInfo = new ClientInfo()
             {
                 ClientName = model.ClientName,
                 InstallDir = installDir,
@@ -114,7 +114,7 @@ namespace AspWinService.Controllers
 
             // Save client installation information.
             var clientsInfoString = System.IO.File.ReadAllText(Constants.InstalledClientsFileName);
-            var clientsInfo = JsonConvert.DeserializeObject<IEnumerable<ClientInstallationInfo>>(clientsInfoString).ToList();
+            var clientsInfo = JsonConvert.DeserializeObject<IEnumerable<ClientInfo>>(clientsInfoString).ToList();
             var clientInfo = clientsInfo.Where(c => c.InstallDir == installDir).First();
             clientInfo.Version = JsonConvert.DeserializeObject<dynamic>(System.IO.File.ReadAllText(Path.Combine(installDir, "VersionInfo.json"))).version;
             clientsInfo.RemoveAll(c => c.InstallDir == installDir);
@@ -128,7 +128,7 @@ namespace AspWinService.Controllers
         public IActionResult DeleteClient([FromBody]ClientDeleteRequest model)
         {
             var clientsInfoString = System.IO.File.ReadAllText(Constants.InstalledClientsFileName);
-            var clientsInfo = JsonConvert.DeserializeObject<IEnumerable<ClientInstallationInfo>>(clientsInfoString).ToList();
+            var clientsInfo = JsonConvert.DeserializeObject<IEnumerable<ClientInfo>>(clientsInfoString).ToList();
             var clientInfo = clientsInfo.Where(c => c.ClientName == model.ClientName).First();
 
             if (Directory.Exists(clientInfo.InstallDir))
