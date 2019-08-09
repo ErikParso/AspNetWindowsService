@@ -25,10 +25,14 @@ export class VersionService {
   }
 
   runInstallerAndClose(path: string): Observable<boolean> {
-    this.childProcessService.childProcess.exec(`\"${path}\"`, [], null);
-    new Promise(resolve => setTimeout(resolve, 1000)).then(() => {
-      this.electronService.remote.getCurrentWindow().close();
-    });
+    if (this.childProcessService.isElectronApp) {
+      this.childProcessService.childProcess.exec(`\"${path}\"`, [], null);
+      new Promise(resolve => setTimeout(resolve, 1000)).then(() => {
+        this.electronService.remote.getCurrentWindow().close();
+      });
+    } else {
+      window.open(path);
+    }
     return of(true);
   }
 }

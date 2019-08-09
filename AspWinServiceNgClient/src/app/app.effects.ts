@@ -28,7 +28,7 @@ export class AppEffects {
     ofType(reducer.runUpgradePackage),
     mergeMap(({ payload }) => this.versionService.runInstallerAndClose(payload)
       .pipe(
-        map(() => createAction('DUMMY_ACTION'))
+        map(() => createAction('DUMMY_ACTION')())
       ))
   ));
 

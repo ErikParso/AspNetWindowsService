@@ -32,7 +32,9 @@ export class AppComponent implements OnInit {
     public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    console.log(this.electronService.remote.process.argv);
+    if (this.electronService.isElectronApp) {
+      console.log(this.electronService.remote.process.argv);
+    }
 
     const startupFile = this.getStartupFile();
     const uriScheme = this.getUriScheme();
