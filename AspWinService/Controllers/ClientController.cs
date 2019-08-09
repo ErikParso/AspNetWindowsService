@@ -1,4 +1,7 @@
 ﻿using AspWinService.Model;
+using AspWinService.Notifications;
+using AspWinService.Requests;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -14,27 +17,33 @@ namespace AspWinService.Controllers
     [ApiController]
     public class ClientController : ControllerBase
     {
-        [HttpGet]
-        public IActionResult GetClients()
+        private readonly IMediator mediator;
+
+        public ClientController(IMediator mediator)
         {
-            var clientsInfoString = System.IO.File.ReadAllText(Constants.InstalledClientsFileName);
-            var clientsInfo = JsonConvert.DeserializeObject<IEnumerable<ClientInfo>>(clientsInfoString);
-            return Ok(clientsInfo);
+            this.mediator = mediator;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetClients()
+        {
+            var request = new GetClientsInfoRequest();
+            var result = await mediator.Send(request);
+            return Ok(result);
         }
 
         [HttpGet("latestVersion")]
         public async Task<IActionResult> GetLatestVersion()
         {
-            return Ok(await GetLatestVersionCore());
+            var request = new LatestClientVersionRequest();
+            var result = await mediator.Send(request);
+            return Ok(result);
         }
 
-        [HttpPost("{clientName}")]
-        public IActionResult RunClient(string clientName)
+        [HttpPost("runClient")]
+        public async Task<IActionResult> RunClient(RunClientNotification notification)
         {
-            var clientsInfoString = System.IO.File.ReadAllText(Constants.InstalledClientsFileName);
-            var clientsInfo = JsonConvert.DeserializeObject<IEnumerable<ClientInfo>>(clientsInfoString);
-            var installDir = clientsInfo.Where(c => c.ClientName == clientName).First().InstallDir;
-            ProcessExtensions.StartProcessAsCurrentUser(Path.Combine(installDir, "HeliosGreenClient.exe"), null, installDir);
+            await mediator.Publish(notification);
             return Ok();
         }
 
@@ -137,12 +146,6 @@ namespace AspWinService.Controllers
             System.IO.File.WriteAllText(Constants.InstalledClientsFileName, JsonConvert.SerializeObject(clientsInfo));
 
             return Ok(clientInfo);
-        }
-
-        private async Task<string> GetLatestVersionCore()
-        {
-            using (var httpClient = new HttpClient())
-                return await httpClient.GetStringAsync("http://localhost:5100/api/client");
         }
     }
 }
