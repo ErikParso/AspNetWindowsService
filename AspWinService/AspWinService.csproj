@@ -4,9 +4,9 @@
     <RuntimeIdentifier>win7-x64</RuntimeIdentifier>
     <SelfContained>true</SelfContained>
     <IsTransformWebConfigDisabled>true</IsTransformWebConfigDisabled>
-    <Version>1.0.4</Version>
-    <AssemblyVersion>1.0.4.0</AssemblyVersion>
-    <FileVersion>1.0.3.0</FileVersion>
+    <Version>1.0.6</Version>
+    <AssemblyVersion>1.0.6.0</AssemblyVersion>
+    <FileVersion>1.0.6.0</FileVersion>
     <UserSecretsId>5d9be8e5-6783-48c3-9c06-6e8b346f5cee</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>

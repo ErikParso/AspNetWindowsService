@@ -7,5 +7,6 @@
         public const string ClientFileName = "HeliosGreenClient.exe";
         public const string ApplicationServerClientUrl = "http://localhost:5100/api/client";
         public const string ClientDownloadUrl = "http://localhost:5100/api/client/download";
+        public const string ClientManagerInfoUrl = "http://localhost:5100/api/installer";
     }
 }
