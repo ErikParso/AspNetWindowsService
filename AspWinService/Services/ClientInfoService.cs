@@ -25,6 +25,22 @@ namespace AspWinService.Services
             return result;
         }
 
+        public void AddClientInfo(ClientInfo clientInfo)
+        {
+            ProcessClientsInfo(clients => clients.Add(clientInfo));
+        }
+
+        public ClientInfo DeleteClientInfo(Func<ClientInfo, bool> selector)
+        {
+            ClientInfo clientInfo = null;
+            ProcessClientsInfo(clieentsInfo =>
+            {
+                clientInfo = clieentsInfo.FirstOrDefault(selector);
+                clieentsInfo.Remove(clientInfo);
+            });
+            return clientInfo;
+        }
+
         public void ProcessClientInfo(Func<ClientInfo, bool> selector, Action<ClientInfo> process)
         {
             ProcessClientsInfo(clientsInfoList =>
