@@ -17,189 +17,48 @@ namespace WSData
     {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://lcs.cz/webservices/GetInfo", ReplyAction="*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         System.Threading.Tasks.Task<WSData.GetInfoResponse> GetInfoAsync(WSData.GetInfoRequest request);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://lcs.cz/webservices/LoadFile", ReplyAction="*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task<WSData.LoadClientFileDescriptor> LoadFileAsync(string platform, string file, string flags);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://lcs.cz/webservices/StreamService", ReplyAction="*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task<WSData.StreamServiceResponse> StreamServiceAsync(WSData.StreamServiceRequest request);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://lcs.cz/webservices/Connect", ReplyAction="*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task<string> ConnectAsync(string connectionData);
     }
     
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1-preview-30514-0828")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://lcs.cz/webservices/")]
-    public partial class NorisID
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1-preview-30514-0828")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GetInfoRequest
     {
         
-        private string sIDField;
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetInfo", Namespace="http://lcs.cz/webservices/", Order=0)]
+        public WSData.GetInfoRequestBody Body;
         
-        private string qIDField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public string SID
+        public GetInfoRequest()
         {
-            get
-            {
-                return this.sIDField;
-            }
-            set
-            {
-                this.sIDField = value;
-            }
         }
         
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public string QID
+        public GetInfoRequest(WSData.GetInfoRequestBody Body)
         {
-            get
-            {
-                return this.qIDField;
-            }
-            set
-            {
-                this.qIDField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1-preview-30514-0828")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://lcs.cz/webservices/")]
-    public partial class LoadClientFileDescriptor
-    {
-        
-        private byte[] dataField;
-        
-        private string nameField;
-        
-        private System.DateTime modifiedField;
-        
-        private bool zipUsedField;
-        
-        private string errorMessageField;
-        
-        private string flagsField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary", Order=0)]
-        public byte[] Data
-        {
-            get
-            {
-                return this.dataField;
-            }
-            set
-            {
-                this.dataField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public string Name
-        {
-            get
-            {
-                return this.nameField;
-            }
-            set
-            {
-                this.nameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
-        public System.DateTime Modified
-        {
-            get
-            {
-                return this.modifiedField;
-            }
-            set
-            {
-                this.modifiedField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
-        public bool ZipUsed
-        {
-            get
-            {
-                return this.zipUsedField;
-            }
-            set
-            {
-                this.zipUsedField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=4)]
-        public string ErrorMessage
-        {
-            get
-            {
-                return this.errorMessageField;
-            }
-            set
-            {
-                this.errorMessageField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=5)]
-        public string Flags
-        {
-            get
-            {
-                return this.flagsField;
-            }
-            set
-            {
-                this.flagsField = value;
-            }
+            this.Body = Body;
         }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1-preview-30514-0828")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="GetInfo", WrapperNamespace="http://lcs.cz/webservices/", IsWrapped=true)]
-    public partial class GetInfoRequest
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://lcs.cz/webservices/")]
+    public partial class GetInfoRequestBody
     {
         
-        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://lcs.cz/webservices/")]
-        public WSData.NorisID NorisID;
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://lcs.cz/webservices/", Order=0)]
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
         public string myCode;
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://lcs.cz/webservices/", Order=1)]
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=1)]
         public string myValue;
         
-        public GetInfoRequest()
+        public GetInfoRequestBody()
         {
         }
         
-        public GetInfoRequest(WSData.NorisID NorisID, string myCode, string myValue)
+        public GetInfoRequestBody(string myCode, string myValue)
         {
-            this.NorisID = NorisID;
             this.myCode = myCode;
             this.myValue = myValue;
         }
@@ -208,70 +67,40 @@ namespace WSData
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1-preview-30514-0828")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="GetInfoResponse", WrapperNamespace="http://lcs.cz/webservices/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
     public partial class GetInfoResponse
     {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://lcs.cz/webservices/", Order=0)]
-        public string GetInfoResult;
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetInfoResponse", Namespace="http://lcs.cz/webservices/", Order=0)]
+        public WSData.GetInfoResponseBody Body;
         
         public GetInfoResponse()
         {
         }
         
-        public GetInfoResponse(string GetInfoResult)
+        public GetInfoResponse(WSData.GetInfoResponseBody Body)
+        {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1-preview-30514-0828")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://lcs.cz/webservices/")]
+    public partial class GetInfoResponseBody
+    {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string GetInfoResult;
+        
+        public GetInfoResponseBody()
+        {
+        }
+        
+        public GetInfoResponseBody(string GetInfoResult)
         {
             this.GetInfoResult = GetInfoResult;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1-preview-30514-0828")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="StreamService", WrapperNamespace="http://lcs.cz/webservices/", IsWrapped=true)]
-    public partial class StreamServiceRequest
-    {
-        
-        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://lcs.cz/webservices/")]
-        public WSData.NorisID NorisID;
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://lcs.cz/webservices/", Order=0)]
-        public string action;
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://lcs.cz/webservices/", Order=1)]
-        [System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")]
-        public byte[] fromClient;
-        
-        public StreamServiceRequest()
-        {
-        }
-        
-        public StreamServiceRequest(WSData.NorisID NorisID, string action, byte[] fromClient)
-        {
-            this.NorisID = NorisID;
-            this.action = action;
-            this.fromClient = fromClient;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1-preview-30514-0828")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="StreamServiceResponse", WrapperNamespace="http://lcs.cz/webservices/", IsWrapped=true)]
-    public partial class StreamServiceResponse
-    {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://lcs.cz/webservices/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")]
-        public byte[] StreamServiceResult;
-        
-        public StreamServiceResponse()
-        {
-        }
-        
-        public StreamServiceResponse(byte[] StreamServiceResult)
-        {
-            this.StreamServiceResult = StreamServiceResult;
         }
     }
     
@@ -324,38 +153,13 @@ namespace WSData
             return base.Channel.GetInfoAsync(request);
         }
         
-        public System.Threading.Tasks.Task<WSData.GetInfoResponse> GetInfoAsync(WSData.NorisID NorisID, string myCode, string myValue)
+        public System.Threading.Tasks.Task<WSData.GetInfoResponse> GetInfoAsync(string myCode, string myValue)
         {
             WSData.GetInfoRequest inValue = new WSData.GetInfoRequest();
-            inValue.NorisID = NorisID;
-            inValue.myCode = myCode;
-            inValue.myValue = myValue;
+            inValue.Body = new WSData.GetInfoRequestBody();
+            inValue.Body.myCode = myCode;
+            inValue.Body.myValue = myValue;
             return ((WSData.DataSoap)(this)).GetInfoAsync(inValue);
-        }
-        
-        public System.Threading.Tasks.Task<WSData.LoadClientFileDescriptor> LoadFileAsync(string platform, string file, string flags)
-        {
-            return base.Channel.LoadFileAsync(platform, file, flags);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<WSData.StreamServiceResponse> WSData.DataSoap.StreamServiceAsync(WSData.StreamServiceRequest request)
-        {
-            return base.Channel.StreamServiceAsync(request);
-        }
-        
-        public System.Threading.Tasks.Task<WSData.StreamServiceResponse> StreamServiceAsync(WSData.NorisID NorisID, string action, byte[] fromClient)
-        {
-            WSData.StreamServiceRequest inValue = new WSData.StreamServiceRequest();
-            inValue.NorisID = NorisID;
-            inValue.action = action;
-            inValue.fromClient = fromClient;
-            return ((WSData.DataSoap)(this)).StreamServiceAsync(inValue);
-        }
-        
-        public System.Threading.Tasks.Task<string> ConnectAsync(string connectionData)
-        {
-            return base.Channel.ConnectAsync(connectionData);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()
@@ -399,11 +203,11 @@ namespace WSData
         {
             if ((endpointConfiguration == EndpointConfiguration.DataSoap))
             {
-                return new System.ServiceModel.EndpointAddress("http://camel/Source99-E5A1/Data.asmx");
+                return new System.ServiceModel.EndpointAddress("http://camel/Source99-E5/Data.asmx");
             }
             if ((endpointConfiguration == EndpointConfiguration.DataSoap12))
             {
-                return new System.ServiceModel.EndpointAddress("http://camel/Source99-E5A1/Data.asmx");
+                return new System.ServiceModel.EndpointAddress("http://camel/Source99-E5/Data.asmx");
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }

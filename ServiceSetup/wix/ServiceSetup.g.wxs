@@ -6,7 +6,7 @@
 </auto-generated>
 -->
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Id="6fe30b47-2577-43ad-9095-1861ca25089d" Name="MyProduct" Language="1033" Codepage="Windows-1252" Version="1.0.7" UpgradeCode="6fe30b47-2577-43ad-9095-1861ba25889d" Manufacturer="eparso">
+  <Product Id="6fe30b47-2577-43ad-9095-1861ca25189d" Name="MyProduct" Language="1033" Codepage="Windows-1252" Version="1.0.8" UpgradeCode="6fe30b47-2577-43ad-9095-1861ba25889d" Manufacturer="eparso">
     <Package InstallerVersion="200" Compressed="yes" Platform="x64" SummaryCodepage="Windows-1252" Languages="1033" />
     <Media Id="1" Cabinet="MyProduct.cab" EmbedCab="yes" />
 
@@ -504,6 +504,39 @@
                 <File Id="VersionInfo.json_335512436" Source="..\AspWinService\bin\Debug\netcoreapp2.2\win7-x64\VersionInfo.json" />
               </Component>
 
+              <Directory Id="INSTALLDIR.Service.Connected_Services" Name="Connected Services">
+                <Directory Id="INSTALLDIR.Service.Connected_Services.WebReferences" Name="WebReferences">
+
+                  <Component Id="Component.INSTALLDIR.Service.Connected_Services.WebReferences.EmptyDirectory" Guid="6fe30b47-2577-43ad-9095-1861d07be1b2" KeyPath="yes" Win64="yes">
+                    <CreateFolder />
+                    <RemoveFolder Id="INSTALLDIR.Service.Connected_Services.WebReferences" On="uninstall" />
+                  </Component>
+
+                </Directory>
+
+                <Directory Id="INSTALLDIR.Service.Connected_Services.WSData" Name="WSData">
+
+                  <Component Id="Component.ConnectedService.json_1347871908" Guid="6fe30b47-2577-43ad-9095-1861dacc9caa" Win64="yes">
+                    <File Id="ConnectedService.json_1347871908" Source="..\AspWinService\bin\Debug\netcoreapp2.2\win7-x64\Connected Services\WSData\ConnectedService.json" />
+                  </Component>
+
+                </Directory>
+
+                <Directory Id="INSTALLDIR.Service.Connected_Services.WSUpdate" Name="WSUpdate">
+
+                  <Component Id="Component.ConnectedService.json_2116947627" Guid="6fe30b47-2577-43ad-9095-186167db2a99" Win64="yes">
+                    <File Id="ConnectedService.json_2116947627" Source="..\AspWinService\bin\Debug\netcoreapp2.2\win7-x64\Connected Services\WSUpdate\ConnectedService.json" />
+                  </Component>
+
+                </Directory>
+
+                <Component Id="INSTALLDIR.Service.Connected_Services" Guid="6fe30b47-2577-43ad-9095-186119c41a56" KeyPath="yes" Win64="yes">
+                  <CreateFolder />
+                  <RemoveFolder Id="INSTALLDIR.Service.Connected_Services" On="uninstall" />
+                </Component>
+
+              </Directory>
+
               <Directory Id="INSTALLDIR.Service.Properties" Name="Properties">
 
                 <Component Id="Component.launchSettings.json_88159788" Guid="6fe30b47-2577-43ad-9095-186112866cba" Win64="yes">
@@ -512,7 +545,19 @@
 
               </Directory>
             </Directory>
+
+            <Component Id="INSTALLDIR" Guid="6fe30b47-2577-43ad-9095-18616542ed75" KeyPath="yes" Win64="yes">
+              <CreateFolder />
+              <RemoveFolder Id="INSTALLDIR" On="uninstall" />
+            </Component>
+
           </Directory>
+
+          <Component Id="ProgramFiles64Folder.My_Company" Guid="6fe30b47-2577-43ad-9095-186161aa8227" KeyPath="yes" Win64="yes">
+            <CreateFolder />
+            <RemoveFolder Id="ProgramFiles64Folder.My_Company" On="uninstall" />
+          </Component>
+
         </Directory>
       </Directory>
 
@@ -555,8 +600,8 @@
     </Directory>
 
     <Upgrade Id="6fe30b47-2577-43ad-9095-1861ba25889d">
-      <UpgradeVersion Minimum="0.0.0.0" Maximum="1.0.7" IncludeMinimum="yes" IncludeMaximum="no" Property="UPGRADEFOUND" />
-      <UpgradeVersion Minimum="1.0.7" IncludeMinimum="no" Property="NEWPRODUCTFOUND" />
+      <UpgradeVersion Minimum="0.0.0.0" Maximum="1.0.8" IncludeMinimum="yes" IncludeMaximum="no" Property="UPGRADEFOUND" />
+      <UpgradeVersion Minimum="1.0.8" IncludeMinimum="no" Property="NEWPRODUCTFOUND" />
     </Upgrade>
 
     <CustomAction Id="PreventDowngrading" Error="Newer version already installed" />
@@ -677,11 +722,17 @@
       <ComponentRef Id="Component.hostfxr.dll_2048435324" />
       <ComponentRef Id="Component.hostpolicy.dll_1576380147" />
       <ComponentRef Id="Component.VersionInfo.json_335512436" />
+      <ComponentRef Id="Component.INSTALLDIR.Service.Connected_Services.WebReferences.EmptyDirectory" />
+      <ComponentRef Id="Component.ConnectedService.json_1347871908" />
+      <ComponentRef Id="Component.ConnectedService.json_2116947627" />
       <ComponentRef Id="Component.launchSettings.json_88159788" />
       <ComponentRef Id="Registry.1" />
       <ComponentRef Id="Registry.2" />
       <ComponentRef Id="Registry.3" />
       <ComponentRef Id="Registry.4" />
+      <ComponentRef Id="INSTALLDIR.Service.Connected_Services" />
+      <ComponentRef Id="INSTALLDIR" />
+      <ComponentRef Id="ProgramFiles64Folder.My_Company" />
     </Feature>
 
     <InstallExecuteSequence>
