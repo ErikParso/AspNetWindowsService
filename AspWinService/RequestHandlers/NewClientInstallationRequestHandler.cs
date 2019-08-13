@@ -5,6 +5,7 @@ using MediatR;
 using Newtonsoft.Json;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -49,7 +50,9 @@ namespace AspWinService.RequestHandlers
             {
                 ClientName = request.ClientName,
                 InstallDir = installDir,
-                Version = version
+                Version = version,
+                ApplicationServer = request.ApplicationServer,
+                Extensions = Enumerable.Empty<string>()
             };
             clientInfoService.AddClientInfo(clientInfo);
 

@@ -11,5 +11,8 @@ namespace AspWinService.Requests
 
         [Required]
         public string InstallDir { get; set; }
+
+        [Required]
+        public string ApplicationServer { get; set; }
     }
 }

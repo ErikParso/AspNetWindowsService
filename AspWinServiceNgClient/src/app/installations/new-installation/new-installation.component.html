@@ -3,6 +3,14 @@
   <h1 mat-dialog-title>New installation</h1>
 
   <div mat-dialog-content>
+
+    <mat-form-field class="application-server">
+      <input matInput placeholder="Application server" formControlName="applicationServer" [errorStateMatcher]="matcher">
+      <mat-error *ngIf="installationForm.get('applicationServer').hasError('required')">
+        Application server is required
+      </mat-error>
+    </mat-form-field>
+
     <mat-form-field class="field-client-name">
       <input matInput placeholder="Client name" formControlName="clientName" [errorStateMatcher]="matcher">
       <mat-error *ngIf="installationForm.get('clientName').hasError('required')">
@@ -13,7 +21,7 @@
     <mat-form-field class="field-install-dir">
       <input matInput placeholder="Installation directory" formControlName="installDir" [errorStateMatcher]="matcher">
       <button mat-icon-button matSuffix (click)="selectDir()" *ngIf="electronService.isElectronApp">
-          <mat-icon>folder_open</mat-icon>
+        <mat-icon>folder_open</mat-icon>
       </button>
       <mat-error *ngIf="installationForm.get('installDir').hasError('required')">
         Installation directory is required

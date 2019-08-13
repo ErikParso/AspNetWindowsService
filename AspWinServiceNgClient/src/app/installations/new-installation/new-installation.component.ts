@@ -20,7 +20,8 @@ export class NewInstallationComponent implements OnInit {
 
   installationForm = new FormGroup({
     clientName: new FormControl('', Validators.required),
-    installDir: new FormControl('', Validators.required)
+    installDir: new FormControl('', Validators.required),
+    applicationServer: new FormControl('', Validators.required)
   });
 
   matcher = new MyErrorStateMatcher();
@@ -48,7 +49,8 @@ export class NewInstallationComponent implements OnInit {
   ok() {
     this.dialogRef.close({
       clientName: this.installationForm.get('clientName').value,
-      installDir: this.installationForm.get('installDir').value
+      installDir: this.installationForm.get('installDir').value,
+      applicationServer: this.installationForm.get('applicationServer').value
     });
   }
 }

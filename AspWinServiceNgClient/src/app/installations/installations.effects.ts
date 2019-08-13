@@ -35,7 +35,7 @@ export class InstallationsEffects {
 
     installNewClient$ = createEffect(() => this.actions$.pipe(
         ofType(actions.installNewClient),
-        mergeMap(({ payload }) => this.installationsService.installNewClient(payload.clientName, payload.installDir)
+        mergeMap(({ payload }) => this.installationsService.installNewClient(payload.clientName, payload.installDir, payload.applicationServer)
             .pipe(
                 map(info => actions.installNewClientSuccess({ payload: info })),
                 catchError((e) => of(actions.installNewClientError({ payload: { message: e.message, clientName: payload.clientName } })))

@@ -61,7 +61,7 @@ export const setCurrentInstallation = createAction(
 
 export const installNewClient = createAction(
     InstallationsActions.installNewClient,
-    props<{ payload: { clientName: string, installDir: string } }>()
+    props<{ payload: { clientName: string, installDir: string, applicationServer: string } }>()
 );
 
 export const installNewClientSuccess = createAction(

@@ -10,6 +10,8 @@ namespace AspWinService.Model
 
         public string Version { get; set; }
 
+        public string ApplicationServer { get; set; }
+
         public IEnumerable<string> Extensions { get; set; }
     }
 }
