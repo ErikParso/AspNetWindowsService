@@ -8,10 +8,9 @@ namespace AspWinService.RequestHandlers
 {
     public class LatestClientVersionRequestHandler : IRequestHandler<LatestClientVersionRequest, string>
     {
-        public async Task<string> Handle(LatestClientVersionRequest request, CancellationToken cancellationToken)
+        public Task<string> Handle(LatestClientVersionRequest request, CancellationToken cancellationToken)
         {
-            using (var httpClient = new HttpClient())
-                return await httpClient.GetStringAsync(Constants.ApplicationServerClientUrl);
+            return Task.FromResult("undefined");
         }
     }
 }
