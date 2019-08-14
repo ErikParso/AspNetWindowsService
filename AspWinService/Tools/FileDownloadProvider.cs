@@ -8,6 +8,17 @@ namespace AspWinService.Tools
 {
     public abstract class FileDownloadProvider
     {
+        protected const string BaseFlags = "zip=2"; // vzdy chci dostat zip verze 2
+        protected const string ChunkFlag = "Chunk=1";
+        protected const string ChunkIndexFlagKey = "ChunkIndex=";
+        protected const string ChunkSizeFlagKey = "ChunkSize=";
+        protected const string ChunkStartKey = "ChunkStart=";
+        protected const string ChunkContinueKey = "ChunkContinue=";
+        protected const string ChunkEndKey = "ChunkEnd=";
+        protected const int DownloadBufferSize = 3 * 1024 * 1024; // 3MB
+
+        private readonly ProgressService progressService;
+
         public string TargetFileName { get; }
         public string DownloadTargetFileName { get; }
         public UpdateProcessorService.ExecutePlanItem ExecutePlanItem { get; }
@@ -17,24 +28,14 @@ namespace AspWinService.Tools
             string targetFileName,
             UpdateProcessorService.ExecutePlanItem executePlanItem, 
             string logItemKey,
-            DownloadService downloadService)
+            ProgressService progressService)
         {
             TargetFileName = targetFileName;
             ExecutePlanItem = executePlanItem;
             LogItemKey = logItemKey;
-            this.downloadService = downloadService;
+            this.progressService = progressService;
             DownloadTargetFileName = TargetFileName + ".part";
         }
-
-        protected const string BaseFlags = "zip=2"; // vzdy chci dostat zip verze 2
-        protected const string ChunkFlag = "Chunk=1";
-        protected const string ChunkIndexFlagKey = "ChunkIndex=";
-        protected const string ChunkSizeFlagKey = "ChunkSize=";
-        protected const string ChunkStartKey = "ChunkStart=";
-        protected const string ChunkContinueKey = "ChunkContinue=";
-        protected const string ChunkEndKey = "ChunkEnd=";
-        protected const int DownloadBufferSize = 3 * 1024 * 1024; // 3MB
-        private readonly DownloadService downloadService;
 
         internal async Task<bool> DownloadAsync()
         {
@@ -51,11 +52,11 @@ namespace AspWinService.Tools
                         indetermineStatusText = string.Empty;
                     indetermineStatusText += pointChar;
                     if (!indetermineStatusEnabled) break;
-                    downloadService._updateLogItemSubItem(LogItemKey, DownloadService.LogItemSubKey_Status, indetermineStatusText);
+                    progressService.UpdateLogItemSubItem(LogItemKey, DownloadService.LogItemSubKey_Status, indetermineStatusText);
                     Task.Delay(500).Wait();
                 }
                 while (indetermineStatusEnabled);
-                downloadService._updateLogItemSubItem(LogItemKey, DownloadService.LogItemSubKey_Status, string.Empty);
+                progressService.UpdateLogItemSubItem(LogItemKey, DownloadService.LogItemSubKey_Status, string.Empty);
             });
 
             var currentChunkIndex = 0;
@@ -169,8 +170,8 @@ namespace AspWinService.Tools
                     total = downloaded;
 
                     //downloaded size
-                    downloadService._updateLogItemSubItem(LogItemKey, DownloadService.LogItemSubKey_Total, _humanizeFileSize(total));
-                    downloadService._updateLogItemSubItem(LogItemKey, DownloadService.LogItemSubKey_Downloaded, _humanizeFileSize(downloaded));
+                    progressService.UpdateLogItemSubItem(LogItemKey, DownloadService.LogItemSubKey_Total, _humanizeFileSize(total));
+                    progressService.UpdateLogItemSubItem(LogItemKey, DownloadService.LogItemSubKey_Downloaded, _humanizeFileSize(downloaded));
                 }
                 while (!eof);
             }
@@ -196,7 +197,7 @@ namespace AspWinService.Tools
             if (success)
             {
                 //downloaded size
-                downloadService._updateLogItemSubItem(LogItemKey, DownloadService.LogItemSubKey_Downloaded, _humanizeFileSize(new System.IO.FileInfo(DownloadTargetFileName).Length));
+                progressService.UpdateLogItemSubItem(LogItemKey, DownloadService.LogItemSubKey_Downloaded, _humanizeFileSize(new System.IO.FileInfo(DownloadTargetFileName).Length));
 
                 if (fi.Exists)
                 {
@@ -243,7 +244,7 @@ namespace AspWinService.Tools
                 }
 
                 //total size
-                downloadService._updateLogItemSubItem(LogItemKey, DownloadService.LogItemSubKey_Total, _humanizeFileSize(new System.IO.FileInfo(TargetFileName).Length));
+                progressService.UpdateLogItemSubItem(LogItemKey, DownloadService.LogItemSubKey_Total, _humanizeFileSize(new System.IO.FileInfo(TargetFileName).Length));
             }
             return success;
         }

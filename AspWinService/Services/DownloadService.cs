@@ -23,13 +23,16 @@ namespace AspWinService.Services
 
         private readonly RuntimeVersionDetectorService runtimeVersionDetectorService;
         private readonly UpdateProcessorService updateProcessorService;
+        private readonly ProgressService progressService;
 
         public DownloadService(
             RuntimeVersionDetectorService runtimeVersionDetectorService,
-            UpdateProcessorService updateProcessorService)
+            UpdateProcessorService updateProcessorService,
+            ProgressService progressService)
         {
             this.runtimeVersionDetectorService = runtimeVersionDetectorService;
             this.updateProcessorService = updateProcessorService;
+            this.progressService = progressService;
         }
 
         public async Task DownloadClient(string tempDir, string installDir, string applicationServer)
@@ -97,33 +100,33 @@ namespace AspWinService.Services
                 switch (item.Action)
                 {
                     case UpdateProcessorService.ExecutePlanItemAction.StartClient:
-                        _WriteLog(-1, "Start Client", i, planItemsCount, string.Empty);
+                        progressService.WriteLog(-1, "Start Client", i, planItemsCount, string.Empty);
                         break;
                     case UpdateProcessorService.ExecutePlanItemAction.EndClient:
-                        _WriteLog(-1, "End Client", i, planItemsCount, string.Empty);
+                        progressService.WriteLog(-1, "End Client", i, planItemsCount, string.Empty);
                         break;
                     case UpdateProcessorService.ExecutePlanItemAction.StartPlugin:
-                        _WriteLog(-1, "Start Plugin: (" + item.PluginIdentity.Author + ", " + item.PluginIdentity.Name + ")", i, planItemsCount, string.Empty);
+                        progressService.WriteLog(-1, "Start Plugin: (" + item.PluginIdentity.Author + ", " + item.PluginIdentity.Name + ")", i, planItemsCount, string.Empty);
                         break;
                     case UpdateProcessorService.ExecutePlanItemAction.EndPlugin:
-                        _WriteLog(-1, "End Plugin: (" + item.PluginIdentity.Author + ", " + item.PluginIdentity.Name + ")", i, planItemsCount, string.Empty);
+                        progressService.WriteLog(-1, "End Plugin: (" + item.PluginIdentity.Author + ", " + item.PluginIdentity.Name + ")", i, planItemsCount, string.Empty);
                         break;
                     case UpdateProcessorService.ExecutePlanItemAction.UpdateFile:
-                        var logItemKey = _WriteLog(-1, Path.GetFileName(item.TargetFileName), i, planItemsCount, string.Empty);
+                        var logItemKey = progressService.WriteLog(-1, Path.GetFileName(item.TargetFileName), i, planItemsCount, string.Empty);
                         if (await _LoadFileAsync(item, logItemKey, updateClient))
-                            _updateLogItemImageIndex(logItemKey, 1);
+                            progressService.UpdateLogItemImageIndex(logItemKey, 1);
                         else
                         {
-                            _updateLogItemImageIndex(logItemKey, 2);
+                            progressService.UpdateLogItemImageIndex(logItemKey, 2);
                             return false;
                         }
                         break;
                     case UpdateProcessorService.ExecutePlanItemAction.DeleteFile:
-                        _WriteLog(-1, $"Delete File: {item.TargetFileName}", i, planItemsCount, string.Empty);
+                        progressService.WriteLog(-1, $"Delete File: {item.TargetFileName}", i, planItemsCount, string.Empty);
                         File.Delete(item.TargetFileName);
                         break;
                     case UpdateProcessorService.ExecutePlanItemAction.DeletePlugin:
-                        _WriteLog(-1, "Delete Plugin: (" + item.PluginIdentity.Author + ", " + item.PluginIdentity.Name + ")", i, planItemsCount, string.Empty);
+                        progressService.WriteLog(-1, "Delete Plugin: (" + item.PluginIdentity.Author + ", " + item.PluginIdentity.Name + ")", i, planItemsCount, string.Empty);
                         _deletePlugin(item.PluginIdentity);
                         break;
                     case UpdateProcessorService.ExecutePlanItemAction.RunOnBeforeInstall:
@@ -153,22 +156,6 @@ namespace AspWinService.Services
             return true;
         }
 
-        internal string _WriteLog(int imageIndex, string fileName, int downloaded, int total, string status)
-        {
-            Console.WriteLine($"{fileName} {downloaded}/{total} {status}");
-            return Guid.NewGuid().ToString();
-        }
-
-        internal void _updateLogItemImageIndex(string logItemKey, int imageIndex)
-        {
-
-        }
-
-        internal void _updateLogItemSubItem(string logItemKey, string subItemKey, string newValue)
-        {
-
-        }
-
         private async Task<bool> _LoadFileAsync(UpdateProcessorService.ExecutePlanItem execItem, string logItemKey, ClientUpdateSoapClient updateClient)
         {
             string targetName = execItem.TargetFileName;
@@ -184,7 +171,7 @@ namespace AspWinService.Services
 
             //DCH 0059422 16.07.2018 preprogramoveno na providery pro jednotlive tipy sluzeb. Nove
 
-            var downloadProvider = new FileDownloadProviderWS(targetName, execItem, logItemKey, updateClient, this);
+            var downloadProvider = new FileDownloadProviderWS(targetName, execItem, logItemKey, updateClient, progressService);
             return await downloadProvider.DownloadAsync();
         }
 
@@ -253,7 +240,7 @@ namespace AspWinService.Services
             if (string.IsNullOrEmpty(command)) return; // nemam zadny prikaz pro vykonani
 
             var oldCurrentDir = Environment.CurrentDirectory;
-            var logItemKey = _WriteLog(-1, "Plugin: (" + pluginIdentity.Author + ", " + pluginIdentity.Name + ") run action «" + commandType + "»", 0, 0, string.Empty);
+            var logItemKey = progressService.WriteLog(-1, "Plugin: (" + pluginIdentity.Author + ", " + pluginIdentity.Name + ") run action «" + commandType + "»", 0, 0, string.Empty);
             try
             {
                 var pluginDir = pluginIdentity.GetPluginDirectory(pluginIdentity.PluginsTargetDirectory);
@@ -274,13 +261,13 @@ namespace AspWinService.Services
                 {
                     p.WaitForExit();
                 }
-                _updateLogItemImageIndex(logItemKey, 1);
+                progressService.UpdateLogItemImageIndex(logItemKey, 1);
             }
             catch (Exception ex)
             {
-                _updateLogItemImageIndex(logItemKey, 2);
+                progressService.UpdateLogItemImageIndex(logItemKey, 2);
                 var sEx = new Exception("Plugin: (" + pluginIdentity.Author + ", " + pluginIdentity.Name + ") fail on «" + commandType + "» Error: " + ex.Message, ex);
-                _WriteLog(2, sEx.Message, 0, 0, string.Empty);
+                progressService.WriteLog(2, sEx.Message, 0, 0, string.Empty);
                 throw sEx;
             }
             finally

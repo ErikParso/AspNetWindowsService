@@ -32,6 +32,8 @@ namespace AspWinService
             services.AddSingleton(typeof(RuntimeVersionDetectorService));
             services.AddSingleton(typeof(UpdateProcessorService));
             services.AddSingleton(typeof(ManifestService));
+            services.AddSingleton(typeof(ProgressService));
+
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>

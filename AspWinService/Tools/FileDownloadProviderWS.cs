@@ -8,8 +8,8 @@ namespace AspWinService.Tools
     {
         private readonly ClientUpdateSoapClient updateClient;
 
-        public FileDownloadProviderWS(string targetFileName, UpdateProcessorService.ExecutePlanItem executePlanItem, string logItemKey, ClientUpdateSoapClient updateClient, DownloadService downloadService)
-            : base(targetFileName, executePlanItem, logItemKey, downloadService)
+        public FileDownloadProviderWS(string targetFileName, UpdateProcessorService.ExecutePlanItem executePlanItem, string logItemKey, ClientUpdateSoapClient updateClient, ProgressService progressService)
+            : base(targetFileName, executePlanItem, logItemKey, progressService)
         {
             this.updateClient = updateClient;
         }
