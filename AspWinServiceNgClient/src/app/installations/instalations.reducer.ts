@@ -2,7 +2,7 @@ import { ClientInstallationInfo } from './models/clientInstallationInfo';
 import { Action, createReducer, on, createSelector } from '@ngrx/store';
 import * as fromRoot from '../app.reducer';
 import * as actions from './installations.actions';
-import { CurrentProcess, CurrentProcessType, CurrentProcessLogItem } from './models/current-process';
+import { CurrentProcess, CurrentProcessType, CurrentProcessLogItem, CurrentProcessResult } from './models/current-process';
 
 export interface InstalationsState {
     allInstallations: ClientInstallationInfo[];
@@ -77,6 +77,7 @@ const installationsReducer = createReducer<InstalationsState>(
             processId: p.payload.installationProcessId,
             processType: CurrentProcessType.installation,
             progress: 0,
+            result: CurrentProcessResult.running,
             log: []
         } as CurrentProcess)
     })),
@@ -92,7 +93,7 @@ const installationsReducer = createReducer<InstalationsState>(
         currentProcesses: s.currentProcesses.map(c => {
           console.log(c.processId, p.payload.currentProcessId);
           if (c.processId === p.payload.currentProcessId) {
-            return { ...c, result: true, progress: 100 };
+            return { ...c, result: CurrentProcessResult.success, progress: 100 };
           } else {
             return { ...c };
           }
@@ -109,7 +110,7 @@ const installationsReducer = createReducer<InstalationsState>(
         }),
         currentProcesses: s.currentProcesses.map(c => {
             if (c.processId === p.payload.installationProcessId) {
-              return { ...c, result: false, };
+              return { ...c, result: CurrentProcessResult.error, };
             } else {
               return { ...c };
             }

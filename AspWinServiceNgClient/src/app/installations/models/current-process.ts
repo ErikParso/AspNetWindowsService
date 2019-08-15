@@ -3,7 +3,7 @@ export interface CurrentProcess {
     processType: CurrentProcessType;
     progress: number;
     log: CurrentProcessLogItem[];
-    result: boolean;
+    result: CurrentProcessResult;
 }
 
 export interface CurrentProcessLogItem {
@@ -14,4 +14,10 @@ export interface CurrentProcessLogItem {
 export enum CurrentProcessType {
     installation = 'installation',
     upgrade = 'upgrade'
+}
+
+export enum CurrentProcessResult {
+    running = 'process is running',
+    success = 'success',
+    error = 'process failed'
 }

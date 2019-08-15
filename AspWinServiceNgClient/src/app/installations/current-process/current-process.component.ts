@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
-import { CurrentProcess } from '../models/current-process';
+import { CurrentProcess, CurrentProcessType, CurrentProcessResult } from '../models/current-process';
 import { Observable } from 'rxjs';
 import { State } from 'src/app/app.reducer';
 import { Store } from '@ngrx/store';
@@ -16,6 +16,9 @@ export class CurrenProcessDialogData {
   styleUrls: ['./current-process.component.css']
 })
 export class CurrentProcessComponent implements OnInit {
+
+  public currentProcesstypes = CurrentProcessType;
+  public currentProcessResults = CurrentProcessResult;
 
   public currentProcess$: Observable<CurrentProcess>;
 
