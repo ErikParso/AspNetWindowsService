@@ -7,6 +7,7 @@ import * as actions from '../installations.actions';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { MessageBoxComponent } from 'src/app/shared/message-box/message-box.component';
+import { CurrentProcessComponent, CurrenProcessDialogData } from '../current-process/current-process.component';
 
 @Component({
   selector: 'app-installation-list',
@@ -36,6 +37,15 @@ export class InstallationListComponent implements OnInit {
 
   setCurrentInstallation(row: ClientInstallationInfo) {
     this.store.dispatch(actions.setCurrentInstallation({ payload: row }));
+
+    if (row.currentProcessId && row.currentProcessId.length) {
+      this.dialog.open(CurrentProcessComponent, {
+        width: '80%', maxWidth: '500px',
+        data: {
+          currentProcessId: row.currentProcessId
+        } as CurrenProcessDialogData
+      });
+    }
   }
 
   errorClick(row: ClientInstallationInfo) {

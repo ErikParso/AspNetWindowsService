@@ -2,19 +2,22 @@ import { ClientInstallationInfo } from './models/clientInstallationInfo';
 import { Action, createReducer, on, createSelector } from '@ngrx/store';
 import * as fromRoot from '../app.reducer';
 import * as actions from './installations.actions';
+import { CurrentProcess, CurrentProcessType, CurrentProcessLogItem } from './models/current-process';
 
 export interface InstalationsState {
     allInstallations: ClientInstallationInfo[];
     currentInstallation: ClientInstallationInfo;
     latestClientVersion: string;
     errorMessage: string;
+    currentProcesses: CurrentProcess[];
 }
 
 export const initialState: InstalationsState = {
     allInstallations: [],
     currentInstallation: null,
     latestClientVersion: '0.0.0',
-    errorMessage: null
+    errorMessage: null,
+    currentProcesses: []
 };
 
 export interface State extends fromRoot.State {
@@ -43,6 +46,15 @@ export const latestClientVersionSelector = createSelector(
     (state: InstalationsState) => state.latestClientVersion
 );
 
+export const currentProcessesSelector = createSelector(
+    installationsSelector,
+    (state: InstalationsState) => state.currentProcesses
+);
+
+export const currentProcessSelector = (currentProcessId: string) => createSelector(
+    currentProcessesSelector,
+    (currentProcesses) => currentProcesses.find(p => p.processId === currentProcessId));
+
 const installationsReducer = createReducer<InstalationsState>(
     initialState,
     on(actions.loadInstallationsSuccess, (s, p) => ({
@@ -58,8 +70,15 @@ const installationsReducer = createReducer<InstalationsState>(
         allInstallations: s.allInstallations.concat({
             clientName: p.payload.clientName,
             installDir: p.payload.installDir,
-            version: 'installing'
-        } as ClientInstallationInfo)
+            version: 'installing',
+            currentProcessId: p.payload.installationProcessId
+        } as ClientInstallationInfo),
+        currentProcesses: s.currentProcesses.concat({
+            processId: p.payload.installationProcessId,
+            processType: CurrentProcessType.installation,
+            progress: 0,
+            log: []
+        } as CurrentProcess)
     })),
     on(actions.installNewClientSuccess, (s, p) => ({
         ...s,
@@ -69,6 +88,14 @@ const installationsReducer = createReducer<InstalationsState>(
             } else {
                 return { ...i };
             }
+        }),
+        currentProcesses: s.currentProcesses.map(c => {
+          console.log(c.processId, p.payload.currentProcessId);
+          if (c.processId === p.payload.currentProcessId) {
+            return { ...c, result: true, progress: 100 };
+          } else {
+            return { ...c };
+          }
         })
     })),
     on(actions.installNewClientError, (s, p) => ({
@@ -78,6 +105,13 @@ const installationsReducer = createReducer<InstalationsState>(
                 return { ...i, version: 'error', errorMessage: p.payload.message };
             } else {
                 return { ...i };
+            }
+        }),
+        currentProcesses: s.currentProcesses.map(c => {
+            if (c.processId === p.payload.installationProcessId) {
+              return { ...c, result: false, };
+            } else {
+              return { ...c };
             }
         })
     })),

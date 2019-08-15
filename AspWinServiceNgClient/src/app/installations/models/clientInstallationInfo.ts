@@ -3,4 +3,5 @@ export class ClientInstallationInfo {
     installDir: string;
     version: string;
     errorMessage: string;
+    currentProcessId: string;
 }

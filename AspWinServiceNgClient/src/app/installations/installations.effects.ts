@@ -35,10 +35,17 @@ export class InstallationsEffects {
 
     installNewClient$ = createEffect(() => this.actions$.pipe(
         ofType(actions.installNewClient),
-        mergeMap(({ payload }) => this.installationsService.installNewClient(payload.clientName, payload.installDir, payload.applicationServer)
+        mergeMap(({ payload }) => this.installationsService.installNewClient(
+            payload.clientName, payload.installDir, payload.applicationServer, payload.installationProcessId)
             .pipe(
-                map(info => actions.installNewClientSuccess({ payload: info })),
-                catchError((e) => of(actions.installNewClientError({ payload: { message: e.message, clientName: payload.clientName } })))
+                map(info => actions.installNewClientSuccess({ payload: { ...info, currentProcessId: payload.installationProcessId } })),
+                catchError((e) => of(actions.installNewClientError({
+                    payload: {
+                        message: e.message,
+                        clientName: payload.clientName,
+                        installationProcessId: payload.installationProcessId
+                    }
+                })))
             ))
     ));
 
@@ -55,7 +62,7 @@ export class InstallationsEffects {
         ofType(actions.deleteClient),
         mergeMap(({ payload }) => this.installationsService.deleteClient(payload.clientName)
             .pipe(
-                map(info => actions.deleteClientSuccess({payload: info})),
+                map(info => actions.deleteClientSuccess({ payload: info })),
                 catchError((e) => of(actions.deleteClientError({ payload: { message: e.message, clientName: payload.clientName } })))
             ))
     ));

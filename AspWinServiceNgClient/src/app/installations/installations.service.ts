@@ -24,8 +24,11 @@ export class InstallationsService {
     return this.httpClient.post(this.clientInstallationsUrl + '/runClient', { clientName });
   }
 
-  public installNewClient(clientName: string, installDir: string, applicationServer: string): Observable<ClientInstallationInfo> {
-    const installationProcessId = 'ToDo_Generate_Guid';
+  public installNewClient(
+    clientName: string,
+    installDir: string,
+    applicationServer: string,
+    installationProcessId: string): Observable<ClientInstallationInfo> {
     return this.httpClient.post<ClientInstallationInfo>(this.clientInstallationsUrl,
       { clientName, installDir, applicationServer, installationProcessId });
   }

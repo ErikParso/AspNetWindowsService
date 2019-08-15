@@ -9,6 +9,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { InstallationsEffects } from './installations.effects';
 import { NewInstallationComponent } from './new-installation/new-installation.component';
 import { InstallationToolsComponent } from './installation-tools/installation-tools.component';
+import { CurrentProcessComponent } from './current-process/current-process.component';
 
 @NgModule({
   imports: [
@@ -21,9 +22,16 @@ import { InstallationToolsComponent } from './installation-tools/installation-to
   declarations: [
     InstallationListComponent,
     NewInstallationComponent,
-    InstallationToolsComponent
+    InstallationToolsComponent,
+    CurrentProcessComponent
   ],
-  exports: [ NewInstallationComponent ],
-  entryComponents: [ NewInstallationComponent ]
+  exports: [
+    NewInstallationComponent,
+    CurrentProcessComponent
+  ],
+  entryComponents: [
+    NewInstallationComponent,
+    CurrentProcessComponent
+  ]
 })
 export class InstallationsModule { }

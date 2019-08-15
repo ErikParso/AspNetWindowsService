@@ -61,7 +61,7 @@ export const setCurrentInstallation = createAction(
 
 export const installNewClient = createAction(
     InstallationsActions.installNewClient,
-    props<{ payload: { clientName: string, installDir: string, applicationServer: string } }>()
+    props<{ payload: { clientName: string, installDir: string, applicationServer: string, installationProcessId: string } }>()
 );
 
 export const installNewClientSuccess = createAction(
@@ -71,7 +71,7 @@ export const installNewClientSuccess = createAction(
 
 export const installNewClientError = createAction(
     InstallationsActions.installNewClientError,
-    props<{ payload: { message: string, clientName: string } }>()
+    props<{ payload: { message: string, clientName: string, installationProcessId: string } }>()
 );
 
 export const removeCleint = createAction(

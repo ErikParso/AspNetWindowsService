@@ -50,7 +50,8 @@ export class InstallationToolsComponent implements OnInit {
           payload: {
             clientName: result.clientName,
             installDir: result.installDir,
-            applicationServer: result.applicationServer
+            applicationServer: result.applicationServer,
+            installationProcessId: 'TODO_GENERATE_GUID'
           }
         }));
       }
