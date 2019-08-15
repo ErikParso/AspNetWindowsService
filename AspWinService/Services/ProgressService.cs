@@ -1,21 +1,32 @@
-﻿using System;
+﻿using AspWinService.SignalR;
+using Microsoft.AspNetCore.SignalR;
+using System;
+using System.Threading.Tasks;
 
 namespace AspWinService.Services
 {
     public class ProgressService
     {
-        internal string WriteLog(int imageIndex, string fileName, int downloaded, int total, string status)
+        private readonly IHubContext<ProgressHub, IProgressHub> progressHubContext;
+
+        public ProgressService(IHubContext<ProgressHub, IProgressHub> progressHubContext)
         {
-            Console.WriteLine($"{fileName} {downloaded}/{total} {status}");
-            return Guid.NewGuid().ToString();
+            this.progressHubContext = progressHubContext;
         }
 
-        internal void UpdateLogItemImageIndex(string logItemKey, int imageIndex)
+        public async Task<string> WriteLog(string processId, int imageIndex, string fileName, int downloaded, int total, string status)
+        {
+            var itemId = Guid.NewGuid().ToString();
+            await progressHubContext.Clients.All.ReportProgress(processId, itemId, fileName, (int)((double)downloaded / total * 100), imageIndex);
+            return itemId;
+        }
+
+        public void UpdateLogItemImageIndex(string logItemKey, int imageIndex)
         {
 
         }
 
-        internal void UpdateLogItemSubItem(string logItemKey, string subItemKey, string newValue)
+        public void UpdateLogItemSubItem(string logItemKey, string subItemKey, string newValue)
         {
 
         }

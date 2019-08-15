@@ -37,7 +37,7 @@ namespace AspWinService.RequestHandlers
                 Directory.CreateDirectory(tempDir);
 
             manifestService.LoadConfig(installDir, request.ApplicationServer, "CZ");
-            await downloadService.DownloadClient(tempDir, installDir, request.ApplicationServer);
+            await downloadService.DownloadClient(request.InstallationProcessId, tempDir, installDir, request.ApplicationServer);
 
             var clientInfo = new ClientInfo()
             {

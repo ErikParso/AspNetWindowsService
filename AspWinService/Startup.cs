@@ -1,5 +1,6 @@
 ﻿using AspWinService.Model;
 using AspWinService.Services;
+using AspWinService.SignalR;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,6 +35,7 @@ namespace AspWinService
             services.AddSingleton(typeof(ManifestService));
             services.AddSingleton(typeof(ProgressService));
 
+            services.AddSignalR();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
@@ -57,6 +59,11 @@ namespace AspWinService
             }
 
             app.UseCors("MyPolicy");
+
+            app.UseSignalR(route =>
+            {
+                route.MapHub<ProgressHub>("/progresshub");
+            });
 
             app.UseMvc();
 

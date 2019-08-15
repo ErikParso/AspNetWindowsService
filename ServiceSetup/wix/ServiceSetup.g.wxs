@@ -6,7 +6,7 @@
 </auto-generated>
 -->
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Id="6fe30b47-2577-43ad-9095-1861ca26a89d" Name="MyProduct" Language="1033" Codepage="Windows-1252" Version="1.0.17" UpgradeCode="6fe30b47-2577-43ad-9095-1861ba25889d" Manufacturer="eparso">
+  <Product Id="6fe30b47-2577-43ad-9095-1861ca26d89d" Name="MyProduct" Language="1033" Codepage="Windows-1252" Version="1.0.20" UpgradeCode="6fe30b47-2577-43ad-9095-1861ba25889d" Manufacturer="eparso">
     <Package InstallerVersion="200" Compressed="yes" Platform="x64" SummaryCodepage="Windows-1252" Languages="1033" />
     <Media Id="1" Cabinet="MyProduct.cab" EmbedCab="yes" />
 
@@ -355,8 +355,8 @@
                         <File Id="_3rdpartylicenses.txt_1224260403" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\dist\AspWinServiceNgClient\3rdpartylicenses.txt" />
                       </Component>
 
-                      <Component Id="Component._5.1066177579c42a152bf3.js_939350955" Guid="6fe30b47-2577-43ad-9095-18614a30c12e" Win64="yes">
-                        <File Id="_5.1066177579c42a152bf3.js_939350955" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\dist\AspWinServiceNgClient\5.1066177579c42a152bf3.js" />
+                      <Component Id="Component._5.a326f5335c290a60ce90.js_1619394212" Guid="6fe30b47-2577-43ad-9095-18611194c450" Win64="yes">
+                        <File Id="_5.a326f5335c290a60ce90.js_1619394212" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\dist\AspWinServiceNgClient\5.a326f5335c290a60ce90.js" />
                       </Component>
 
                       <Component Id="Component.favicon.ico_445470173" Guid="6fe30b47-2577-43ad-9095-186144c0e97d" Win64="yes">
@@ -379,8 +379,8 @@
                         <File Id="polyfills.2d938c2725dce5a6a7bb.js_550173282" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\dist\AspWinServiceNgClient\polyfills.2d938c2725dce5a6a7bb.js" />
                       </Component>
 
-                      <Component Id="Component.runtime.d130b468bab774caf46b.js_806567436" Guid="6fe30b47-2577-43ad-9095-18616f6a7ea4" Win64="yes">
-                        <File Id="runtime.d130b468bab774caf46b.js_806567436" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\dist\AspWinServiceNgClient\runtime.d130b468bab774caf46b.js" />
+                      <Component Id="Component.runtime.2e4fbf9425ad02a56dab.js_526391619" Guid="6fe30b47-2577-43ad-9095-186121cfe5f8" Win64="yes">
+                        <File Id="runtime.2e4fbf9425ad02a56dab.js_526391619" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\dist\AspWinServiceNgClient\runtime.2e4fbf9425ad02a56dab.js" />
                       </Component>
 
                       <Component Id="Component.styles.86a96fb061f48097b01f.css_1807261610" Guid="6fe30b47-2577-43ad-9095-18614c377c24" Win64="yes">
@@ -600,8 +600,8 @@
     </Directory>
 
     <Upgrade Id="6fe30b47-2577-43ad-9095-1861ba25889d">
-      <UpgradeVersion Minimum="0.0.0.0" Maximum="1.0.17" IncludeMinimum="yes" IncludeMaximum="no" Property="UPGRADEFOUND" />
-      <UpgradeVersion Minimum="1.0.17" IncludeMinimum="no" Property="NEWPRODUCTFOUND" />
+      <UpgradeVersion Minimum="0.0.0.0" Maximum="1.0.20" IncludeMinimum="yes" IncludeMaximum="no" Property="UPGRADEFOUND" />
+      <UpgradeVersion Minimum="1.0.20" IncludeMinimum="no" Property="NEWPRODUCTFOUND" />
     </Upgrade>
 
     <CustomAction Id="PreventDowngrading" Error="Newer version already installed" />
@@ -694,13 +694,13 @@
       <ComponentRef Id="Component.tsconfig.spec.json_2146863552" />
       <ComponentRef Id="Component.tslint.json_1051250882" />
       <ComponentRef Id="Component._3rdpartylicenses.txt_1224260403" />
-      <ComponentRef Id="Component._5.1066177579c42a152bf3.js_939350955" />
+      <ComponentRef Id="Component._5.a326f5335c290a60ce90.js_1619394212" />
       <ComponentRef Id="Component.favicon.ico_445470173" />
       <ComponentRef Id="Component.index.html_52056443" />
       <ComponentRef Id="Component.main.cda57947bdbc97fc2f0e.js_1655744390" />
       <ComponentRef Id="Component.polyfills_es5.93893f560e403d23958a.js_487846438" />
       <ComponentRef Id="Component.polyfills.2d938c2725dce5a6a7bb.js_550173282" />
-      <ComponentRef Id="Component.runtime.d130b468bab774caf46b.js_806567436" />
+      <ComponentRef Id="Component.runtime.2e4fbf9425ad02a56dab.js_526391619" />
       <ComponentRef Id="Component.styles.86a96fb061f48097b01f.css_1807261610" />
       <ComponentRef Id="Component.green.ico_1861434325" />
       <ComponentRef Id="Component.main.js_471520910" />

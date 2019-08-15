@@ -35,7 +35,7 @@ namespace AspWinService.Services
             this.progressService = progressService;
         }
 
-        public async Task DownloadClient(string tempDir, string installDir, string applicationServer)
+        public async Task DownloadClient(string processId, string tempDir, string installDir, string applicationServer)
         {
             applicationServer = applicationServer.TrimEnd('/');
             var updateClient = new ClientUpdateSoapClient(ClientUpdateSoapClient.EndpointConfiguration.ClientUpdateSoap);
@@ -60,7 +60,7 @@ namespace AspWinService.Services
             var updateManifest = updateManifestParser.ParseManifest(updateManifestContent);
 
             var executePlan = updateProcessorService.CreateExecutePlan(updateClient, tempDir, installDir, currentManifest, updateManifest);
-            await ProcessingUpdateManifest(updateManifest, executePlan, installDir, updateClient);
+            await ProcessingUpdateManifest(processId, updateManifest, executePlan, installDir, updateClient);
 
             manifestFileAccessor.WriteCurrentManifest(updateManifestContent);
         }
@@ -87,6 +87,7 @@ namespace AspWinService.Services
         }
 
         private async Task<bool> ProcessingUpdateManifest(
+            string processId,
             ClientUpdateManifest updateManifest, 
             IEnumerable<UpdateProcessorService.ExecutePlanItem> executePlan,
             string installDir,
@@ -100,19 +101,19 @@ namespace AspWinService.Services
                 switch (item.Action)
                 {
                     case UpdateProcessorService.ExecutePlanItemAction.StartClient:
-                        progressService.WriteLog(-1, "Start Client", i, planItemsCount, string.Empty);
+                        await progressService.WriteLog(processId, -1, "Start Client", i, planItemsCount, string.Empty);
                         break;
                     case UpdateProcessorService.ExecutePlanItemAction.EndClient:
-                        progressService.WriteLog(-1, "End Client", i, planItemsCount, string.Empty);
+                        await progressService.WriteLog(processId, -1, "End Client", i, planItemsCount, string.Empty);
                         break;
                     case UpdateProcessorService.ExecutePlanItemAction.StartPlugin:
-                        progressService.WriteLog(-1, "Start Plugin: (" + item.PluginIdentity.Author + ", " + item.PluginIdentity.Name + ")", i, planItemsCount, string.Empty);
+                        await progressService.WriteLog(processId, -1, "Start Plugin: (" + item.PluginIdentity.Author + ", " + item.PluginIdentity.Name + ")", i, planItemsCount, string.Empty);
                         break;
                     case UpdateProcessorService.ExecutePlanItemAction.EndPlugin:
-                        progressService.WriteLog(-1, "End Plugin: (" + item.PluginIdentity.Author + ", " + item.PluginIdentity.Name + ")", i, planItemsCount, string.Empty);
+                        await progressService.WriteLog(processId , - 1, "End Plugin: (" + item.PluginIdentity.Author + ", " + item.PluginIdentity.Name + ")", i, planItemsCount, string.Empty);
                         break;
                     case UpdateProcessorService.ExecutePlanItemAction.UpdateFile:
-                        var logItemKey = progressService.WriteLog(-1, Path.GetFileName(item.TargetFileName), i, planItemsCount, string.Empty);
+                        var logItemKey = await progressService.WriteLog(processId, - 1, Path.GetFileName(item.TargetFileName), i, planItemsCount, string.Empty);
                         if (await _LoadFileAsync(item, logItemKey, updateClient))
                             progressService.UpdateLogItemImageIndex(logItemKey, 1);
                         else
@@ -122,30 +123,30 @@ namespace AspWinService.Services
                         }
                         break;
                     case UpdateProcessorService.ExecutePlanItemAction.DeleteFile:
-                        progressService.WriteLog(-1, $"Delete File: {item.TargetFileName}", i, planItemsCount, string.Empty);
+                        await progressService.WriteLog(processId, - 1, $"Delete File: {item.TargetFileName}", i, planItemsCount, string.Empty);
                         File.Delete(item.TargetFileName);
                         break;
                     case UpdateProcessorService.ExecutePlanItemAction.DeletePlugin:
-                        progressService.WriteLog(-1, "Delete Plugin: (" + item.PluginIdentity.Author + ", " + item.PluginIdentity.Name + ")", i, planItemsCount, string.Empty);
+                        await progressService.WriteLog(processId, - 1, "Delete Plugin: (" + item.PluginIdentity.Author + ", " + item.PluginIdentity.Name + ")", i, planItemsCount, string.Empty);
                         _deletePlugin(item.PluginIdentity);
                         break;
                     case UpdateProcessorService.ExecutePlanItemAction.RunOnBeforeInstall:
-                        _runPluginAction("BeforeInstall", item.ClientIdentity, item.PluginIdentity, item.TargetFileName);
+                        await RunPluginAction(processId, "BeforeInstall", item.PluginIdentity, item.TargetFileName, i, planItemsCount);
                         break;
                     case UpdateProcessorService.ExecutePlanItemAction.RunOnAfterInstall:
-                        _runPluginAction("AfterInstall", item.ClientIdentity, item.PluginIdentity, item.TargetFileName);
+                        await RunPluginAction(processId, "AfterInstall", item.PluginIdentity, item.TargetFileName, i, planItemsCount);
                         break;
                     case UpdateProcessorService.ExecutePlanItemAction.RunOnBeforeUpdate:
-                        _runPluginAction("BeforeUpdate", item.ClientIdentity, item.PluginIdentity, item.TargetFileName);
+                        await RunPluginAction(processId, "BeforeUpdate", item.PluginIdentity, item.TargetFileName, i, planItemsCount);
                         break;
                     case UpdateProcessorService.ExecutePlanItemAction.RunOnAfterUpdate:
-                        _runPluginAction("AfterUpdate", item.ClientIdentity, item.PluginIdentity, item.TargetFileName);
+                        await RunPluginAction(processId, "AfterUpdate", item.PluginIdentity, item.TargetFileName, i, planItemsCount);
                         break;
                     case UpdateProcessorService.ExecutePlanItemAction.RunOnBeforeUninstall:
-                        _runPluginAction("BeforeUninstall", item.ClientIdentity, item.PluginIdentity, item.TargetFileName);
+                        await RunPluginAction(processId, "BeforeUninstall", item.PluginIdentity, item.TargetFileName, i, planItemsCount);
                         break;
                     case UpdateProcessorService.ExecutePlanItemAction.RunOnAfterUninstall:
-                        _runPluginAction("AfterUninstall", item.ClientIdentity, item.PluginIdentity, item.TargetFileName);
+                        await RunPluginAction(processId, "AfterUninstall", item.PluginIdentity, item.TargetFileName, i, planItemsCount);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -235,12 +236,12 @@ namespace AspWinService.Services
             }
         }
 
-        private void _runPluginAction(string commandType, ClientIdentityNode clientIdentity, PluginIdentityNode pluginIdentity, string command)
+        private async Task RunPluginAction(string processId, string commandType, PluginIdentityNode pluginIdentity, string command, int current, int total)
         {
             if (string.IsNullOrEmpty(command)) return; // nemam zadny prikaz pro vykonani
 
             var oldCurrentDir = Environment.CurrentDirectory;
-            var logItemKey = progressService.WriteLog(-1, "Plugin: (" + pluginIdentity.Author + ", " + pluginIdentity.Name + ") run action «" + commandType + "»", 0, 0, string.Empty);
+            var logItemKey = await progressService.WriteLog(processId, -1, "Plugin: (" + pluginIdentity.Author + ", " + pluginIdentity.Name + ") run action «" + commandType + "»", current, total, string.Empty);
             try
             {
                 var pluginDir = pluginIdentity.GetPluginDirectory(pluginIdentity.PluginsTargetDirectory);
@@ -267,7 +268,7 @@ namespace AspWinService.Services
             {
                 progressService.UpdateLogItemImageIndex(logItemKey, 2);
                 var sEx = new Exception("Plugin: (" + pluginIdentity.Author + ", " + pluginIdentity.Name + ") fail on «" + commandType + "» Error: " + ex.Message, ex);
-                progressService.WriteLog(2, sEx.Message, 0, 0, string.Empty);
+                await progressService.WriteLog(processId, 2, sEx.Message, 0, 0, string.Empty);
                 throw sEx;
             }
             finally
