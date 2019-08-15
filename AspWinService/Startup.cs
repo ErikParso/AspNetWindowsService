@@ -35,15 +35,17 @@ namespace AspWinService
             services.AddSingleton(typeof(ManifestService));
             services.AddSingleton(typeof(ProgressService));
 
-            services.AddSignalR();
-
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             {
                 builder.AllowAnyOrigin()
                     .AllowAnyMethod()
-                    .AllowAnyHeader();
+                    .AllowAnyHeader()
+                    .WithOrigins("http://localhost:4200")
+                    .AllowCredentials();
             }));
+
+            services.AddSignalR();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -91,12 +91,12 @@ const installationsReducer = createReducer<InstalationsState>(
             }
         }),
         currentProcesses: s.currentProcesses.map(c => {
-          console.log(c.processId, p.payload.currentProcessId);
-          if (c.processId === p.payload.currentProcessId) {
-            return { ...c, result: CurrentProcessResult.success, progress: 100 };
-          } else {
-            return { ...c };
-          }
+            console.log(c.processId, p.payload.currentProcessId);
+            if (c.processId === p.payload.currentProcessId) {
+                return { ...c, result: CurrentProcessResult.success, progress: 100 };
+            } else {
+                return { ...c };
+            }
         })
     })),
     on(actions.installNewClientError, (s, p) => ({
@@ -110,9 +110,9 @@ const installationsReducer = createReducer<InstalationsState>(
         }),
         currentProcesses: s.currentProcesses.map(c => {
             if (c.processId === p.payload.installationProcessId) {
-              return { ...c, result: CurrentProcessResult.error, };
+                return { ...c, result: CurrentProcessResult.error, };
             } else {
-              return { ...c };
+                return { ...c };
             }
         })
     })),
@@ -171,6 +171,23 @@ const installationsReducer = createReducer<InstalationsState>(
                 i.errorMessage = p.payload.message;
             }
             return i;
+        })
+    })),
+    on(actions.reportProgress, (s, p) => ({
+        ...s,
+        currentProcesses: s.currentProcesses.map(c => {
+            if (c.processId === p.payload.processId) {
+                return {
+                    ...c,
+                    progress: p.payload.progress,
+                    log: c.log.concat({
+                        content: p.payload.message,
+                        logItemId: p.payload.logItemId,
+                    } as CurrentProcessLogItem)
+                };
+            } else {
+                return { ...c };
+            }
         })
     }))
 );

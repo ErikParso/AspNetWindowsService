@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ClientInstallationInfo } from './models/clientInstallationInfo';
+import { SignalRService } from './signalR.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,9 @@ export class InstallationsService {
 
   clientInstallationsUrl = 'http://localhost:5000/api/client';
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(
+    private httpClient: HttpClient,
+    private signalRService: SignalRService) { }
 
   public getInstallations(): Observable<ClientInstallationInfo[]> {
     return this.httpClient.get<ClientInstallationInfo[]>(this.clientInstallationsUrl);
@@ -29,6 +32,7 @@ export class InstallationsService {
     installDir: string,
     applicationServer: string,
     installationProcessId: string): Observable<ClientInstallationInfo> {
+    this.signalRService.startConnection();
     return this.httpClient.post<ClientInstallationInfo>(this.clientInstallationsUrl,
       { clientName, installDir, applicationServer, installationProcessId });
   }
