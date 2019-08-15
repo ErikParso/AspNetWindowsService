@@ -3,15 +3,18 @@
   <h1 mat-dialog-title *ngIf="currentProcess.processType === currentProcesstypes.installation">Client installation</h1>
   <h1 mat-dialog-title *ngIf="currentProcess.processType === currentProcesstypes.upgrade">Client upgrade</h1>
 
-  <div mat-dialog-content>
-    <span class="mat-body">{{currentProcess.progress}}</span>
-    <span class="mat-body">{{currentProcess.result}}</span>
+  <div class="content" mat-dialog-content>  
+      <span class="mat-body">{{currentProcess.progress}}%</span>
+      <mat-progress-bar mode="determinate" [value]="currentProcess.progress">
+      </mat-progress-bar>
+      <div class="log" *ngIf="currentProcess.log">
+        <span class="mat-body" *ngFor="let log of currentProcess.log">{{log.content}}</span>
+      </div>
   </div>
 
   <div mat-dialog-actions>
-    <button mat-button *ngIf="currentProcess.result === currentProcessResults.running">Hide</button>
-    <button mat-button *ngIf="currentProcess.result === currentProcessResults.success">Run</button>
-    <button mat-button *ngIf="currentProcess.result !== currentProcessResults.running">Close</button>
+    <button mat-button *ngIf="currentProcess.result === currentProcessResults.running" (click)="hide()">Hide</button>
+    <button mat-button *ngIf="currentProcess.result !== currentProcessResults.running" (click)="close(currentProcess)">Close</button>
   </div>
 
 </ng-container>

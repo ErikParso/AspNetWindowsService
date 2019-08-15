@@ -189,6 +189,16 @@ const installationsReducer = createReducer<InstalationsState>(
                 return { ...c };
             }
         })
+    })),
+    on(actions.clearCurrentProcess, (s, p) => ({
+        ...s,
+        currentProcesses: s.currentProcesses.filter(c => c.processId !== p.payload),
+        allInstallations: s.allInstallations.map(i => {
+            if (i.currentProcessId === p.payload) {
+                i.currentProcessId = '';
+            }
+            return i;
+        })
     }))
 );
 
