@@ -9,19 +9,31 @@
     align-content: center;
 }
 
-mat-progress-bar {
-    width: 100%;
-    margin-bottom: 15px;
+.progress {
+    position: relative;
+    margin: 20px;
+}
+
+.progress>span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
 }
 
 .log {
     overflow-x: hidden;
     overflow-y: scroll;
-    height: 200px;
-    max-height: 200px;
+    height: 100px;
+    max-height: 100px;
     width: 100%;
 }
 
 .log>span {
     display: block;
+}
+
+.mat-icon {
+    font-size: 80px;
 }

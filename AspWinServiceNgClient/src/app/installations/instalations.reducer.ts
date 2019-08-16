@@ -53,7 +53,13 @@ export const currentProcessesSelector = createSelector(
 
 export const currentProcessSelector = (currentProcessId: string) => createSelector(
     currentProcessesSelector,
-    (currentProcesses) => currentProcesses.find(p => p.processId === currentProcessId));
+    (currentProcesses) => currentProcesses.find(p => p.processId === currentProcessId)
+);
+
+export const clientInstallationInfoSelector = (currentProcessId: string) => createSelector(
+    allInstallationsSelector,
+    (allInstallations) => allInstallations.find(i => i.currentProcessId === currentProcessId)
+);
 
 const installationsReducer = createReducer<InstalationsState>(
     initialState,
