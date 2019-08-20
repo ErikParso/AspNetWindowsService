@@ -62,7 +62,11 @@ export class InstallationsEffects {
         ofType(actions.updateClient),
         mergeMap(({ payload }) => this.installationsService.updateClient(payload.clientId, payload.updateProcessId)
             .pipe(
-                map(info => actions.updateClientSuccess({ payload: { updateProcessId: payload.updateProcessId } })),
+                map(info => actions.updateClientSuccess({
+                    payload: {
+                        updateProcessId: payload.updateProcessId, clientId: payload.clientId
+                    }
+                })),
                 catchError((e) => of(actions.updateClientError({
                     payload: {
                         message: e.message, updateProcessId: payload.updateProcessId

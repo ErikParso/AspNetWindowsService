@@ -103,7 +103,7 @@ export const updateClient = createAction(
 
 export const updateClientSuccess = createAction(
     InstallationsActions.updateClientSuccess,
-    props<{ payload: { updateProcessId: string } }>()
+    props<{ payload: { updateProcessId: string, clientId: string } }>()
 );
 
 export const updateClientError = createAction(

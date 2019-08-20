@@ -1,19 +1,12 @@
 <ng-container *ngIf="currentProcess$ | async; let currentProcess">
 
-  <h1 mat-dialog-title *ngIf="currentProcess.processType === currentProcesstypes.installation">Client installation</h1>
-  <h1 mat-dialog-title *ngIf="currentProcess.processType === currentProcesstypes.upgrade">Client upgrade</h1>
+  <h1 mat-dialog-title>{{getTitle(currentProcess)}}</h1>
 
   <div class="content" mat-dialog-content>
 
     <ng-container *ngIf="(installation$ | async); let installation">
-      <span *ngIf="currentProcess.result === currentProcessResults.running" class="mat-body">
-        The client with name {{installation.clientName}} is being installed to the folder {{installation.installDir}}.
-      </span>
-      <span *ngIf="currentProcess.result === currentProcessResults.success" class="mat-body">
-        The client with name {{installation.clientName}} was installed to the folder {{installation.installDir}}.
-      </span>
-      <span *ngIf="currentProcess.result === currentProcessResults.error" class="mat-body">
-        The client with name {{installation.clientName}} installation to the folder {{installation.installDir}} failed!
+      <span class="mat-body">
+        {{getBody(currentProcess, installation)}}
       </span>
     </ng-container>
 

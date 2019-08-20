@@ -162,6 +162,12 @@ const installationsReducer = createReducer<InstalationsState>(
                 c.progress = 100;
             }
             return c;
+        }),
+        allInstallations: s.allInstallations.map(i => {
+            if (i.clientId === p.payload.clientId) {
+                i.needUpgrade = false;
+            }
+            return i;
         })
     })),
     on(actions.updateClientError, (s, p) => ({

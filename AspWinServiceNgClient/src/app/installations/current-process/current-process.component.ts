@@ -49,10 +49,82 @@ export class CurrentProcessComponent implements OnInit {
       return (currentProcess.log && currentProcess.log.length)
         ? currentProcess.log[currentProcess.log.length - 1].content
         : '';
-    } else if (currentProcess.result === CurrentProcessResult.success) {
-      return 'Installation complete';
-    } else {
-      return 'Installation failed';
+    }
+
+    switch (currentProcess.processType) {
+      case CurrentProcessType.installation: {
+        switch (currentProcess.result) {
+          case CurrentProcessResult.success:
+            return `Installation complete`;
+          case CurrentProcessResult.error:
+            return `Installation failed`;
+        }
+        break;
+      }
+      case CurrentProcessType.upgrade: {
+        switch (currentProcess.result) {
+          case CurrentProcessResult.success:
+            return `Upgrade complete`;
+          case CurrentProcessResult.error:
+            return `Upgrade failed`;
+        }
+        break;
+      }
+      case CurrentProcessType.delete: {
+        switch (currentProcess.result) {
+          case CurrentProcessResult.success:
+            return `Uninstallation complete`;
+          case CurrentProcessResult.error:
+            return `Unistallation failed`;
+        }
+        break;
+      }
+    }
+  }
+
+  getTitle(currentProcess: CurrentProcess): string {
+    switch (currentProcess.processType) {
+      case CurrentProcessType.installation: return 'Client Installation';
+      case CurrentProcessType.upgrade: return 'Client Upgrade';
+      case CurrentProcessType.delete: return 'Uninstall Client';
+    }
+  }
+
+  getBody(currentProcess: CurrentProcess, clientInfo: ClientInstallationInfo): string {
+    switch (currentProcess.processType) {
+      case CurrentProcessType.installation: {
+        switch (currentProcess.result) {
+          case CurrentProcessResult.running:
+            return `The client with name ${clientInfo.clientName} is being installed to the folder ${clientInfo.installDir}.`;
+          case CurrentProcessResult.success:
+            return `The client with name ${clientInfo.clientName} was installed to the folder ${clientInfo.installDir}.`;
+          case CurrentProcessResult.error:
+            return `Client ${clientInfo.clientName} installation to folder ${clientInfo.installDir} has failed.`;
+        }
+        break;
+      }
+      case CurrentProcessType.upgrade: {
+        switch (currentProcess.result) {
+          case CurrentProcessResult.running:
+            return `The client with name ${clientInfo.clientName} is being upgraded.`;
+          case CurrentProcessResult.success:
+            return `The client with name ${clientInfo.clientName} was successfully upgraded.`;
+          case CurrentProcessResult.error:
+            return `The client with name ${clientInfo.clientName} upgrade has failed.`;
+        }
+        break;
+      }
+      case CurrentProcessType.delete: {
+        switch (currentProcess.result) {
+          case CurrentProcessResult.running:
+            return `Client with name ${clientInfo.clientName} is beeing uninstalled.`;
+          case CurrentProcessResult.success:
+            return `Client with name ${clientInfo.clientName} was uninstalled.`;
+          case CurrentProcessResult.error:
+            return `Client with name ${clientInfo.clientName} uninstallation has failed.`;
+        }
+        break;
+      }
     }
   }
 }
