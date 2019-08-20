@@ -3,7 +3,7 @@
 
     <ng-container matColumnDef="clientName">
       <th class="col-name-trim" mat-header-cell *matHeaderCellDef> Name </th>
-      <td class="col-name-trim" [class.currentRow]="(currentInstallations$ | async).clientName == element.clientName" mat-cell
+      <td class="col-name-trim" [class.currentRow]="(currentInstallation$ | async) == element.clientId" mat-cell
         *matCellDef="let element">
         {{element.clientName}}
         <!-- <div class="mat-small"> {{element.installDir}} </div> -->
@@ -12,14 +12,14 @@
 
     <ng-container matColumnDef="installDir">
       <th mat-header-cell *matHeaderCellDef> Loacation </th>
-      <td mat-cell [class.currentRow]="(currentInstallations$ | async).clientName == element.clientName" *matCellDef="let element">
+      <td mat-cell [class.currentRow]="(currentInstallation$ | async) == element.clientId" *matCellDef="let element">
         <div class="mat-small">{{element.installDir}}</div>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="version">
       <th class="col-version" mat-header-cell *matHeaderCellDef> Version </th>
-      <td class="col-version" mat-cell [class.currentRow]="(currentInstallations$ | async).clientName == element.clientName"
+      <td class="col-version" mat-cell [class.currentRow]="(currentInstallation$ | async) == element.clientId"
         *matCellDef="let element">
         {{element.version}}
         <button mat-icon-button *ngIf="element.version === 'error'" (click)="errorClick(element)">

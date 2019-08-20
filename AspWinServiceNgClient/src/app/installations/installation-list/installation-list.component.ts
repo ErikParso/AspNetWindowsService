@@ -18,7 +18,7 @@ export class InstallationListComponent implements OnInit {
 
   public installations$: Observable<ClientInstallationInfo[]>;
   public latestClientVersion$: Observable<string>;
-  public currentInstallations$: Observable<ClientInstallationInfo>;
+  public currentInstallation$: Observable<string>;
 
   displayedColumns: string[] = ['clientName', 'version']; // 'installDir'
 
@@ -29,14 +29,13 @@ export class InstallationListComponent implements OnInit {
   ngOnInit() {
     this.installations$ = this.store.select(reducer.allInstallationsSelector);
     this.latestClientVersion$ = this.store.select(reducer.latestClientVersionSelector);
-    this.currentInstallations$ = this.store.select(reducer.currentInstallationSelector);
+    this.currentInstallation$ = this.store.select(reducer.currentInstallationIdSelector);
 
     this.store.dispatch(actions.loadInstallations());
-    this.store.dispatch(actions.loadLatestClientVersion());
   }
 
   setCurrentInstallation(row: ClientInstallationInfo) {
-    this.store.dispatch(actions.setCurrentInstallation({ payload: row }));
+    this.store.dispatch(actions.setCurrentInstallation({ payload: row.clientId }));
 
     if (row.currentProcessId && row.currentProcessId.length) {
       this.dialog.open(CurrentProcessComponent, {

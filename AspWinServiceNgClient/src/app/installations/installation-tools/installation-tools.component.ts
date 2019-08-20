@@ -6,7 +6,8 @@ import { State } from 'src/app/app.reducer';
 import * as actions from '../installations.actions';
 import { Observable } from 'rxjs';
 import { ClientInstallationInfo } from '../models/clientInstallationInfo';
-import { currentInstallationSelector, latestClientVersionSelector } from '../instalations.reducer';
+import { currentInstallationIdSelector, latestClientVersionSelector, currentInstallationSelector } from '../instalations.reducer';
+import { UUID } from 'angular2-uuid';
 
 @Component({
   selector: 'app-installation-tools',
@@ -48,10 +49,11 @@ export class InstallationToolsComponent implements OnInit {
       if (result) {
         this.store.dispatch(actions.installNewClient({
           payload: {
+            clientId: UUID.UUID(),
             clientName: result.clientName,
             installDir: result.installDir,
             applicationServer: result.applicationServer,
-            installationProcessId: 'TODO_GENERATE_GUID'
+            installationProcessId: UUID.UUID()
           }
         }));
       }

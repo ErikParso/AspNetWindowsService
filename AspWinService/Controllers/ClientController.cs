@@ -25,10 +25,10 @@ namespace AspWinService.Controllers
             return Ok(result);
         }
 
-        [HttpGet("latestVersion")]
-        public async Task<IActionResult> GetLatestVersion()
+        [HttpGet("needUpgrade/{clientId}")]
+        public async Task<IActionResult> ClientNeedUpgrade(string clientId)
         {
-            var request = new LatestClientVersionRequest();
+            var request = new CheckNewVersionAvailableRequest() { ClientId = clientId };
             var result = await mediator.Send(request);
             return Ok(result);
         }

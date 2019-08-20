@@ -19,22 +19,23 @@ export class InstallationsService {
     return this.httpClient.get<ClientInstallationInfo[]>(this.clientInstallationsUrl);
   }
 
-  public getLatestClientVersion(): Observable<string> {
-    return this.httpClient.get(this.clientInstallationsUrl + '/latestVersion', { responseType: 'text' });
-  }
+  public getClientNeedUpgrade(clientId: string): Observable<boolean> {
+    return this.httpClient.get<boolean>(this.clientInstallationsUrl + `/needUpgrade/${clientId}`, );
+}
 
   public runClientApplication(clientName: string): Observable<object> {
     return this.httpClient.post(this.clientInstallationsUrl + '/runClient', { clientName });
   }
 
   public installNewClient(
+    clientId: string,
     clientName: string,
     installDir: string,
     applicationServer: string,
     installationProcessId: string): Observable<ClientInstallationInfo> {
     this.signalRService.startConnection();
     return this.httpClient.post<ClientInstallationInfo>(this.clientInstallationsUrl,
-      { clientName, installDir, applicationServer, installationProcessId });
+      { clientId, clientName, installDir, applicationServer, installationProcessId });
   }
 
   public updateClient(installDir: string): Observable<ClientInstallationInfo> {

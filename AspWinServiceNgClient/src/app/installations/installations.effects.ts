@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { InstallationsService } from './installations.service';
-import { map, mergeMap, catchError } from 'rxjs/operators';
+import { map, mergeMap, catchError, switchMap } from 'rxjs/operators';
 import * as actions from './installations.actions';
 import { of } from 'rxjs';
 
@@ -17,11 +17,20 @@ export class InstallationsEffects {
             ))
     ));
 
-    loadLatestClientVersion$ = createEffect(() => this.actions$.pipe(
-        ofType(actions.InstallationsActions.loadLatestClientVersion),
-        mergeMap(() => this.installationsService.getLatestClientVersion()
+    loadInstallationsSuccess$ = createEffect(() => this.actions$.pipe(
+        ofType(actions.loadInstallationsSuccess),
+        switchMap(({ payload }) => of(payload)),
+        switchMap(res => res.map(cli => actions.getClientNeedUpgrade({ payload: { clientId: cli.clientId } })))
+    ));
+
+    clientNeedUpgrade$ = createEffect(() => this.actions$.pipe(
+        ofType(actions.getClientNeedUpgrade),
+        mergeMap(({ payload }) => this.installationsService.getClientNeedUpgrade(payload.clientId)
             .pipe(
-                map(version => actions.loadLatestClientVersionSuccess({ payload: version }))
+                map(res => actions.getClientNeedUpgradeSuccess(
+                    { payload: { clientId: payload.clientId, needUpgrade: res } })),
+                catchError(e => of(actions.getClientNeedUpgradeError(
+                    { payload: { clientId: payload.clientId, message: e.message } })))
             ))
     ));
 
@@ -36,7 +45,7 @@ export class InstallationsEffects {
     installNewClient$ = createEffect(() => this.actions$.pipe(
         ofType(actions.installNewClient),
         mergeMap(({ payload }) => this.installationsService.installNewClient(
-            payload.clientName, payload.installDir, payload.applicationServer, payload.installationProcessId)
+            payload.clientId, payload.clientName, payload.installDir, payload.applicationServer, payload.installationProcessId)
             .pipe(
                 map(info => actions.installNewClientSuccess({ payload: { ...info, currentProcessId: payload.installationProcessId } })),
                 catchError((e) => of(actions.installNewClientError({

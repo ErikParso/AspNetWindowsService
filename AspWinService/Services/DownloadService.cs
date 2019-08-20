@@ -13,7 +13,6 @@ namespace AspWinService.Services
 {
     public class DownloadService
     {
-        private const string manifestUpdateXsdSchemaUrl = "http://helios.eu/ClientUpdateManifest.xsd";
         private const string PluginSubDir = "Plugins";
 
         public const string LogItemSubKey_FileName = "FileName";
@@ -71,7 +70,7 @@ namespace AspWinService.Services
             System.Xml.XPath.XPathDocument xDoc = new System.Xml.XPath.XPathDocument(sr);
             System.Xml.XPath.XPathNavigator xNav = xDoc.CreateNavigator();
             XmlNamespaceManager nsmgr = new XmlNamespaceManager(xNav.NameTable);
-            nsmgr.AddNamespace("mu", manifestUpdateXsdSchemaUrl);
+            nsmgr.AddNamespace("mu", Constants.ManifestUpdateXsdSchemaUrl);
             bool result = true;
             System.Xml.XPath.XPathNavigator node = xNav.SelectSingleNode("/mu:UpdateManifest/mu:EnvironmentVersion", nsmgr);
             if (node != null)

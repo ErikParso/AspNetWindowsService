@@ -3,10 +3,11 @@ import { Action, createReducer, on, createSelector } from '@ngrx/store';
 import * as fromRoot from '../app.reducer';
 import * as actions from './installations.actions';
 import { CurrentProcess, CurrentProcessType, CurrentProcessLogItem, CurrentProcessResult } from './models/current-process';
+import { stringify } from 'querystring';
 
 export interface InstalationsState {
     allInstallations: ClientInstallationInfo[];
-    currentInstallation: ClientInstallationInfo;
+    currentInstallation: string;
     latestClientVersion: string;
     errorMessage: string;
     currentProcesses: CurrentProcess[];
@@ -26,7 +27,7 @@ export interface State extends fromRoot.State {
 
 export const installationsSelector = (state: State) => state.installations;
 
-export const currentInstallationSelector = createSelector(
+export const currentInstallationIdSelector = createSelector(
     installationsSelector,
     (state: InstalationsState) => state.currentInstallation
 );
@@ -34,6 +35,12 @@ export const currentInstallationSelector = createSelector(
 export const allInstallationsSelector = createSelector(
     installationsSelector,
     (state: InstalationsState) => state.allInstallations
+);
+
+export const currentInstallationSelector = createSelector(
+    currentInstallationIdSelector,
+    allInstallationsSelector,
+    (currentInstallation, allInstallations) => allInstallations.find(i => i.clientId === currentInstallation)
 );
 
 export const errorMessageSelector = createSelector(
@@ -66,19 +73,31 @@ const installationsReducer = createReducer<InstalationsState>(
     on(actions.loadInstallationsSuccess, (s, p) => ({
         ...s,
         allInstallations: p.payload,
-        currentInstallation: p.payload.length ? p.payload[0] : null
+        currentInstallation: p.payload.length ? p.payload[0].clientId : null
     })),
     on(actions.loadInstallationsError, (s, p) => ({ ...s, errorMessage: p.payload })),
-    on(actions.loadLatestClientVersionSuccess, (s, p) => ({ ...s, latestClientVersion: p.payload })),
+    on(actions.getClientNeedUpgradeSuccess, (s, p) => ({
+        ...s,
+        allInstallations: s.allInstallations.map(i => {
+            if (i.clientId === p.payload.clientId) {
+                i.needUpgrade = p.payload.needUpgrade;
+            }
+            return i;
+        })
+    })),
     on(actions.setCurrentInstallation, (s, p) => ({ ...s, currentInstallation: p.payload })),
     on(actions.installNewClient, (s, p) => ({
         ...s,
         allInstallations: s.allInstallations.concat({
+            clientId: p.payload.clientId,
             clientName: p.payload.clientName,
             installDir: p.payload.installDir,
             version: 'installing',
-            currentProcessId: p.payload.installationProcessId
+            currentProcessId: p.payload.installationProcessId,
+            needUpgrade: false,
+            errorMessage: ''
         } as ClientInstallationInfo),
+        currentInstallation: p.payload.clientId,
         currentProcesses: s.currentProcesses.concat({
             processId: p.payload.installationProcessId,
             processType: CurrentProcessType.installation,
