@@ -5,6 +5,7 @@ namespace AspWinService.Requests
 {
     public class ClientDeleteRequest : IRequest<ClientInfo>
     {
-        public string ClientName { get; set; }
+        public string DeleteProcessId { get; set; }
+        public string ClientId { get; set; }
     }
 }

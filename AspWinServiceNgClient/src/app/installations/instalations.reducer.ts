@@ -8,7 +8,6 @@ import { stringify } from 'querystring';
 export interface InstalationsState {
     allInstallations: ClientInstallationInfo[];
     currentInstallation: string;
-    latestClientVersion: string;
     errorMessage: string;
     currentProcesses: CurrentProcess[];
 }
@@ -16,7 +15,6 @@ export interface InstalationsState {
 export const initialState: InstalationsState = {
     allInstallations: [],
     currentInstallation: null,
-    latestClientVersion: '0.0.0',
     errorMessage: null,
     currentProcesses: []
 };
@@ -46,11 +44,6 @@ export const currentInstallationSelector = createSelector(
 export const errorMessageSelector = createSelector(
     installationsSelector,
     (state: InstalationsState) => state.errorMessage
-);
-
-export const latestClientVersionSelector = createSelector(
-    installationsSelector,
-    (state: InstalationsState) => state.latestClientVersion
 );
 
 export const currentProcessesSelector = createSelector(
@@ -110,13 +103,12 @@ const installationsReducer = createReducer<InstalationsState>(
         ...s,
         allInstallations: s.allInstallations.map(i => {
             if (i.clientName === p.payload.clientName) {
-                return { ...i, installDir: p.payload.installDir, version: p.payload.version };
+                return { ...i, installDir: p.payload.installDir, needUpgrade: false };
             } else {
                 return { ...i };
             }
         }),
         currentProcesses: s.currentProcesses.map(c => {
-            console.log(c.processId, p.payload.currentProcessId);
             if (c.processId === p.payload.currentProcessId) {
                 return { ...c, result: CurrentProcessResult.success, progress: 100 };
             } else {
@@ -149,53 +141,71 @@ const installationsReducer = createReducer<InstalationsState>(
     on(actions.updateClient, (s, p) => ({
         ...s,
         allInstallations: s.allInstallations.map(i => {
-            if (i.clientName === p.payload.clientName) {
-                i.version = 'updating';
+            if (i.clientId === p.payload.clientId) {
+                i.currentProcessId = p.payload.updateProcessId;
             }
             return i;
-        })
+        }),
+        currentProcesses: s.currentProcesses.concat({
+            processId: p.payload.updateProcessId,
+            processType: CurrentProcessType.upgrade,
+            log: [],
+            progress: 0,
+            result: CurrentProcessResult.running
+        } as CurrentProcess)
     })),
     on(actions.updateClientSuccess, (s, p) => ({
         ...s,
-        allInstallations: s.allInstallations.map(i => {
-            if (i.clientName === p.payload.clientName) {
-                i.installDir = p.payload.installDir;
-                i.version = p.payload.version;
+        currentProcesses: s.currentProcesses.map(c => {
+            if (c.processId === p.payload.updateProcessId) {
+                c.result = CurrentProcessResult.success;
+                c.progress = 100;
             }
-            return i;
+            return c;
         })
     })),
     on(actions.updateClientError, (s, p) => ({
         ...s,
-        allInstallations: s.allInstallations.map(i => {
-            if (i.clientName === p.payload.clientName) {
-                i.version = 'error';
-                i.errorMessage = p.payload.message;
+        currentProcesses: s.currentProcesses.map(c => {
+            if (c.processId === p.payload.updateProcessId) {
+                c.result = CurrentProcessResult.error;
             }
-            return i;
+            return c;
         })
     })),
     on(actions.deleteClient, (s, p) => ({
         ...s,
         allInstallations: s.allInstallations.map(i => {
-            if (i.clientName === p.payload.clientName) {
-                i.version = 'deleting';
+            if (i.clientId === p.payload.clientId) {
+                i.currentProcessId = p.payload.deleteProcessId;
             }
             return i;
-        })
+        }),
+        currentProcesses: s.currentProcesses.concat({
+            processId: p.payload.deleteProcessId,
+            processType: CurrentProcessType.delete,
+            progress: 0,
+            result: CurrentProcessResult.running,
+            log: []
+        } as CurrentProcess)
     })),
     on(actions.deleteClientSuccess, (s, p) => ({
         ...s,
-        allInstallations: s.allInstallations.filter(i => i.clientName !== p.payload.clientName)
+        currentProcesses: s.currentProcesses.map(c => {
+            if (c.processId === p.payload.deleteProcessId) {
+                c.progress = 100;
+                c.result = CurrentProcessResult.success;
+            }
+            return c;
+        })
     })),
     on(actions.deleteClientError, (s, p) => ({
         ...s,
-        allInstallations: s.allInstallations.map(i => {
-            if (i.clientName === p.payload.clientName) {
-                i.version = 'error';
-                i.errorMessage = p.payload.message;
+        currentProcesses: s.currentProcesses.map(c => {
+            if (c.processId === p.payload.deleteProcessId) {
+                c.result = CurrentProcessResult.error;
             }
-            return i;
+            return c;
         })
     })),
     on(actions.reportProgress, (s, p) => ({
@@ -215,16 +225,21 @@ const installationsReducer = createReducer<InstalationsState>(
             }
         })
     })),
-    on(actions.clearCurrentProcess, (s, p) => ({
-        ...s,
-        currentProcesses: s.currentProcesses.filter(c => c.processId !== p.payload),
-        allInstallations: s.allInstallations.map(i => {
-            if (i.currentProcessId === p.payload) {
-                i.currentProcessId = '';
-            }
-            return i;
-        })
-    }))
+    on(actions.clearCurrentProcess, (s, p) => {
+        const process = s.currentProcesses.find(c => c.processId === p.payload);
+        return ({
+            ...s,
+            currentProcesses: s.currentProcesses.filter(c => c.processId !== p.payload),
+            allInstallations: process.processType === CurrentProcessType.delete
+                ? s.allInstallations.filter(i => i.currentProcessId !== p.payload)
+                : s.allInstallations.map(i => {
+                    if (i.currentProcessId === p.payload) {
+                        i.currentProcessId = '';
+                    }
+                    return i;
+                })
+        });
+    })
 );
 
 export function reducer(state: InstalationsState, action: Action) {

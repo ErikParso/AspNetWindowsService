@@ -60,19 +60,27 @@ export class InstallationsEffects {
 
     updateClient$ = createEffect(() => this.actions$.pipe(
         ofType(actions.updateClient),
-        mergeMap(({ payload }) => this.installationsService.updateClient(payload.installDir)
+        mergeMap(({ payload }) => this.installationsService.updateClient(payload.clientId, payload.updateProcessId)
             .pipe(
-                map(info => actions.updateClientSuccess({ payload: info })),
-                catchError((e) => of(actions.updateClientError({ payload: { message: e.message, clientName: payload.clientName } })))
+                map(info => actions.updateClientSuccess({ payload: { updateProcessId: payload.updateProcessId } })),
+                catchError((e) => of(actions.updateClientError({
+                    payload: {
+                        message: e.message, updateProcessId: payload.updateProcessId
+                    }
+                })))
             ))
     ));
 
     deleteClient$ = createEffect(() => this.actions$.pipe(
         ofType(actions.deleteClient),
-        mergeMap(({ payload }) => this.installationsService.deleteClient(payload.clientName)
+        mergeMap(({ payload }) => this.installationsService.deleteClient(payload.clientId, payload.deleteProcessId)
             .pipe(
-                map(info => actions.deleteClientSuccess({ payload: info })),
-                catchError((e) => of(actions.deleteClientError({ payload: { message: e.message, clientName: payload.clientName } })))
+                map(info => actions.deleteClientSuccess({ payload: { deleteProcessId: payload.deleteProcessId } })),
+                catchError((e) => of(actions.deleteClientError({
+                    payload: {
+                        message: e.message, deleteProcessId: payload.deleteProcessId
+                    }
+                })))
             ))
     ));
 

@@ -21,7 +21,7 @@ namespace AspWinService.RequestHandlers
             // Update simulation
             Thread.Sleep(5000);
 
-            return Task.FromResult(clientInfoService.GetClientInfo(c => c.InstallDir == request.InstallDir));
+            return Task.FromResult(clientInfoService.GetClientInfo(c => c.ClientId == request.ClientId));
         }
     }
 }

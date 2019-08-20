@@ -98,32 +98,32 @@ export const removeCleint = createAction(
 
 export const updateClient = createAction(
     InstallationsActions.updateClient,
-    props<{ payload: ClientInstallationInfo }>()
+    props<{ payload: { clientId: string, updateProcessId: string } }>()
 );
 
 export const updateClientSuccess = createAction(
     InstallationsActions.updateClientSuccess,
-    props<{ payload: ClientInstallationInfo }>()
+    props<{ payload: { updateProcessId: string } }>()
 );
 
 export const updateClientError = createAction(
     InstallationsActions.updateClientError,
-    props<{ payload: { message: string, clientName: string } }>()
+    props<{ payload: { message: string, updateProcessId: string } }>()
 );
 
 export const deleteClient = createAction(
     InstallationsActions.deleteClient,
-    props<{ payload: ClientInstallationInfo }>()
+    props<{ payload: { clientId: string, deleteProcessId: string } }>()
 );
 
 export const deleteClientSuccess = createAction(
     InstallationsActions.deleteClientSuccess,
-    props<{ payload: ClientInstallationInfo }>()
+    props<{ payload: { deleteProcessId: string } }>()
 );
 
 export const deleteClientError = createAction(
     InstallationsActions.deleteClientError,
-    props<{ payload: { message: string, clientName: string } }>()
+    props<{ payload: { message: string, deleteProcessId: string } }>()
 );
 
 export const reportProgress = createAction(

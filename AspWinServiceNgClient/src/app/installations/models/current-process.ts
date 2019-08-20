@@ -13,7 +13,8 @@ export interface CurrentProcessLogItem {
 
 export enum CurrentProcessType {
     installation = 'installation',
-    upgrade = 'upgrade'
+    upgrade = 'upgrade',
+    delete = 'delete'
 }
 
 export enum CurrentProcessResult {

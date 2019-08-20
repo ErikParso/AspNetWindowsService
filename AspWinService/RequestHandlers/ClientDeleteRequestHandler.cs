@@ -19,7 +19,7 @@ namespace AspWinService.RequestHandlers
 
         public Task<ClientInfo> Handle(ClientDeleteRequest request, CancellationToken cancellationToken)
         {
-            var clientInfo = clientInfoService.DeleteClientInfo(c => c.ClientName == request.ClientName);
+            var clientInfo = clientInfoService.DeleteClientInfo(c => c.ClientId == request.ClientId);
 
             if (Directory.Exists(clientInfo.InstallDir))
                 Directory.Delete(clientInfo.InstallDir, true);

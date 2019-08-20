@@ -20,8 +20,8 @@ export class InstallationsService {
   }
 
   public getClientNeedUpgrade(clientId: string): Observable<boolean> {
-    return this.httpClient.get<boolean>(this.clientInstallationsUrl + `/needUpgrade/${clientId}`, );
-}
+    return this.httpClient.get<boolean>(this.clientInstallationsUrl + `/needUpgrade/${clientId}`);
+  }
 
   public runClientApplication(clientName: string): Observable<object> {
     return this.httpClient.post(this.clientInstallationsUrl + '/runClient', { clientName });
@@ -38,11 +38,11 @@ export class InstallationsService {
       { clientId, clientName, installDir, applicationServer, installationProcessId });
   }
 
-  public updateClient(installDir: string): Observable<ClientInstallationInfo> {
-    return this.httpClient.put<ClientInstallationInfo>(this.clientInstallationsUrl, { installDir });
+  public updateClient(clientId: string, updateProcessId: string): Observable<ClientInstallationInfo> {
+    return this.httpClient.put<ClientInstallationInfo>(this.clientInstallationsUrl, { clientId, updateProcessId });
   }
 
-  public deleteClient(clientName: string): Observable<ClientInstallationInfo> {
-    return this.httpClient.request<ClientInstallationInfo>('delete', this.clientInstallationsUrl, { body: { clientName } });
+  public deleteClient(clientId: string, deleteProcessId: string): Observable<ClientInstallationInfo> {
+    return this.httpClient.request<ClientInstallationInfo>('delete', this.clientInstallationsUrl, { body: { clientId, deleteProcessId } });
   }
 }
