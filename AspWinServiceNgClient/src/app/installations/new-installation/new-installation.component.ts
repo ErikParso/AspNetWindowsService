@@ -18,11 +18,16 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class NewInstallationComponent implements OnInit {
 
+  public clientName = new FormControl('', Validators.required);
+  public installDir = new FormControl('', Validators.required);
+  public applicationServer = new FormControl('http://CAMEL/Source99-E5A1', Validators.required);
+  public language = new FormControl('', Validators.required);
+
   installationForm = new FormGroup({
-    clientName: new FormControl('', Validators.required),
-    installDir: new FormControl('', Validators.required),
-    applicationServer: new FormControl('http://CAMEL/Source99-E5A1', Validators.required),
-    language: new FormControl('', Validators.required)
+    clientName: this.clientName,
+    installDir: this.installDir,
+    applicationServer: this.applicationServer,
+    language: this.language
   });
 
   matcher = new MyErrorStateMatcher();
@@ -32,6 +37,7 @@ export class NewInstallationComponent implements OnInit {
     public dialogRef: MatDialogRef<NewInstallationComponent>) { }
 
   ngOnInit() {
+
   }
 
   selectDir() {

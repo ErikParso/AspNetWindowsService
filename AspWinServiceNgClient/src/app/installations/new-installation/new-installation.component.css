@@ -14,6 +14,6 @@ mat-form-field {
     display: block;
 }
 
-mat-icon {
+mat-form-field>mat-icon {
     margin-right: 10px;
 }
