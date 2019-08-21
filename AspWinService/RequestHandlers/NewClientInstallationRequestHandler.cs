@@ -2,7 +2,6 @@
 using AspWinService.Requests;
 using AspWinService.Services;
 using MediatR;
-using System;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -45,7 +44,6 @@ namespace AspWinService.RequestHandlers
                 ClientId = request.ClientId,
                 ClientName = request.ClientName,
                 InstallDir = installDir,
-                Version = "undefined",
                 ApplicationServer = request.ApplicationServer,
                 Extensions = Enumerable.Empty<string>()
             };

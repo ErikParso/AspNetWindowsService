@@ -39,6 +39,7 @@ export class InstallationsService {
   }
 
   public updateClient(clientId: string, updateProcessId: string): Observable<ClientInstallationInfo> {
+    this.signalRService.startConnection();
     return this.httpClient.put<ClientInstallationInfo>(this.clientInstallationsUrl, { clientId, updateProcessId });
   }
 
