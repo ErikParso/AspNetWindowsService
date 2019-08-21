@@ -13,3 +13,7 @@
 mat-form-field {
     display: block;
 }
+
+mat-icon {
+    margin-right: 10px;
+}

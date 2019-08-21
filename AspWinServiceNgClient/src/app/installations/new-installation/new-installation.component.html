@@ -5,6 +5,9 @@
   <div mat-dialog-content>
 
     <mat-form-field class="application-server">
+      <mat-icon matPrefix
+        [color]="matcher.isErrorState(installationForm.get('applicationServer')) ? 'warn' : 'primary'">
+        storage</mat-icon>
       <input matInput placeholder="Application server" formControlName="applicationServer"
         [errorStateMatcher]="matcher">
       <mat-error *ngIf="installationForm.get('applicationServer').hasError('required')">
@@ -13,6 +16,9 @@
     </mat-form-field>
 
     <mat-form-field class="field-client-name">
+      <mat-icon matPrefix
+        [color]="matcher.isErrorState(installationForm.get('clientName'))  ? 'warn' : 'primary'">
+        title</mat-icon>
       <input matInput placeholder="Client name" formControlName="clientName" [errorStateMatcher]="matcher">
       <mat-error *ngIf="installationForm.get('clientName').hasError('required')">
         Client name is required
@@ -20,17 +26,23 @@
     </mat-form-field>
 
     <mat-form-field class="field-language">
+      <mat-icon matPrefix
+        [color]="matcher.isErrorState(installationForm.get('language'))  ? 'warn' : 'primary'">
+        language</mat-icon>
       <mat-select placeholder="Language" formControlName="language" [errorStateMatcher]="matcher">
         <mat-option value="CZ">CZ</mat-option>
         <mat-option value="DE">DE</mat-option>
         <mat-option value="EN">EN</mat-option>
       </mat-select>
-      <mat-error *ngIf="installationForm.get('language').hasError('required')">
+      <mat-error *ngIf="matcher.isErrorState && installationForm.get('language').hasError('required')">
         Language is required
       </mat-error>
     </mat-form-field>
 
     <mat-form-field class="field-install-dir">
+      <mat-icon matPrefix
+        [color]="matcher.isErrorState(installationForm.get('installDir'))  ? 'warn' : 'primary'">
+        folder</mat-icon>
       <input matInput placeholder="Installation directory" formControlName="installDir" [errorStateMatcher]="matcher">
       <button mat-icon-button matSuffix (click)="selectDir()" *ngIf="electronService.isElectronApp">
         <mat-icon>folder_open</mat-icon>
