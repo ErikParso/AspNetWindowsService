@@ -1,0 +1,43 @@
+<ng-container *ngIf="currentProcess$ | async; let currentProcess">
+
+  <h1 mat-dialog-title>{{getTitle(currentProcess)}}</h1>
+
+  <div class="content" mat-dialog-content>
+
+    <ng-container *ngIf="(installation$ | async); let installation">
+      <span class="mat-body">
+        {{getBody(currentProcess, installation)}}
+      </span>
+    </ng-container>
+
+    <div *ngIf="currentProcess.result === currentProcessResults.running" class="progress">
+      <mat-progress-spinner mode="determinate" [value]="currentProcess.progress">
+      </mat-progress-spinner>
+      <span class="mat-body">{{currentProcess.progress}}%</span>
+    </div>
+
+    <div *ngIf="currentProcess.result === currentProcessResults.success" class="progress">
+      <mat-icon color="primary">done</mat-icon>
+    </div>
+
+    <div *ngIf="currentProcess.result === currentProcessResults.error" class="progress">
+      <mat-icon color="warn">error_outline</mat-icon>
+    </div>
+
+    <!-- <div class="log" *ngIf="currentProcess.log">
+      <span class="mat-body" *ngFor="let log of currentProcess.log">{{log.content}}</span>
+    </div> -->
+
+    <span class="mat-body">
+      {{getProgressMessage(currentProcess)}}
+    </span>
+
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-button *ngIf="currentProcess.result === currentProcessResults.running" (click)="hide()">Hide</button>
+    <button mat-button *ngIf="currentProcess.result !== currentProcessResults.running"
+      (click)="close(currentProcess)">Close</button>
+  </div>
+
+</ng-container>

@@ -1,5 +1,6 @@
 ﻿using AspWinService.Model;
 using AspWinService.Services;
+using AspWinService.SignalR;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,14 +29,24 @@ namespace AspWinService
 
             services.AddSingleton(typeof(ClientInfoService));
             services.AddSingleton(typeof(TrayClientService));
+            services.AddSingleton(typeof(DownloadService));
+            services.AddSingleton(typeof(RuntimeVersionDetectorService));
+            services.AddSingleton(typeof(UpdateProcessorService));
+            services.AddSingleton(typeof(ManifestService));
+            services.AddSingleton(typeof(ProgressService));
+            services.AddSingleton(typeof(CheckNewVersionService));
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             {
                 builder.AllowAnyOrigin()
                     .AllowAnyMethod()
-                    .AllowAnyHeader();
+                    .AllowAnyHeader()
+                    .WithOrigins("http://localhost:4200")
+                    .AllowCredentials();
             }));
+
+            services.AddSignalR();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,6 +62,11 @@ namespace AspWinService
             }
 
             app.UseCors("MyPolicy");
+
+            app.UseSignalR(route =>
+            {
+                route.MapHub<ProgressHub>("/progresshub");
+            });
 
             app.UseMvc();
 

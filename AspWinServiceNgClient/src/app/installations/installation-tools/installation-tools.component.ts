@@ -6,7 +6,10 @@ import { State } from 'src/app/app.reducer';
 import * as actions from '../installations.actions';
 import { Observable } from 'rxjs';
 import { ClientInstallationInfo } from '../models/clientInstallationInfo';
-import { currentInstallationSelector, latestClientVersionSelector } from '../instalations.reducer';
+import * as reducer from '../instalations.reducer';
+import { UUID } from 'angular2-uuid';
+import { CurrentProcess, CurrentProcessResult } from '../models/current-process';
+import { ClientStateService, ClientState } from '../client-state.service';
 
 @Component({
   selector: 'app-installation-tools',
@@ -16,15 +19,16 @@ import { currentInstallationSelector, latestClientVersionSelector } from '../ins
 export class InstallationToolsComponent implements OnInit {
 
   public currentInstallation$: Observable<ClientInstallationInfo>;
-  public latestClientVersion$: Observable<string>;
+  public currentProcesses$: Observable<CurrentProcess[]>;
 
   constructor(
     public dialog: MatDialog,
-    public store: Store<State>) { }
+    public store: Store<State>,
+    public clientStateService: ClientStateService) { }
 
   ngOnInit() {
-    this.currentInstallation$ = this.store.select(currentInstallationSelector);
-    this.latestClientVersion$ = this.store.select(latestClientVersionSelector);
+    this.currentInstallation$ = this.store.select(reducer.currentInstallationSelector);
+    this.currentProcesses$ = this.store.select(reducer.currentProcessesSelector);
   }
 
   runApplication(row: ClientInstallationInfo) {
@@ -32,11 +36,11 @@ export class InstallationToolsComponent implements OnInit {
   }
 
   updateClient(row: ClientInstallationInfo) {
-    this.store.dispatch(actions.updateClient({payload: row}));
+    this.store.dispatch(actions.updateClient({ payload: { clientId: row.clientId, updateProcessId: UUID.UUID() } }));
   }
 
   deleteClient(row: ClientInstallationInfo) {
-    this.store.dispatch(actions.deleteClient({payload: row}));
+    this.store.dispatch(actions.deleteClient({ payload: { clientId: row.clientId, deleteProcessId: UUID.UUID() } }));
   }
 
   addNewClient() {
@@ -48,16 +52,22 @@ export class InstallationToolsComponent implements OnInit {
       if (result) {
         this.store.dispatch(actions.installNewClient({
           payload: {
+            clientId: UUID.UUID(),
             clientName: result.clientName,
             installDir: result.installDir,
-            applicationServer: result.applicationServer
+            applicationServer: result.applicationServer,
+            installationProcessId: UUID.UUID()
           }
         }));
       }
     });
   }
 
-  workInProgress(row: ClientInstallationInfo) {
-    return row.version === 'installing' || row.version === 'updating' || row.version === 'deleting';
+  canRunActions(row: ClientInstallationInfo, currentProcesses: CurrentProcess[]) {
+    const clientState = this.clientStateService.getClientState(row, currentProcesses);
+    return clientState === ClientState.ready ||
+      clientState === ClientState.upgradeSuccessfull ||
+      clientState === ClientState.installationSuccessfull ||
+      clientState === ClientState.upgradeAvailable;
   }
 }

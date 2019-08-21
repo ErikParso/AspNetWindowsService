@@ -7,8 +7,9 @@ export enum InstallationsActions {
     loadInstallationsError = '[Installations] Load installations error',
     runClient = '[Installations] Run client application',
     runClientSuccess = '[Installations] Run client application success',
-    loadLatestClientVersion = '[Installations] Load latest client version',
-    loadLatestClientVersionSuccess = '[Installations] Load latest client version success',
+    getClientNeedUpgrade = '[Installations] Get client need upgrade flag',
+    getClientNeedUpgradeSuccess = '[Installations] Get client need upgrade flag success',
+    getClientNeedUpgradeError = '[Installations] Get client need upgrade flag success',
     setCurrentInstallation = '[Installations] Set current installation',
     installNewClient = '[Installations] Install new client',
     installNewClientSuccess = '[Installations] Install new client success',
@@ -20,6 +21,8 @@ export enum InstallationsActions {
     deleteClient = '[Installation] Delete client',
     deleteClientSuccess = '[Installation] Delete client success',
     deleteClientError = '[Installation] Delete client error',
+    reportProgress = '[Installation] Progress report',
+    clearCurrentProcess = '[Installation] Clear current process from store'
 }
 
 export const loadInstallations = createAction(
@@ -45,23 +48,37 @@ export const runClientSuccess = createAction(
     InstallationsActions.runClientSuccess
 );
 
-export const loadLatestClientVersion = createAction(
-    InstallationsActions.loadLatestClientVersion
+export const getClientNeedUpgrade = createAction(
+    InstallationsActions.getClientNeedUpgrade,
+    props<{ payload: { clientId: string } }>()
 );
 
-export const loadLatestClientVersionSuccess = createAction(
-    InstallationsActions.loadLatestClientVersionSuccess,
-    props<{ payload: string }>()
+export const getClientNeedUpgradeSuccess = createAction(
+    InstallationsActions.getClientNeedUpgradeSuccess,
+    props<{ payload: { clientId: string, needUpgrade: boolean } }>()
+);
+
+export const getClientNeedUpgradeError = createAction(
+    InstallationsActions.getClientNeedUpgradeError,
+    props<{ payload: { clientId: string, message: boolean } }>()
 );
 
 export const setCurrentInstallation = createAction(
     InstallationsActions.setCurrentInstallation,
-    props<{ payload: ClientInstallationInfo }>()
+    props<{ payload: string }>()
 );
 
 export const installNewClient = createAction(
     InstallationsActions.installNewClient,
-    props<{ payload: { clientName: string, installDir: string, applicationServer: string } }>()
+    props<{
+        payload: {
+            clientId: string,
+            clientName: string,
+            installDir: string,
+            applicationServer: string,
+            installationProcessId: string
+        }
+    }>()
 );
 
 export const installNewClientSuccess = createAction(
@@ -71,7 +88,7 @@ export const installNewClientSuccess = createAction(
 
 export const installNewClientError = createAction(
     InstallationsActions.installNewClientError,
-    props<{ payload: { message: string, clientName: string } }>()
+    props<{ payload: { message: string, clientName: string, installationProcessId: string } }>()
 );
 
 export const removeCleint = createAction(
@@ -81,30 +98,40 @@ export const removeCleint = createAction(
 
 export const updateClient = createAction(
     InstallationsActions.updateClient,
-    props<{ payload: ClientInstallationInfo }>()
+    props<{ payload: { clientId: string, updateProcessId: string } }>()
 );
 
 export const updateClientSuccess = createAction(
     InstallationsActions.updateClientSuccess,
-    props<{ payload: ClientInstallationInfo }>()
+    props<{ payload: { updateProcessId: string, clientId: string } }>()
 );
 
 export const updateClientError = createAction(
     InstallationsActions.updateClientError,
-    props<{ payload: { message: string, clientName: string } }>()
+    props<{ payload: { message: string, updateProcessId: string } }>()
 );
 
 export const deleteClient = createAction(
     InstallationsActions.deleteClient,
-    props<{ payload: ClientInstallationInfo }>()
+    props<{ payload: { clientId: string, deleteProcessId: string } }>()
 );
 
 export const deleteClientSuccess = createAction(
     InstallationsActions.deleteClientSuccess,
-    props<{ payload: ClientInstallationInfo }>()
+    props<{ payload: { deleteProcessId: string } }>()
 );
 
 export const deleteClientError = createAction(
     InstallationsActions.deleteClientError,
-    props<{ payload: { message: string, clientName: string } }>()
+    props<{ payload: { message: string, deleteProcessId: string } }>()
+);
+
+export const reportProgress = createAction(
+    InstallationsActions.reportProgress,
+    props<{ payload: { processId: string, logItemId: string, progress: number, message: string } }>()
+);
+
+export const clearCurrentProcess = createAction(
+    InstallationsActions.clearCurrentProcess,
+    props<{ payload: string }>()
 );

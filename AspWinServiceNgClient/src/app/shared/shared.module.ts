@@ -15,6 +15,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MessageBoxComponent } from './message-box/message-box.component';
 import { CommonModule } from '@angular/common';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { CommonModule } from '@angular/common';
     MatDialogModule,
     MatProgressSpinnerModule,
     MatTooltipModule,
-    MessageBoxComponent
+    MessageBoxComponent,
+    MatProgressBarModule
   ],
   entryComponents: [
     MessageBoxComponent

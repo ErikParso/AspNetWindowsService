@@ -7,6 +7,12 @@ namespace AspWinService.Requests
     public class NewClientInstallationRequest : IRequest<ClientInfo>
     {
         [Required]
+        public string InstallationProcessId { get; set; }
+
+        [Required]
+        public string ClientId { get; set; }
+
+        [Required]
         public string ClientName { get; set; }
 
         [Required]

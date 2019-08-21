@@ -18,6 +18,15 @@ namespace AspWinService.Services
             return result;
         }
 
+        public ClientInfo GetClientInfo(string clientId)
+        {
+            ClientInfo result = null;
+            ProcessClientInfo(
+                c => c.ClientId == clientId, 
+                clientInfo => { result = clientInfo; });
+            return result;
+        }
+
         public ClientInfo GetClientInfo(Func<ClientInfo, bool> selector)
         {
             ClientInfo result = null;

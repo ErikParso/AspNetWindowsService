@@ -6,7 +6,9 @@ import * as reducer from '../instalations.reducer';
 import * as actions from '../installations.actions';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { MessageBoxComponent } from 'src/app/shared/message-box/message-box.component';
+import { CurrentProcessComponent, CurrenProcessDialogData } from '../current-process/current-process.component';
+import { CurrentProcess, CurrentProcessResult, CurrentProcessType } from '../models/current-process';
+import { ClientState, ClientStateService } from '../client-state.service';
 
 @Component({
   selector: 'app-installation-list',
@@ -16,43 +18,36 @@ import { MessageBoxComponent } from 'src/app/shared/message-box/message-box.comp
 export class InstallationListComponent implements OnInit {
 
   public installations$: Observable<ClientInstallationInfo[]>;
-  public latestClientVersion$: Observable<string>;
-  public currentInstallations$: Observable<ClientInstallationInfo>;
+  public currentInstallation$: Observable<string>;
+  public currentProcesses$: Observable<CurrentProcess[]>;
+
+  public clientStates = ClientState;
 
   displayedColumns: string[] = ['clientName', 'version']; // 'installDir'
 
   constructor(
     private store: Store<State>,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,
+    public clientStateService: ClientStateService) { }
 
   ngOnInit() {
     this.installations$ = this.store.select(reducer.allInstallationsSelector);
-    this.latestClientVersion$ = this.store.select(reducer.latestClientVersionSelector);
-    this.currentInstallations$ = this.store.select(reducer.currentInstallationSelector);
+    this.currentInstallation$ = this.store.select(reducer.currentInstallationIdSelector);
+    this.currentProcesses$ = this.store.select(reducer.currentProcessesSelector);
 
     this.store.dispatch(actions.loadInstallations());
-    this.store.dispatch(actions.loadLatestClientVersion());
   }
 
   setCurrentInstallation(row: ClientInstallationInfo) {
-    this.store.dispatch(actions.setCurrentInstallation({ payload: row }));
-  }
+    this.store.dispatch(actions.setCurrentInstallation({ payload: row.clientId }));
 
-  errorClick(row: ClientInstallationInfo) {
-    const dialogRef = this.dialog.open(MessageBoxComponent, {
-      width: '80%', maxWidth: '500px',
-      data: {
-        title: 'Installation failed',
-        message: `Client ${row.clientName} installation to dorectory ${row.installDir} failed. ${row.errorMessage}`
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(() => {
-      this.store.dispatch(actions.removeCleint({ payload: row }));
-    });
-  }
-
-  workInProgress(row: ClientInstallationInfo) {
-    return row.version === 'installing' || row.version === 'updating' || row.version === 'deleting';
+    if (row.currentProcessId && row.currentProcessId.length) {
+      this.dialog.open(CurrentProcessComponent, {
+        width: '80%', maxWidth: '500px',
+        data: {
+          currentProcessId: row.currentProcessId
+        } as CurrenProcessDialogData
+      });
+    }
   }
 }

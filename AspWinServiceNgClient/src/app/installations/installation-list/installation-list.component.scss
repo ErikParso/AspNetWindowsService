@@ -20,7 +20,7 @@ table {
 }
 
 .col-version {
-   width: 80px;
+   width: 100px;
 }
 
 .col-name-wrap {
@@ -39,13 +39,19 @@ table {
    padding-right: 10px;
 }
 
-.warn-icon {
-   display: inline;
-   vertical-align: middle;
-   font-size: 20px;
+.client-state {
+   display: flex;
+   flex-direction: row;
+   justify-content: flex-start;
+   align-items: center;
+   align-content: center;
+}
+
+.client-state>mat-icon {
+   flex: 1 100%;
+   margin: 10px
 }
 
 .spinner {
-   display: inline-table;
-   vertical-align: middle;
+   margin: 10px;
 }

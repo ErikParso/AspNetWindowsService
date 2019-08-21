@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ClientInstallationInfo } from './models/clientInstallationInfo';
+import { SignalRService } from './signalR.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,29 +11,39 @@ export class InstallationsService {
 
   clientInstallationsUrl = 'http://localhost:5000/api/client';
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(
+    private httpClient: HttpClient,
+    private signalRService: SignalRService) { }
 
   public getInstallations(): Observable<ClientInstallationInfo[]> {
     return this.httpClient.get<ClientInstallationInfo[]>(this.clientInstallationsUrl);
   }
 
-  public getLatestClientVersion(): Observable<string> {
-    return this.httpClient.get(this.clientInstallationsUrl + '/latestVersion', { responseType: 'text' });
+  public getClientNeedUpgrade(clientId: string): Observable<boolean> {
+    return this.httpClient.get<boolean>(this.clientInstallationsUrl + `/needUpgrade/${clientId}`);
   }
 
   public runClientApplication(clientName: string): Observable<object> {
     return this.httpClient.post(this.clientInstallationsUrl + '/runClient', { clientName });
   }
 
-  public installNewClient(clientName: string, installDir: string, applicationServer: string): Observable<ClientInstallationInfo> {
-    return this.httpClient.post<ClientInstallationInfo>(this.clientInstallationsUrl, { clientName, installDir, applicationServer });
+  public installNewClient(
+    clientId: string,
+    clientName: string,
+    installDir: string,
+    applicationServer: string,
+    installationProcessId: string): Observable<ClientInstallationInfo> {
+    this.signalRService.startConnection();
+    return this.httpClient.post<ClientInstallationInfo>(this.clientInstallationsUrl,
+      { clientId, clientName, installDir, applicationServer, installationProcessId });
   }
 
-  public updateClient(installDir: string): Observable<ClientInstallationInfo> {
-    return this.httpClient.put<ClientInstallationInfo>(this.clientInstallationsUrl, { installDir });
+  public updateClient(clientId: string, updateProcessId: string): Observable<ClientInstallationInfo> {
+    this.signalRService.startConnection();
+    return this.httpClient.put<ClientInstallationInfo>(this.clientInstallationsUrl, { clientId, updateProcessId });
   }
 
-  public deleteClient(clientName: string): Observable<ClientInstallationInfo> {
-    return this.httpClient.request<ClientInstallationInfo>('delete', this.clientInstallationsUrl, { body: { clientName } });
+  public deleteClient(clientId: string, deleteProcessId: string): Observable<ClientInstallationInfo> {
+    return this.httpClient.request<ClientInstallationInfo>('delete', this.clientInstallationsUrl, { body: { clientId, deleteProcessId } });
   }
 }
