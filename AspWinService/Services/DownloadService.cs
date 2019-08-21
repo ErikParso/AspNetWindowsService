@@ -23,22 +23,24 @@ namespace AspWinService.Services
         private readonly RuntimeVersionDetectorService runtimeVersionDetectorService;
         private readonly UpdateProcessorService updateProcessorService;
         private readonly ProgressService progressService;
+        private readonly RedirectService redirectService;
 
         public DownloadService(
             RuntimeVersionDetectorService runtimeVersionDetectorService,
             UpdateProcessorService updateProcessorService,
-            ProgressService progressService)
+            ProgressService progressService,
+            RedirectService redirectService)
         {
             this.runtimeVersionDetectorService = runtimeVersionDetectorService;
             this.updateProcessorService = updateProcessorService;
             this.progressService = progressService;
+            this.redirectService = redirectService;
         }
 
-        public async Task DownloadClient(string processId, string tempDir, string installDir, string applicationServer)
+        public async Task DownloadClient(string processId, string tempDir, string installDir, string versionManagerAddress)
         {
-            applicationServer = applicationServer.TrimEnd('/');
-            var updateClient = new ClientUpdateSoapClient(ClientUpdateSoapClient.EndpointConfiguration.ClientUpdateSoap);
-            updateClient.Endpoint.Address = new EndpointAddress(applicationServer + "/ClientUpdate.asmx");
+            versionManagerAddress = versionManagerAddress.TrimEnd('/');
+            var updateClient = await redirectService.GetUpdateClient(versionManagerAddress);
 
             var manifestFileAccessor = new ClientManifestFileAccessor(tempDir, installDir, updateClient);
             var updateManifestContent = await manifestFileAccessor.ReadUpdateManifestFileContent();

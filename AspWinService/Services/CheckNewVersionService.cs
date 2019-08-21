@@ -10,21 +10,23 @@ namespace AspWinService.Services
     {
         private readonly ClientInfoService clientInfoService;
         private readonly UpdateProcessorService updateProcessorService;
+        private readonly RedirectService redirectService;
 
         public CheckNewVersionService(
             ClientInfoService clientInfoService,
-            UpdateProcessorService updateProcessorService)
+            UpdateProcessorService updateProcessorService,
+            RedirectService redirectService)
         {
             this.clientInfoService = clientInfoService;
             this.updateProcessorService = updateProcessorService;
+            this.redirectService = redirectService;
         }
 
         public async Task<bool> CheckNewVersion(string clientId)
         {
             ClientUpdateManifest currentManifest = null;
             var clientInfo = clientInfoService.GetClientInfo(clientId);
-            var updateClient = new ClientUpdateSoapClient(ClientUpdateSoapClient.EndpointConfiguration.ClientUpdateSoap);
-            updateClient.Endpoint.Address = new EndpointAddress(clientInfo.ApplicationServer + "/ClientUpdate.asmx");
+            var updateClient = await redirectService.GetUpdateClient(clientInfo.ApplicationServer);
 
             var loader = new ClientManifestFileAccessor(clientInfo.InstallDir, clientInfo.InstallDir, updateClient);
             var parser = new UpdateManifestParser(clientInfo.InstallDir, clientInfo.InstallDir);
