@@ -16,6 +16,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MessageBoxComponent } from './message-box/message-box.component';
 import { CommonModule } from '@angular/common';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatProgressSpinnerModule,
     MatTooltipModule,
     MessageBoxComponent,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatSelectModule
   ],
   entryComponents: [
     MessageBoxComponent

@@ -30,12 +30,13 @@ export class InstallationsService {
   public installNewClient(
     clientId: string,
     clientName: string,
+    language: string,
     installDir: string,
     applicationServer: string,
     installationProcessId: string): Observable<ClientInstallationInfo> {
     this.signalRService.startConnection();
     return this.httpClient.post<ClientInstallationInfo>(this.clientInstallationsUrl,
-      { clientId, clientName, installDir, applicationServer, installationProcessId });
+      { clientId, clientName, language, installDir, applicationServer, installationProcessId });
   }
 
   public updateClient(clientId: string, updateProcessId: string): Observable<ClientInstallationInfo> {

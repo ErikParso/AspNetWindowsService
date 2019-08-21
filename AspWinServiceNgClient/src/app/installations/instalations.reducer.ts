@@ -84,6 +84,7 @@ const installationsReducer = createReducer<InstalationsState>(
         allInstallations: s.allInstallations.concat({
             clientId: p.payload.clientId,
             clientName: p.payload.clientName,
+            language: p.payload.language,
             installDir: p.payload.installDir,
             version: 'installing',
             currentProcessId: p.payload.installationProcessId,

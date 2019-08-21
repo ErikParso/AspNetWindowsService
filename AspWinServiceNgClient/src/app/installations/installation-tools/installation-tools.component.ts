@@ -54,6 +54,7 @@ export class InstallationToolsComponent implements OnInit {
           payload: {
             clientId: UUID.UUID(),
             clientName: result.clientName,
+            language: result.language,
             installDir: result.installDir,
             applicationServer: result.applicationServer,
             installationProcessId: UUID.UUID()

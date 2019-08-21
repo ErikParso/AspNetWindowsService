@@ -5,7 +5,8 @@
   <div mat-dialog-content>
 
     <mat-form-field class="application-server">
-      <input matInput placeholder="Application server" formControlName="applicationServer" [errorStateMatcher]="matcher">
+      <input matInput placeholder="Application server" formControlName="applicationServer"
+        [errorStateMatcher]="matcher">
       <mat-error *ngIf="installationForm.get('applicationServer').hasError('required')">
         Application server is required
       </mat-error>
@@ -15,6 +16,17 @@
       <input matInput placeholder="Client name" formControlName="clientName" [errorStateMatcher]="matcher">
       <mat-error *ngIf="installationForm.get('clientName').hasError('required')">
         Client name is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="field-language">
+      <mat-select placeholder="Language" formControlName="language" [errorStateMatcher]="matcher">
+        <mat-option value="CZ">CZ</mat-option>
+        <mat-option value="DE">DE</mat-option>
+        <mat-option value="EN">EN</mat-option>
+      </mat-select>
+      <mat-error *ngIf="installationForm.get('language').hasError('required')">
+        Language is required
       </mat-error>
     </mat-form-field>
 

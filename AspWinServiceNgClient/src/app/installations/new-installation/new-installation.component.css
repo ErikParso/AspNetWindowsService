@@ -6,6 +6,10 @@
     width: 100%;
 }
 
+.field-language {
+    width: 150px;
+}
+
 mat-form-field {
     display: block;
 }

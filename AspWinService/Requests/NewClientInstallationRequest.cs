@@ -16,6 +16,9 @@ namespace AspWinService.Requests
         public string ClientName { get; set; }
 
         [Required]
+        public string Language { get; set; }
+
+        [Required]
         public string InstallDir { get; set; }
 
         [Required]

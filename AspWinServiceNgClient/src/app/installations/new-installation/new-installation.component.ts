@@ -21,7 +21,8 @@ export class NewInstallationComponent implements OnInit {
   installationForm = new FormGroup({
     clientName: new FormControl('', Validators.required),
     installDir: new FormControl('', Validators.required),
-    applicationServer: new FormControl('http://CAMEL/Source99-E5A1', Validators.required)
+    applicationServer: new FormControl('http://CAMEL/Source99-E5A1', Validators.required),
+    language: new FormControl('', Validators.required)
   });
 
   matcher = new MyErrorStateMatcher();
@@ -50,7 +51,8 @@ export class NewInstallationComponent implements OnInit {
     this.dialogRef.close({
       clientName: this.installationForm.get('clientName').value,
       installDir: this.installationForm.get('installDir').value,
-      applicationServer: this.installationForm.get('applicationServer').value
+      applicationServer: this.installationForm.get('applicationServer').value,
+      language: this.installationForm.get('language').value
     });
   }
 }

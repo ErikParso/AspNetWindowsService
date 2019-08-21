@@ -36,7 +36,7 @@ namespace AspWinService.RequestHandlers
             if (!Directory.Exists(tempDir))
                 Directory.CreateDirectory(tempDir);
 
-            manifestService.LoadConfig(installDir, request.ApplicationServer, "CZ");
+            manifestService.LoadConfig(installDir, request.ApplicationServer, request.Language);
             await downloadService.DownloadClient(request.InstallationProcessId, tempDir, installDir, request.ApplicationServer);
 
             var clientInfo = new ClientInfo()
@@ -45,7 +45,8 @@ namespace AspWinService.RequestHandlers
                 ClientName = request.ClientName,
                 InstallDir = installDir,
                 ApplicationServer = request.ApplicationServer,
-                Extensions = Enumerable.Empty<string>()
+                Extensions = Enumerable.Empty<string>(),
+                Language = request.Language
             };
             clientInfoService.AddClientInfo(clientInfo);
 

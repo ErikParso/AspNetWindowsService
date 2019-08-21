@@ -74,6 +74,7 @@ export const installNewClient = createAction(
         payload: {
             clientId: string,
             clientName: string,
+            language: string,
             installDir: string,
             applicationServer: string,
             installationProcessId: string
