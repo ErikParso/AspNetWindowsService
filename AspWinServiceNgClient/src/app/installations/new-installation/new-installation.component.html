@@ -5,7 +5,7 @@
   <div mat-dialog-content>
 
     <mat-form-field class="application-server">
-      <mat-icon matPrefix
+      <mat-icon matPrefix class="label-icon"
         [color]="matcher.isErrorState(applicationServer, null) ? 'warn' : 'primary'">
         storage</mat-icon>
       <input matInput placeholder="Application server" formControlName="applicationServer"
@@ -16,7 +16,7 @@
     </mat-form-field>
 
     <mat-form-field class="field-client-name">
-      <mat-icon matPrefix
+      <mat-icon matPrefix class="label-icon"
         [color]="matcher.isErrorState(clientName, null)  ? 'warn' : 'primary'">
         title</mat-icon>
       <input matInput placeholder="Client name" formControlName="clientName" [errorStateMatcher]="matcher">
@@ -26,7 +26,7 @@
     </mat-form-field>
 
     <mat-form-field class="field-language">
-      <mat-icon matPrefix
+      <mat-icon class="label-icon" matPrefix
         [color]="matcher.isErrorState(language, null)  ? 'warn' : 'primary'">
         language</mat-icon>
       <mat-select placeholder="Language" formControlName="language" [errorStateMatcher]="matcher">
@@ -40,7 +40,7 @@
     </mat-form-field>
 
     <mat-form-field class="field-install-dir">
-      <mat-icon matPrefix
+      <mat-icon matPrefix class="label-icon"
         [color]="matcher.isErrorState(installDir, null)  ? 'warn' : 'primary'">
         folder</mat-icon>
       <input matInput placeholder="Installation directory" formControlName="installDir" [errorStateMatcher]="matcher">
