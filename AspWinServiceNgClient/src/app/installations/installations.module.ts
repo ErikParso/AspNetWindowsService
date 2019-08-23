@@ -10,6 +10,7 @@ import { InstallationsEffects } from './installations.effects';
 import { NewInstallationComponent } from './new-installation/new-installation.component';
 import { InstallationToolsComponent } from './installation-tools/installation-tools.component';
 import { CurrentProcessComponent } from './current-process/current-process.component';
+import { NewClientWizardComponent } from './new-client-wizard/new-client-wizard.component';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import { CurrentProcessComponent } from './current-process/current-process.compo
     InstallationListComponent,
     NewInstallationComponent,
     InstallationToolsComponent,
-    CurrentProcessComponent
+    CurrentProcessComponent,
+    NewClientWizardComponent
   ],
   exports: [
     NewInstallationComponent,

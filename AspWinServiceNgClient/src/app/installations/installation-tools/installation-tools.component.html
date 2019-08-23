@@ -12,6 +12,6 @@
   </ng-container>
 </ng-container>
 
-<button mat-icon-button (click)="addNewClient()">
+<button mat-icon-button [routerLink]="[{outlets: {primary: ['newclient'], footer:['none']}}]">
   <mat-icon>library_add</mat-icon>
 </button>

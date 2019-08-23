@@ -18,7 +18,7 @@
 </mat-toolbar>
 
 <div class="content">
-  <router-outlet name="content" *ngIf="(upgradeState$ | async) === upgradeState.none"></router-outlet>
+  <router-outlet *ngIf="(upgradeState$ | async) === upgradeState.none"></router-outlet>
 
   <div class="center" *ngIf="(upgradeState$ | async) === upgradeState.downloading">
     <mat-progress-spinner color="primary" mode="indeterminate">

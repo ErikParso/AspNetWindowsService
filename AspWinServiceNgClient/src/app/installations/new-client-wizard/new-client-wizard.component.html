@@ -1,0 +1,76 @@
+<mat-horizontal-stepper [linear]="isLinear" #stepper>
+  <mat-step [stepControl]="installationForm">
+    <form [formGroup]="installationForm">
+      <ng-template matStepLabel>Client</ng-template>
+
+      <mat-form-field class="application-server">
+        <mat-icon matPrefix class="label-icon"
+          [color]="matcher.isErrorState(applicationServer, null) ? 'warn' : 'primary'">
+          storage</mat-icon>
+        <input matInput placeholder="Application server" formControlName="applicationServer"
+          [errorStateMatcher]="matcher">
+        <mat-error *ngIf="installationForm.get('applicationServer').hasError('required')">
+          Application server is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="field-client-name">
+        <mat-icon matPrefix class="label-icon" [color]="matcher.isErrorState(clientName, null)  ? 'warn' : 'primary'">
+          title</mat-icon>
+        <input matInput placeholder="Client name" formControlName="clientName" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="installationForm.get('clientName').hasError('required')">
+          Client name is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="field-language">
+        <mat-icon class="label-icon" matPrefix [color]="matcher.isErrorState(language, null)  ? 'warn' : 'primary'">
+          language</mat-icon>
+        <mat-select placeholder="Language" formControlName="language" [errorStateMatcher]="matcher">
+          <mat-option value="CZ">CZ</mat-option>
+          <mat-option value="DE">DE</mat-option>
+          <mat-option value="EN">EN</mat-option>
+        </mat-select>
+        <mat-error *ngIf="installationForm.get('language').hasError('required')">
+          Language is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="field-install-dir">
+        <mat-icon matPrefix class="label-icon" [color]="matcher.isErrorState(installDir, null)  ? 'warn' : 'primary'">
+          folder</mat-icon>
+        <input matInput placeholder="Installation directory" formControlName="installDir" [errorStateMatcher]="matcher">
+        <a matSuffix (click)="selectDir()" *ngIf="electronService.isElectronApp">
+          <mat-icon class="select-dir-icon">more_horiz</mat-icon>
+        </a>
+        <mat-error *ngIf="installationForm.get('installDir').hasError('required')">
+          Installation directory is required
+        </mat-error>
+      </mat-form-field>
+
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Configuration</ng-template>
+      <mat-form-field>
+        <input matInput placeholder="Address" formControlName="secondCtrl" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    You are now done.
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>

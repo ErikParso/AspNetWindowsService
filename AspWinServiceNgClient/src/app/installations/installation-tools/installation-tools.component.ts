@@ -10,6 +10,7 @@ import * as reducer from '../instalations.reducer';
 import { UUID } from 'angular2-uuid';
 import { CurrentProcess, CurrentProcessResult } from '../models/current-process';
 import { ClientStateService, ClientState } from '../client-state.service';
+import { NewClientWizardComponent } from '../new-client-wizard/new-client-wizard.component';
 
 @Component({
   selector: 'app-installation-tools',
@@ -44,7 +45,7 @@ export class InstallationToolsComponent implements OnInit {
   }
 
   addNewClient() {
-    const dialogRef = this.dialog.open(NewInstallationComponent, {
+    const dialogRef = this.dialog.open(NewClientWizardComponent, {
       width: '80%', maxWidth: '500px'
     });
 
