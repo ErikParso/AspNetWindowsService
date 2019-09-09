@@ -1,18 +1,44 @@
 $footerHeight: 60px;
 
 .content {
-   position: absolute;
-   top: 0;
-   left: 0;
-   right: 0;
-   bottom: $footerHeight;
- }
- 
- .footer {
-   z-index: 10000;
-   position: absolute;
-   left: 0;
-   right: 0;
-   bottom: 0;
-   height: $footerHeight;
- }
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: $footerHeight;
+}
+
+.footer {
+  z-index: 10000;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: $footerHeight;
+}
+
+.field-client-name {
+  width: 100%;
+}
+
+.field-install-dir {
+  width: 100%;
+}
+
+.field-language {
+  width: 150px;
+}
+
+mat-form-field {
+  display: block;
+}
+
+.label-icon {
+  margin-right: 10px;
+}
+
+.select-dir-icon {
+  position: relative;
+  top: 10px;
+  cursor: pointer;
+}
