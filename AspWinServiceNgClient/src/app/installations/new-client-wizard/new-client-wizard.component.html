@@ -9,14 +9,14 @@
     <mat-step [stepControl]="step2.frmStepTwo">
       <ng-template matStepLabel>Configuration</ng-template>
       <app-step-two #step2></app-step-two>
-      <button mat-button matStepperPrevious>Back</button>
       <button mat-button matStepperNext>Next</button>
+      <button mat-button matStepperPrevious>Back</button>
     </mat-step>
     <mat-step [stepControl]="step3.frmStepThree">
       <ng-template matStepLabel>Configuration</ng-template>
       <app-step-three #step3></app-step-three>
+      <button mat-button (click)="install(step1)" [routerLink]="'../list'">Install</button>
       <button mat-button matStepperPrevious>Back</button>
-      <button mat-button matStepperNext>Next</button>
     </mat-step>
   </mat-horizontal-stepper>
 

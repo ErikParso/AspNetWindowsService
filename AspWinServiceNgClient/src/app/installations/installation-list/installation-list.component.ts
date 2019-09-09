@@ -34,8 +34,6 @@ export class InstallationListComponent implements OnInit {
     this.installations$ = this.store.select(reducer.allInstallationsSelector);
     this.currentInstallation$ = this.store.select(reducer.currentInstallationIdSelector);
     this.currentProcesses$ = this.store.select(reducer.currentProcessesSelector);
-
-    this.store.dispatch(actions.loadInstallations());
   }
 
   setCurrentInstallation(row: ClientInstallationInfo) {

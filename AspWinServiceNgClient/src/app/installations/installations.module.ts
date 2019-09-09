@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { InstallationListComponent } from './installation-list/installation-list.component';
 import { SharedModule } from '../shared/shared.module';
-import { StoreModule } from '@ngrx/store';
+import { StoreModule, Store } from '@ngrx/store';
 import { reducer } from './instalations.reducer';
 import { InstallationsRoutes } from './installations.routing';
 import { CommonModule } from '@angular/common';
@@ -14,6 +14,8 @@ import { NewClientWizardComponent } from './new-client-wizard/new-client-wizard.
 import { StepOneComponent } from './new-client-wizard/step-one/step-one.component';
 import { StepTwoComponent } from './new-client-wizard/step-two/step-two.component';
 import { StepThreeComponent } from './new-client-wizard/step-three/step-three.component';
+import { State } from '../app.reducer';
+import { loadInstallations } from './installations.actions';
 
 @NgModule({
   imports: [
@@ -42,4 +44,10 @@ import { StepThreeComponent } from './new-client-wizard/step-three/step-three.co
     CurrentProcessComponent
   ]
 })
-export class InstallationsModule { }
+export class InstallationsModule {
+
+  constructor(private store: Store<State>) {
+    this.store.dispatch(loadInstallations());
+  }
+
+}

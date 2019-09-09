@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ElectronService } from 'ngx-electron';
 import { FormGroup } from '@angular/forms';
 import { StepOneComponent } from './step-one/step-one.component';
+import { Store } from '@ngrx/store';
+import { State } from 'src/app/app.reducer';
+import { UUID } from 'angular2-uuid';
+import * as actions from '../installations.actions';
 
 @Component({
   selector: 'app-new-client-wizard',
@@ -11,13 +15,23 @@ import { StepOneComponent } from './step-one/step-one.component';
 export class NewClientWizardComponent implements OnInit {
 
   constructor(
-    public electronService: ElectronService) { }
+    public electronService: ElectronService,
+    public store: Store<State>) { }
 
   ngOnInit() {
 
   }
 
-  stepChanged($event, stepper){
-    console.log('ss');
+  install(step1comp: StepOneComponent) {
+    this.store.dispatch(actions.installNewClient({
+      payload: {
+        clientId: UUID.UUID(),
+        clientName: step1comp.clientName.value,
+        language: step1comp.language.value,
+        installDir: step1comp.installDir.value,
+        applicationServer: step1comp.applicationServer.value,
+        installationProcessId: UUID.UUID()
+      }
+    }));
   }
 }
