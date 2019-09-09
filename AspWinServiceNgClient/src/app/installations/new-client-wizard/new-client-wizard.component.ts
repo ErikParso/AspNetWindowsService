@@ -14,7 +14,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 @Component({
   selector: 'app-new-client-wizard',
   templateUrl: './new-client-wizard.component.html',
-  styleUrls: ['./new-client-wizard.component.css']
+  styleUrls: ['./new-client-wizard.component.scss']
 })
 export class NewClientWizardComponent implements OnInit {
 

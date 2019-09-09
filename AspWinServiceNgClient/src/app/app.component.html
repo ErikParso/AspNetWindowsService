@@ -34,9 +34,3 @@
     <span class="mat-body">Application will close...</span>
   </div>
 </div>
-
-<mat-toolbar color="primary" class="footer mat-elevation-z2">
-  <mat-toolbar-row>
-    <router-outlet name="footer" *ngIf="(upgradeState$ | async) === upgradeState.none"></router-outlet>
-  </mat-toolbar-row>
-</mat-toolbar>

@@ -1,5 +1,4 @@
 $headerHeight: 60px;
-$footerHeight: 60px;
 
 .header {
   z-index: 10000;
@@ -19,16 +18,7 @@ $footerHeight: 60px;
   top: $headerHeight;
   left: 0;
   right: 0;
-  bottom: $footerHeight;
-}
-
-.footer {
-  z-index: 10000;
-  position: absolute;
-  left: 0;
-  right: 0;
   bottom: 0;
-  height: $footerHeight;
 }
 
 .center {

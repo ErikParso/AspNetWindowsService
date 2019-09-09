@@ -1,4 +1,4 @@
-<div class="table-container">
+<div class="table-container content">
   <table mat-table [dataSource]="installations$ | async">
 
     <ng-container matColumnDef="clientName">
@@ -48,4 +48,11 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="setCurrentInstallation(row)"></tr>
   </table>
+
 </div>
+
+<mat-toolbar color="primary" class="footer mat-elevation-z2">
+  <mat-toolbar-row>
+    <app-installation-tools></app-installation-tools>
+  </mat-toolbar-row>
+</mat-toolbar>
