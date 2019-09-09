@@ -1,0 +1,49 @@
+<form [formGroup]="frmStepOne">
+  <mat-form-field class="application-server">
+    <mat-label>
+      <mat-icon>storage</mat-icon> Application server
+    </mat-label>
+    <input matInput placeholder="Application server" formControlName="applicationServer">
+    <mat-error *ngIf="frmStepOne.get('applicationServer').hasError('required')">
+      Application server is required
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="field-client-name">
+    <mat-label>
+      <mat-icon>title</mat-icon> Client name
+    </mat-label>
+    <input matInput formControlName="clientName">
+    <mat-error *ngIf="frmStepOne.get('clientName').hasError('required')">
+      Client name is required
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="field-language">
+    <mat-label>
+      <mat-icon>language</mat-icon> Language
+    </mat-label>
+    <mat-select formControlName="language">
+      <mat-option value="CZ">CZ</mat-option>
+      <mat-option value="DE">DE</mat-option>
+      <mat-option value="EN">EN</mat-option>
+    </mat-select>
+    <mat-error *ngIf="frmStepOne.get('language').hasError('required')">
+      Language is required
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="field-install-dir">
+    <mat-label>
+      <mat-icon>folder</mat-icon> Installation directory
+    </mat-label>
+    <input matInput formControlName="installDir">
+    <a matSuffix (click)="selectDir()" *ngIf="electronService.isElectronApp">
+      <mat-icon class="select-dir-icon">more_horiz</mat-icon>
+    </a>
+    <mat-error *ngIf="frmStepOne.get('installDir').hasError('required')">
+      Installation directory is required
+    </mat-error>
+  </mat-form-field>
+
+</form>

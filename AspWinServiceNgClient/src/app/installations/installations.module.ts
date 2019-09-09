@@ -11,6 +11,9 @@ import { NewInstallationComponent } from './new-installation/new-installation.co
 import { InstallationToolsComponent } from './installation-tools/installation-tools.component';
 import { CurrentProcessComponent } from './current-process/current-process.component';
 import { NewClientWizardComponent } from './new-client-wizard/new-client-wizard.component';
+import { StepOneComponent } from './new-client-wizard/step-one/step-one.component';
+import { StepTwoComponent } from './new-client-wizard/step-two/step-two.component';
+import { StepThreeComponent } from './new-client-wizard/step-three/step-three.component';
 
 @NgModule({
   imports: [
@@ -25,7 +28,10 @@ import { NewClientWizardComponent } from './new-client-wizard/new-client-wizard.
     NewInstallationComponent,
     InstallationToolsComponent,
     CurrentProcessComponent,
-    NewClientWizardComponent
+    NewClientWizardComponent,
+    StepOneComponent,
+    StepTwoComponent,
+    StepThreeComponent
   ],
   exports: [
     NewInstallationComponent,
