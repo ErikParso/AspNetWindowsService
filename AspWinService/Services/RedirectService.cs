@@ -13,6 +13,14 @@ namespace AspWinService.Services
             return (await dataClient.GetInfoAsync("GETREDIRECTINFO", string.Empty)).Body.GetInfoResult;
         }
 
+        public async Task<string> GetAvailableLanguages(string versionManagerAddress)
+        {
+            var appServeraddress = await GetApplicationServerAddress(versionManagerAddress);
+            var dataClient = new DataSoapClient(DataSoapClient.EndpointConfiguration.DataSoap);
+            dataClient.Endpoint.Address = new System.ServiceModel.EndpointAddress(appServeraddress + "/Data.asmx");
+            return (await dataClient.GetInfoAsync("GETLANGUAGES", string.Empty)).Body.GetInfoResult;
+        }
+
         public async Task<ClientUpdateSoapClient> GetUpdateClient(string versionManagerAddress)
         {
             var appServeraddress = await GetApplicationServerAddress(versionManagerAddress);

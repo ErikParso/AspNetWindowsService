@@ -11,15 +11,15 @@ import { map, tap } from 'rxjs/operators';
 })
 export class StepOneComponent implements OnInit {
 
+  public availableLanguages: string[] = [];
+
   public clientName: FormControl;
   public installDir: FormControl;
   public applicationServer: FormControl;
   public language: FormControl;
-
   public frmStepOne: FormGroup;
 
   constructor(
-    private formBuilder: FormBuilder,
     public electronService: ElectronService,
     public validationService: ValidationService) {
 
@@ -54,8 +54,12 @@ export class StepOneComponent implements OnInit {
   validateVersionManagerAddress(control: AbstractControl) {
     return this.validationService.validateVersionManagerAddress(control.value).pipe(
       tap(res => {
-        if (!res.isValid) {
-          console.log(res.message);
+        console.log(res.message);
+        if (res.isValid) {
+          this.availableLanguages = JSON.parse(res.message).Languages;
+          console.log(this.availableLanguages);
+        } else {
+          this.availableLanguages = [];
         }
       }),
       map(res => res.isValid ? null : { invalidVersionManagerAddress: true }

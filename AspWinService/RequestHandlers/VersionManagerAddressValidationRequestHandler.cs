@@ -2,9 +2,13 @@
 using AspWinService.Requests;
 using AspWinService.Services;
 using MediatR;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace AspWinService.RequestHandlers
 {
@@ -26,8 +30,11 @@ namespace AspWinService.RequestHandlers
                 var applicationserverAddress = await redirectService.GetApplicationServerAddress(request.VersionManagerAddress);
                 if (!string.IsNullOrWhiteSpace(applicationserverAddress))
                 {
+                    var languagesXml = await redirectService.GetAvailableLanguages(request.VersionManagerAddress);
+                    var languages = ParseLanguages(languagesXml);
                     result.IsValid = true;
-                    result.Message = applicationserverAddress;
+                    result.Message = JsonConvert.SerializeObject(
+                        new { Languages = languages, RedirectAddress = applicationserverAddress });
                 }
                 else
                 {
@@ -41,6 +48,11 @@ namespace AspWinService.RequestHandlers
             }
 
             return result;
+        }
+
+        private IEnumerable<string> ParseLanguages(string xml) {
+            var xdOc = XDocument.Parse(xml);
+            return xdOc.Descendants("language").Select(el => el.Attribute("code").Value).ToList();
         }
     }
 }
