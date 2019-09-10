@@ -1,14 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators, FormGroup, NgForm, FormGroupDirective, FormBuilder } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { FormControl, Validators, FormGroup, FormBuilder, AbstractControl } from '@angular/forms';
 import { ElectronService } from 'ngx-electron';
-
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const formInterracted = form && (form.touched || form.dirty);
-    return (control && control.invalid && (control.dirty || control.touched || formInterracted));
-  }
-}
+import { ValidationService } from '../../validation.service';
+import { map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-step-one',
@@ -17,23 +11,35 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class StepOneComponent implements OnInit {
 
-  public clientName = new FormControl('', Validators.required);
-  public installDir = new FormControl('', Validators.required);
-  public applicationServer = new FormControl('http://CAMEL/Source99-E5A1', Validators.required);
-  public language = new FormControl('', Validators.required);
+  public clientName: FormControl;
+  public installDir: FormControl;
+  public applicationServer: FormControl;
+  public language: FormControl;
 
-  public frmStepOne = new FormGroup({
-    clientName: this.clientName,
-    installDir: this.installDir,
-    applicationServer: this.applicationServer,
-    language: this.language
-  });
+  public frmStepOne: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
-    public electronService: ElectronService) { }
+    public electronService: ElectronService,
+    public validationService: ValidationService) {
+
+    this.clientName = new FormControl('', Validators.required);
+    this.installDir = new FormControl('', Validators.required);
+    this.applicationServer = new FormControl(
+      'http://CAMEL/Source99-E5A1',
+      Validators.required,
+      this.validateVersionManagerAddress.bind(this));
+    this.language = new FormControl('', Validators.required);
+    this.frmStepOne = new FormGroup({
+      clientName: this.clientName,
+      installDir: this.installDir,
+      applicationServer: this.applicationServer,
+      language: this.language
+    });
+  }
 
   ngOnInit() {
+
   }
 
   selectDir() {
@@ -45,7 +51,14 @@ export class StepOneComponent implements OnInit {
       });
   }
 
-  write(obj) {
-    console.log(obj);
+  validateVersionManagerAddress(control: AbstractControl) {
+    return this.validationService.validateVersionManagerAddress(control.value).pipe(
+      tap(res => {
+        if (!res.isValid) {
+          console.log(res.message);
+        }
+      }),
+      map(res => res.isValid ? null : { invalidVersionManagerAddress: true }
+      ));
   }
 }

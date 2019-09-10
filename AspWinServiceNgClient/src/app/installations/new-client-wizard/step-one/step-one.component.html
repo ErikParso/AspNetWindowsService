@@ -4,8 +4,11 @@
       <mat-icon>storage</mat-icon> Application server
     </mat-label>
     <input matInput placeholder="Application server" formControlName="applicationServer">
-    <mat-error *ngIf="frmStepOne.get('applicationServer').hasError('required')">
+    <mat-error *ngIf="applicationServer.hasError('required')">
       Application server is required
+    </mat-error>
+    <mat-error *ngIf="applicationServer.hasError('invalidVersionManagerAddress')">
+      Invalid version manager address
     </mat-error>
   </mat-form-field>
 
