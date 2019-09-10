@@ -14,6 +14,7 @@ export class StepOneComponent implements OnInit {
   public availableLanguages: string[] = [];
 
   public clientName: FormControl;
+  public installForAll: FormControl;
   public installDir: FormControl;
   public applicationServer: FormControl;
   public language: FormControl;
@@ -24,14 +25,13 @@ export class StepOneComponent implements OnInit {
     public validationService: ValidationService) {
 
     this.clientName = new FormControl('', Validators.required);
+    this.installForAll = new FormControl(true);
     this.installDir = new FormControl('', Validators.required);
-    this.applicationServer = new FormControl(
-      'http://CAMEL/Source99-E5A1',
-      Validators.required,
-      this.validateVersionManagerAddress.bind(this));
+    this.applicationServer = new FormControl('', Validators.required, this.validateVersionManagerAddress.bind(this));
     this.language = new FormControl('', Validators.required);
     this.frmStepOne = new FormGroup({
       clientName: this.clientName,
+      installForAll: this.installForAll,
       installDir: this.installDir,
       applicationServer: this.applicationServer,
       language: this.language
@@ -43,12 +43,14 @@ export class StepOneComponent implements OnInit {
   }
 
   selectDir() {
-    this.electronService.remote.dialog.showOpenDialog(this.electronService.remote.getCurrentWindow(), { properties: ['openDirectory'] })
-      .then(result => {
-        if (result.filePaths && result.filePaths.length) {
-          this.installDir.setValue(result.filePaths[0]);
-        }
-      });
+    if (this.installForAll.value) {
+      this.electronService.remote.dialog.showOpenDialog(this.electronService.remote.getCurrentWindow(), { properties: ['openDirectory'] })
+        .then(result => {
+          if (result.filePaths && result.filePaths.length) {
+            this.installDir.setValue(result.filePaths[0]);
+          }
+        });
+    }
   }
 
   validateVersionManagerAddress(control: AbstractControl) {
@@ -64,5 +66,13 @@ export class StepOneComponent implements OnInit {
       }),
       map(res => res.isValid ? null : { invalidVersionManagerAddress: true }
       ));
+  }
+
+  installAllClientsChanged($event) {
+    if ($event.value) {
+      this.installDir.enable();
+    } else {
+      this.installDir.disable();
+    }
   }
 }

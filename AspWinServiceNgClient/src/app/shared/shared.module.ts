@@ -18,6 +18,8 @@ import { CommonModule } from '@angular/common';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { MatStepperModule } from '@angular/material/stepper';
     MessageBoxComponent,
     MatProgressBarModule,
     MatSelectModule,
-    MatStepperModule
+    MatStepperModule,
+    MatCheckboxModule,
+    MatRadioModule
   ],
   entryComponents: [
     MessageBoxComponent

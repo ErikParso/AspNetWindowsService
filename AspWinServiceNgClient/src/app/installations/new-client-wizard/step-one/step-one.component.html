@@ -34,6 +34,12 @@
     </mat-error>
   </mat-form-field>
 
+  <mat-radio-group formControlName="installForAll" class="field-install-for-all" (change)=installAllClientsChanged($event)>
+    Install for
+    <mat-radio-button [value]="true">all users</mat-radio-button>
+    <mat-radio-button [value]="false">current user</mat-radio-button>
+  </mat-radio-group>
+
   <mat-form-field class="field-install-dir">
     <mat-label>
       <mat-icon>folder</mat-icon> Installation directory
