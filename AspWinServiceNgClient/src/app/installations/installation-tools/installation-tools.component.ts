@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { NewInstallationComponent } from '../new-installation/new-installation.component';
 import { Store } from '@ngrx/store';
 import { State } from 'src/app/app.reducer';
 import * as actions from '../installations.actions';

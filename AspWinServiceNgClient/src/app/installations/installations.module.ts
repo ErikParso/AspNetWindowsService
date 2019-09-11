@@ -7,7 +7,6 @@ import { InstallationsRoutes } from './installations.routing';
 import { CommonModule } from '@angular/common';
 import { EffectsModule } from '@ngrx/effects';
 import { InstallationsEffects } from './installations.effects';
-import { NewInstallationComponent } from './new-installation/new-installation.component';
 import { InstallationToolsComponent } from './installation-tools/installation-tools.component';
 import { CurrentProcessComponent } from './current-process/current-process.component';
 import { NewClientWizardComponent } from './new-client-wizard/new-client-wizard.component';
@@ -29,7 +28,6 @@ import { FormsModule } from '@angular/forms';
   ],
   declarations: [
     InstallationListComponent,
-    NewInstallationComponent,
     InstallationToolsComponent,
     CurrentProcessComponent,
     NewClientWizardComponent,
@@ -38,11 +36,9 @@ import { FormsModule } from '@angular/forms';
     StepThreeComponent
   ],
   exports: [
-    NewInstallationComponent,
     CurrentProcessComponent
   ],
   entryComponents: [
-    NewInstallationComponent,
     CurrentProcessComponent
   ]
 })
