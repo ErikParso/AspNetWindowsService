@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
@@ -6,21 +6,18 @@ import { FormGroup, FormBuilder } from '@angular/forms';
   templateUrl: './step-three.component.html',
   styleUrls: ['./step-three.component.css']
 })
-export class StepThreeComponent implements OnInit {
+export class StepThreeComponent {
 
   public frmStepThree: FormGroup;
 
   public isInstallForAll: boolean;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder) {
     this.frmStepThree = this.fb.group({
       createIcon: [true],
       lnkForAllUsers: [false],
       runAfterInstall: [false]
     });
-  }
-
-  ngOnInit() {
-
   }
 }

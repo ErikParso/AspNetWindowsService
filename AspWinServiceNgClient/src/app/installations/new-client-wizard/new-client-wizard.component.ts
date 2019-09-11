@@ -44,4 +44,8 @@ export class NewClientWizardComponent implements OnInit {
       }
     }
   }
+
+  downloadHegi(step1: StepOneComponent, step2: StepTwoComponent, step3: StepThreeComponent) {
+
+  }
 }
