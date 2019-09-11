@@ -16,10 +16,12 @@ import { StepTwoComponent } from './new-client-wizard/step-two/step-two.componen
 import { StepThreeComponent } from './new-client-wizard/step-three/step-three.component';
 import { State } from '../app.reducer';
 import { loadInstallations } from './installations.actions';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     SharedModule,
     InstallationsRoutes,
     StoreModule.forFeature('installations', reducer),

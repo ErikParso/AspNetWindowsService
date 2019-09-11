@@ -1,4 +1,4 @@
-mat-form-field {
+.main-form-field {
     width: 100%;
 }
 
@@ -7,9 +7,10 @@ table {
 }
 
 .table-container {
-    height: 150px;
+    height: 180px;
     overflow: auto;
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 table tr.mat-row {
@@ -17,6 +18,10 @@ table tr.mat-row {
 }
 
 table tr.mat-header-row {
+    height: 30px;
+}
+
+table tr.mat-footer-row {
     height: 30px;
 }
 
@@ -39,4 +44,8 @@ button {
     width: 20px;
     font-size: 20px;
     line-height: 20px;
+}
+
+.mat-table-sticky {
+    border-top: 1px solid #e0e0e0;
 }

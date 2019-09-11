@@ -1,12 +1,6 @@
 <div class="content">
 
   <mat-horizontal-stepper linear="true" #stepper>
-      <mat-step [stepControl]="step2.frmStepTwo">
-          <ng-template matStepLabel>Configuration</ng-template>
-          <app-step-two #step2></app-step-two>
-          <button mat-button matStepperNext>Next</button>
-          <button mat-button matStepperPrevious>Back</button>
-        </mat-step>
     <mat-step [stepControl]="step1.frmStepOne">
       <ng-template matStepLabel>Client</ng-template>
       <app-step-one #step1></app-step-one>
