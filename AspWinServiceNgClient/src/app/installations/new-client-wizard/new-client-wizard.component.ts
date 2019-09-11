@@ -6,6 +6,8 @@ import { Store } from '@ngrx/store';
 import { State } from 'src/app/app.reducer';
 import { UUID } from 'angular2-uuid';
 import * as actions from '../installations.actions';
+import { StepThreeComponent } from './step-three/step-three.component';
+import { StepTwoComponent } from './step-two/step-two.component';
 
 @Component({
   selector: 'app-new-client-wizard',
@@ -33,5 +35,14 @@ export class NewClientWizardComponent implements OnInit {
         installationProcessId: UUID.UUID()
       }
     }));
+  }
+
+  selectionChanged($event: any, step1: StepOneComponent, step2: StepTwoComponent, step3: StepThreeComponent) {
+    if ($event.selectedIndex === 2) {
+      step3.isInstallForAll = step1.installForAll.value;
+      if (!step3.isInstallForAll) {
+        step3.frmStepThree.get('lnkForAllUsers').setValue(false);
+      }
+    }
   }
 }

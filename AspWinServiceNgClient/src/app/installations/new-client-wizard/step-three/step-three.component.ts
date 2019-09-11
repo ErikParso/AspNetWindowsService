@@ -10,7 +10,7 @@ export class StepThreeComponent implements OnInit {
 
   public frmStepThree: FormGroup;
 
-  @Input() public isInstallForAll: boolean;
+  public isInstallForAll: boolean;
 
   constructor(private fb: FormBuilder) {
     this.frmStepThree = this.fb.group({
@@ -23,5 +23,4 @@ export class StepThreeComponent implements OnInit {
   ngOnInit() {
 
   }
-
 }
