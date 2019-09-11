@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ElectronService } from 'ngx-electron';
-import { FormGroup } from '@angular/forms';
 import { StepOneComponent } from './step-one/step-one.component';
 import { Store } from '@ngrx/store';
 import { State } from 'src/app/app.reducer';
