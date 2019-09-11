@@ -5,6 +5,7 @@ import { ClientInstallationInfo } from './models/clientInstallationInfo';
 import { SignalRService } from './signalR.service';
 import { saveAs } from 'file-saver';
 import { ElectronService } from 'ngx-electron';
+import * as FS from 'fs';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +40,10 @@ export class InstallationsService {
         this.electronService.remote.dialog.showSaveDialog(
           { filters: [{ extensions: ['hegi'], name: 'hegi' } as Electron.FileFilter] } as Electron.SaveDialogOptions).then(
             res => {
-              console.log(res.filePath);
+              const fileReader = new FileReader();
+              fileReader.addEventListener('loadend', e =>
+                ((window as any).fs).writeFile(res.filePath, fileReader.result, () => { }));
+              fileReader.readAsText(data);
             }
           );
       } else {
