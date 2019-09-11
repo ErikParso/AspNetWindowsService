@@ -7,6 +7,7 @@ import { UUID } from 'angular2-uuid';
 import * as actions from '../installations.actions';
 import { StepThreeComponent } from './step-three/step-three.component';
 import { StepTwoComponent } from './step-two/step-two.component';
+import { InstallationsService } from '../installations.service';
 
 @Component({
   selector: 'app-new-client-wizard',
@@ -17,7 +18,8 @@ export class NewClientWizardComponent implements OnInit {
 
   constructor(
     public electronService: ElectronService,
-    public store: Store<State>) { }
+    public store: Store<State>,
+    public installationService: InstallationsService) { }
 
   ngOnInit() {
 
@@ -46,6 +48,6 @@ export class NewClientWizardComponent implements OnInit {
   }
 
   downloadHegi(step1: StepOneComponent, step2: StepTwoComponent, step3: StepThreeComponent) {
-
+    this.installationService.downloadHegi();
   }
 }
