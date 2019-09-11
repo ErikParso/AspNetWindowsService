@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, OnInit, Input } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-step-three',
@@ -8,11 +8,20 @@ import { FormGroup } from '@angular/forms';
 })
 export class StepThreeComponent implements OnInit {
 
-  public frmStepThree = new FormGroup({});
+  public frmStepThree: FormGroup;
 
-  constructor() { }
+  @Input() public isInstallForAll: boolean;
+
+  constructor(private fb: FormBuilder) {
+    this.frmStepThree = this.fb.group({
+      createIcon: [true],
+      lnkForAllUsers: [false],
+      runAfterInstall: [false]
+    });
+  }
 
   ngOnInit() {
+
   }
 
 }

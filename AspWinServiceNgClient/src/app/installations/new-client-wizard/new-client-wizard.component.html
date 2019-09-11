@@ -13,9 +13,10 @@
       <button mat-button matStepperPrevious>Back</button>
     </mat-step>
     <mat-step [stepControl]="step3.frmStepThree">
-      <ng-template matStepLabel>Configuration</ng-template>
-      <app-step-three #step3></app-step-three>
+      <ng-template matStepLabel>Done</ng-template>
+      <app-step-three #step3 [isInstallForAll]='step1.installForAll.value'></app-step-three>
       <button mat-button (click)="install(step1)" [routerLink]="'../list'">Install</button>
+      <button mat-button matStepperPrevious>Save</button>
       <button mat-button matStepperPrevious>Back</button>
     </mat-step>
   </mat-horizontal-stepper>

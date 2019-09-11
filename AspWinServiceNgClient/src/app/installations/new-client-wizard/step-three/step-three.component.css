@@ -1,0 +1,11 @@
+mat-radio-group {
+    width: 100%;
+}
+
+.form-control {
+    margin-top: 10px;
+}
+
+mat-radio-button {
+    margin: 5px;
+}
