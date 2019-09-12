@@ -6,7 +6,7 @@
 </auto-generated>
 -->
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Id="6fe30b47-2577-43ad-9095-1861ca45489d" Name="MyProduct" Language="1033" Codepage="Windows-1252" Version="1.2.11" UpgradeCode="6fe30b47-2577-43ad-9095-1861ba25889d" Manufacturer="eparso">
+  <Product Id="6fe30b47-2577-43ad-9095-1861ca45589d" Name="MyProduct" Language="1033" Codepage="Windows-1252" Version="1.2.12" UpgradeCode="6fe30b47-2577-43ad-9095-1861ba25889d" Manufacturer="eparso">
     <Package InstallerVersion="200" Compressed="yes" Platform="x64" SummaryCodepage="Windows-1252" Languages="1033" />
     <Media Id="1" Cabinet="MyProduct.cab" EmbedCab="yes" />
 
@@ -18,6 +18,12 @@
 
               <Component Id="Component.asp_win_service_ng_client.exe_1180887993" Guid="6fe30b47-2577-43ad-9095-18617a814ecd" Win64="yes">
                 <File Id="asp_win_service_ng_client.exe_1180887993" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\asp-win-service-ng-client.exe" />
+
+                <ProgId Id="hegi.file" Advertise="no" Description="hegi file" Icon="asp_win_service_ng_client.exe_1180887993" IconIndex="0">
+                  <Extension Id="hegi" ContentType="application/hegi">
+                    <Verb TargetFile="asp_win_service_ng_client.exe_1180887993" Id="Open" Command="Open" Argument="&quot;%1&quot;" />
+                  </Extension>
+                </ProgId>
               </Component>
 
               <Component Id="Component.chrome_100_percent.pak_2014218607" Guid="6fe30b47-2577-43ad-9095-1861af03e131" Win64="yes">
@@ -355,8 +361,8 @@
                         <File Id="_3rdpartylicenses.txt_1224260403" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\dist\AspWinServiceNgClient\3rdpartylicenses.txt" />
                       </Component>
 
-                      <Component Id="Component._5.8d12d2675c0a372f1ab3.js_759789517" Guid="6fe30b47-2577-43ad-9095-1861e110af90" Win64="yes">
-                        <File Id="_5.8d12d2675c0a372f1ab3.js_759789517" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\dist\AspWinServiceNgClient\5.8d12d2675c0a372f1ab3.js" />
+                      <Component Id="Component._5.d832fb343e5eff99bb0c.js_2020614011" Guid="6fe30b47-2577-43ad-9095-186178c1fb1b" Win64="yes">
+                        <File Id="_5.d832fb343e5eff99bb0c.js_2020614011" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\dist\AspWinServiceNgClient\5.d832fb343e5eff99bb0c.js" />
                       </Component>
 
                       <Component Id="Component.favicon.ico_445470173" Guid="6fe30b47-2577-43ad-9095-186144c0e97d" Win64="yes">
@@ -367,8 +373,8 @@
                         <File Id="index.html_52056443" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\dist\AspWinServiceNgClient\index.html" />
                       </Component>
 
-                      <Component Id="Component.main.cf7edd1ad7550654cfec.js_910993538" Guid="6fe30b47-2577-43ad-9095-1861e92cc551" Win64="yes">
-                        <File Id="main.cf7edd1ad7550654cfec.js_910993538" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\dist\AspWinServiceNgClient\main.cf7edd1ad7550654cfec.js" />
+                      <Component Id="Component.main.e9ffeed81fdedaf01448.js_1037858696" Guid="6fe30b47-2577-43ad-9095-186178112c4d" Win64="yes">
+                        <File Id="main.e9ffeed81fdedaf01448.js_1037858696" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\dist\AspWinServiceNgClient\main.e9ffeed81fdedaf01448.js" />
                       </Component>
 
                       <Component Id="Component.polyfills_es5.93893f560e403d23958a.js_487846438" Guid="6fe30b47-2577-43ad-9095-1861cdb97b0a" Win64="yes">
@@ -379,8 +385,8 @@
                         <File Id="polyfills.2d938c2725dce5a6a7bb.js_550173282" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\dist\AspWinServiceNgClient\polyfills.2d938c2725dce5a6a7bb.js" />
                       </Component>
 
-                      <Component Id="Component.runtime.8a8880b13a350a8a776e.js_1206435865" Guid="6fe30b47-2577-43ad-9095-1861918f69d9" Win64="yes">
-                        <File Id="runtime.8a8880b13a350a8a776e.js_1206435865" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\dist\AspWinServiceNgClient\runtime.8a8880b13a350a8a776e.js" />
+                      <Component Id="Component.runtime.0799c7833a2f1b24113e.js_1064674842" Guid="6fe30b47-2577-43ad-9095-186183af1ae1" Win64="yes">
+                        <File Id="runtime.0799c7833a2f1b24113e.js_1064674842" Source="..\AspWinServiceNgClient\asp-win-service-ng-client-win32-x64\resources\app\dist\AspWinServiceNgClient\runtime.0799c7833a2f1b24113e.js" />
                       </Component>
 
                       <Component Id="Component.styles.86a96fb061f48097b01f.css_1807261610" Guid="6fe30b47-2577-43ad-9095-18614c377c24" Win64="yes">
@@ -600,8 +606,8 @@
     </Directory>
 
     <Upgrade Id="6fe30b47-2577-43ad-9095-1861ba25889d">
-      <UpgradeVersion Minimum="0.0.0.0" Maximum="1.2.11" IncludeMinimum="yes" IncludeMaximum="no" Property="UPGRADEFOUND" />
-      <UpgradeVersion Minimum="1.2.11" IncludeMinimum="no" Property="NEWPRODUCTFOUND" />
+      <UpgradeVersion Minimum="0.0.0.0" Maximum="1.2.12" IncludeMinimum="yes" IncludeMaximum="no" Property="UPGRADEFOUND" />
+      <UpgradeVersion Minimum="1.2.12" IncludeMinimum="no" Property="NEWPRODUCTFOUND" />
     </Upgrade>
 
     <CustomAction Id="PreventDowngrading" Error="Newer version already installed" />
@@ -694,13 +700,13 @@
       <ComponentRef Id="Component.tsconfig.spec.json_2146863552" />
       <ComponentRef Id="Component.tslint.json_1051250882" />
       <ComponentRef Id="Component._3rdpartylicenses.txt_1224260403" />
-      <ComponentRef Id="Component._5.8d12d2675c0a372f1ab3.js_759789517" />
+      <ComponentRef Id="Component._5.d832fb343e5eff99bb0c.js_2020614011" />
       <ComponentRef Id="Component.favicon.ico_445470173" />
       <ComponentRef Id="Component.index.html_52056443" />
-      <ComponentRef Id="Component.main.cf7edd1ad7550654cfec.js_910993538" />
+      <ComponentRef Id="Component.main.e9ffeed81fdedaf01448.js_1037858696" />
       <ComponentRef Id="Component.polyfills_es5.93893f560e403d23958a.js_487846438" />
       <ComponentRef Id="Component.polyfills.2d938c2725dce5a6a7bb.js_550173282" />
-      <ComponentRef Id="Component.runtime.8a8880b13a350a8a776e.js_1206435865" />
+      <ComponentRef Id="Component.runtime.0799c7833a2f1b24113e.js_1064674842" />
       <ComponentRef Id="Component.styles.86a96fb061f48097b01f.css_1807261610" />
       <ComponentRef Id="Component.green.ico_1861434325" />
       <ComponentRef Id="Component.main.js_471520910" />

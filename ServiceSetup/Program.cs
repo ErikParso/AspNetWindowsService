@@ -59,8 +59,8 @@ namespace ServiceSetup
                 PreShutdownDelay = 1000 * 60 * 3
             };
 
-            //var client = project.FindFirstFile("AspWinServiceClient.exe");
-            //client.Associations = new[] { new FileAssociation("heg") };
+            var client = project.FindFirstFile(serviceAppFileName);
+            client.Associations = new[] { new FileAssociation("hegi") };
 
             project.BuildMsi();
 
