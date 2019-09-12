@@ -3,6 +3,9 @@ import { FormControl, Validators, FormGroup, FormBuilder, AbstractControl } from
 import { ElectronService } from 'ngx-electron';
 import { ValidationService } from '../../validation.service';
 import { map, tap } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
+import { HegiService } from '../../hegi.service';
+import { InstallationScope } from '../../models/hegi-descriptor';
 
 @Component({
   selector: 'app-step-one',
@@ -20,15 +23,30 @@ export class StepOneComponent implements OnInit {
   public language: FormControl;
   public frmStepOne: FormGroup;
 
+  public fromHegi: string;
+
   constructor(
     public electronService: ElectronService,
-    public validationService: ValidationService) {
+    public validationService: ValidationService,
+    hegiService: HegiService) {
 
-    this.clientName = new FormControl('', Validators.required);
-    this.installForAll = new FormControl(true);
-    this.installDir = new FormControl('', Validators.required);
-    this.applicationServer = new FormControl('', Validators.required, this.validateVersionManagerAddress.bind(this));
-    this.language = new FormControl('', Validators.required);
+    const hegiDesc = hegiService.hegiDescriptor;
+
+    if (hegiDesc) {
+      this.clientName = new FormControl(hegiDesc.clientName, Validators.required);
+      this.installForAll = new FormControl(hegiDesc.installScope === InstallationScope.perMachine);
+      this.installDir = new FormControl('', Validators.required);
+      this.applicationServer = new FormControl(
+        hegiDesc.applicationServer, Validators.required, this.validateVersionManagerAddress.bind(this));
+      this.language = new FormControl('', Validators.required);
+    } else {
+      this.clientName = new FormControl('', Validators.required);
+      this.installForAll = new FormControl(true);
+      this.installDir = new FormControl('', Validators.required);
+      this.applicationServer = new FormControl('', Validators.required, this.validateVersionManagerAddress.bind(this));
+      this.language = new FormControl('', Validators.required);
+    }
+
     this.frmStepOne = new FormGroup({
       clientName: this.clientName,
       installForAll: this.installForAll,

@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MessageBoxComponent } from './shared/message-box/message-box.component';
 import { VersionService } from './version.service';
 import { UpgradeInfo } from './upgradeInfo.enum';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -29,22 +30,26 @@ export class AppComponent implements OnInit {
     public electronService: ElectronService,
     public childProcessService: ChildProcessService,
     private store: Store<reducer.State>,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,
+    private router: Router) { }
 
   ngOnInit(): void {
     if (this.electronService.isElectronApp) {
       console.log(this.electronService.remote.process.argv);
     }
 
-    const startupFile = this.getStartupFile();
+    // const startupFile = this.getStartupFile();
+    const startupFile = 'C:\\Users\\eparso\\Desktop\\install.hegi';
     const uriScheme = this.getUriScheme();
 
-    if (startupFile) {
+    if (startupFile && startupFile.endsWith('.hegi')) {
+      this.store.dispatch(reducer.setStartupFile({payload: startupFile}));
+      this.router.navigate(['installations', 'newclient']);
+    } else if (startupFile) {
+      this.store.dispatch(reducer.setStartupFile({payload: startupFile}));
       this.associationsService.openFileInClient(startupFile)
         .subscribe(() => this.electronService.remote.getCurrentWindow().close());
-    }
-
-    if (uriScheme) {
+    } else if (uriScheme) {
       this.associationsService.startClientFromUri(uriScheme)
         .subscribe(() => this.electronService.remote.getCurrentWindow().close());
     }

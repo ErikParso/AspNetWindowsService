@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { HegiService } from '../../hegi.service';
 
 @Component({
   selector: 'app-step-three',
@@ -13,10 +14,11 @@ export class StepThreeComponent {
   public isInstallForAll: boolean;
 
   constructor(
-    private fb: FormBuilder) {
-    this.frmStepThree = this.fb.group({
-      createIcon: [true],
-      lnkForAllUsers: [false],
+    fb: FormBuilder,
+    hegiService: HegiService) {
+    this.frmStepThree = fb.group({
+      createIcon: [hegiService.hegiDescriptor ? hegiService.hegiDescriptor.desktopIcon : true],
+      lnkForAllUsers: [hegiService.hegiDescriptor ? hegiService.hegiDescriptor.lnkForAllUser : false],
       runAfterInstall: [false]
     });
   }

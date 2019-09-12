@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HegiConfigItem } from '../../models/hegi-config-item';
 import { group } from '@angular/animations';
+import { HegiService } from '../../hegi.service';
 
 @Component({
   selector: 'app-step-two',
@@ -21,9 +22,19 @@ export class StepTwoComponent implements OnInit {
 
   public frmStepTwo: FormGroup;
 
-  constructor() {
-    this.useDefaultConfig = new FormControl(true);
-    this.configName = new FormControl({ value: '', disabled: true }, Validators.required);
+  constructor(
+    hegiService: HegiService) {
+
+    if (hegiService.hegiDescriptor) {
+      const useDefConf = hegiService.hegiDescriptor.configName === 'noris.config';
+      this.useDefaultConfig = new FormControl(useDefConf);
+      this.configName = new FormControl({ value: hegiService.hegiDescriptor.configName, disabled: useDefConf }, Validators.required);
+      this.defaultConfigValues = hegiService.hegiDescriptor.config ? hegiService.hegiDescriptor.config : [];
+    } else {
+      this.useDefaultConfig = new FormControl(true);
+      this.configName = new FormControl({ value: 'noris.config', disabled: true }, Validators.required);
+    }
+
     this.section = new FormControl('');
     this.key = new FormControl('');
     this.value = new FormControl('');
@@ -44,7 +55,7 @@ export class StepTwoComponent implements OnInit {
   checkChanged($event) {
     if ($event.checked) {
       this.configName.disable();
-      this.configName.setValue('');
+      this.configName.setValue('noris.config');
     } else {
       this.configName.enable();
     }

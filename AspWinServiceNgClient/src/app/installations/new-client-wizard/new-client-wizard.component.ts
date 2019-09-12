@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { ElectronService } from 'ngx-electron';
 import { StepOneComponent } from './step-one/step-one.component';
 import { Store } from '@ngrx/store';
@@ -9,22 +9,21 @@ import { StepThreeComponent } from './step-three/step-three.component';
 import { StepTwoComponent } from './step-two/step-two.component';
 import { HegiService } from '../hegi.service';
 import { HegiDescriptor, ClientExistsAction, InstallationScope, TypeExec } from '../models/hegi-descriptor';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-new-client-wizard',
   templateUrl: './new-client-wizard.component.html',
   styleUrls: ['./new-client-wizard.component.scss']
 })
-export class NewClientWizardComponent implements OnInit {
+export class NewClientWizardComponent {
+
+  // @ViewChild('step1', { static: false }) public stepOneComponent: StepOneComponent;
+  public fromHegi: string;
 
   constructor(
-    public electronService: ElectronService,
-    public store: Store<State>,
-    public hegiService: HegiService) { }
-
-  ngOnInit() {
-
-  }
+    private store: Store<State>,
+    private hegiService: HegiService) { }
 
   install(step1comp: StepOneComponent) {
     this.store.dispatch(actions.installNewClient({
