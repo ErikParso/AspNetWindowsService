@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { InstallationsService } from './installations.service';
-import { map, mergeMap, catchError, switchMap } from 'rxjs/operators';
+import { map, mergeMap, catchError, switchMap, flatMap } from 'rxjs/operators';
 import * as actions from './installations.actions';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
 import { HegiService } from './hegi.service';
 import { Router } from '@angular/router';
 import { UUID } from 'angular2-uuid';
@@ -28,21 +28,29 @@ export class InstallationsEffects {
             ))
     ));
 
-    loadInstallationsSuccess$ = createEffect(() => this.actions$.pipe(
+    // after client list load, check for updates
+    loadInstallationsSuccess1$ = createEffect(() => this.actions$.pipe(
         ofType(actions.loadInstallationsSuccess),
         switchMap(({ payload }) => of(payload)),
         switchMap(res => {
-            // .hegi tells to run install wizard
+            return res.map(cli => actions.getClientNeedUpgrade({ payload: { clientId: cli.clientId } }));
+        }),
+    ));
+
+    // after client list load, run .hegi installation if needed
+    loadInstallationsSuccess2$ = createEffect(() => this.actions$.pipe(
+        ofType(actions.loadInstallationsSuccess),
+        flatMap(() => {
             if (this.hegiService.hegiDescriptor && !this.hegiService.hegiDescriptor.hideWizard) {
                 this.router.navigate(['installations', 'newclient']);
+                return of(actions.dummy());
             }
-            // .hegi tells to run installation. Check if client is alredy installed. Show yes/no reinstall dialog if needed.
             if (this.hegiService.hegiDescriptor && this.hegiService.hegiDescriptor.hideWizard) {
-                this.installExistingClientService.installExistingClient(this.hegiService.hegiDescriptor.clientName)
-                    .subscribe(canInstall => {
+                return this.installExistingClientService.installExistingClient(this.hegiService.hegiDescriptor.clientName).pipe(
+                    map(canInstall => {
                         if (canInstall) {
                             const currentProcessId = UUID.UUID();
-                            const installClientAction = actions.installNewClient({
+                            return actions.installNewClient({
                                 payload: {
                                     applicationServer: this.hegiService.hegiDescriptor.applicationServer,
                                     clientId: UUID.UUID(),
@@ -52,17 +60,14 @@ export class InstallationsEffects {
                                     language: 'EN'
                                 }
                             });
-                            this.store.dispatch(installClientAction);
-                            this.dialog.open(CurrentProcessComponent, {
-                                width: '80%', maxWidth: '500px',
-                                data: { currentProcessId } as CurrenProcessDialogData
-                            });
+                        } else {
+                            return actions.dummy();
                         }
-                    });
-                return of(actions.dummy());
+                    })
+                );
             }
-            return res.map(cli => actions.getClientNeedUpgrade({ payload: { clientId: cli.clientId } }));
-        }),
+            return of(actions.dummy());
+        })
     ));
 
     clientNeedUpgrade$ = createEffect(() => this.actions$.pipe(
