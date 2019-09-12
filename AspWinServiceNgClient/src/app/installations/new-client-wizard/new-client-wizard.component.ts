@@ -9,7 +9,12 @@ import { StepThreeComponent } from './step-three/step-three.component';
 import { StepTwoComponent } from './step-two/step-two.component';
 import { HegiService } from '../hegi.service';
 import { HegiDescriptor, ClientExistsAction, InstallationScope, TypeExec } from '../models/hegi-descriptor';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ClientInstallationInfo } from '../models/clientInstallationInfo';
+import { allInstallationsSelector } from '../instalations.reducer';
+import { MatDialog } from '@angular/material/dialog';
+import { MessageBoxComponent } from 'src/app/shared/message-box/message-box.component';
+import { InstallExistingClientService } from '../install-existing-client.service';
 
 @Component({
   selector: 'app-new-client-wizard',
@@ -18,24 +23,36 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class NewClientWizardComponent {
 
-  // @ViewChild('step1', { static: false }) public stepOneComponent: StepOneComponent;
-  public fromHegi: string;
+  private allInstallations: ClientInstallationInfo[];
 
   constructor(
     private store: Store<State>,
-    private hegiService: HegiService) { }
+    private hegiService: HegiService,
+    private dialog: MatDialog,
+    private installExistingClientService: InstallExistingClientService,
+    private router: Router) {
+
+    store.select(allInstallationsSelector).subscribe(i => this.allInstallations = i);
+  }
 
   install(step1comp: StepOneComponent) {
-    this.store.dispatch(actions.installNewClient({
-      payload: {
-        clientId: UUID.UUID(),
-        clientName: step1comp.clientName.value,
-        language: step1comp.language.value,
-        installDir: step1comp.installDir.value,
-        applicationServer: step1comp.applicationServer.value,
-        installationProcessId: UUID.UUID()
-      }
-    }));
+    this.installExistingClientService.installExistingClient(step1comp.clientName.value)
+      .subscribe(res => {
+        if (res) {
+          console.log('ok installing');
+          this.store.dispatch(actions.installNewClient({
+            payload: {
+              clientId: UUID.UUID(),
+              clientName: step1comp.clientName.value,
+              language: step1comp.language.value,
+              installDir: step1comp.installDir.value,
+              applicationServer: step1comp.applicationServer.value,
+              installationProcessId: UUID.UUID()
+            }
+          }));
+          this.router.navigate(['installations', 'list']);
+        }
+      });
   }
 
   selectionChanged($event: any, step1: StepOneComponent, step2: StepTwoComponent, step3: StepThreeComponent) {

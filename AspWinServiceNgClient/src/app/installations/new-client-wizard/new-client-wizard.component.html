@@ -15,7 +15,7 @@
     <mat-step [stepControl]="step3.frmStepThree">
       <ng-template matStepLabel>Done</ng-template>
       <app-step-three #step3></app-step-three>
-      <button mat-button (click)="install(step1)" [routerLink]="'../list'">Install</button>
+      <button mat-button (click)="install(step1)">Install</button>
       <button mat-button (click)="downloadHegi(step1, step2, step3)">Save</button>
       <button mat-button matStepperPrevious>Back</button>
     </mat-step>

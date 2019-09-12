@@ -39,15 +39,18 @@ namespace AspWinService.Services
             ProcessClientsInfo(clients => clients.Add(clientInfo));
         }
 
-        public ClientInfo DeleteClientInfo(Func<ClientInfo, bool> selector)
+        public IEnumerable<ClientInfo> DeleteClientInfo(Func<ClientInfo, bool> selector)
         {
-            ClientInfo clientInfo = null;
+            IEnumerable<ClientInfo> clientsInfo = null;
             ProcessClientsInfo(clieentsInfo =>
             {
-                clientInfo = clieentsInfo.FirstOrDefault(selector);
-                clieentsInfo.Remove(clientInfo);
+                clientsInfo = clieentsInfo.Where(selector).ToList();
+                foreach (var clientInfo in clientsInfo)
+                {
+                    clieentsInfo.Remove(clientInfo);
+                }
             });
-            return clientInfo;
+            return clientsInfo;
         }
 
         public void ProcessClientInfo(Func<ClientInfo, bool> selector, Action<ClientInfo> process)

@@ -2,13 +2,14 @@
 using AspWinService.Requests;
 using AspWinService.Services;
 using MediatR;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace AspWinService.RequestHandlers
 {
-    public class ClientDeleteRequestHandler : IRequestHandler<ClientDeleteRequest, ClientInfo>
+    public class ClientDeleteRequestHandler : IRequestHandler<ClientDeleteRequest, IEnumerable<ClientInfo>>
     {
         private readonly ClientInfoService clientInfoService;
 
@@ -17,14 +18,16 @@ namespace AspWinService.RequestHandlers
             this.clientInfoService = clientInfoService;
         }
 
-        public Task<ClientInfo> Handle(ClientDeleteRequest request, CancellationToken cancellationToken)
+        public Task<IEnumerable<ClientInfo>> Handle(ClientDeleteRequest request, CancellationToken cancellationToken)
         {
-            var clientInfo = clientInfoService.DeleteClientInfo(c => c.ClientId == request.ClientId);
+            var clientsInfo = clientInfoService.DeleteClientInfo(c => c.ClientId == request.ClientId);
 
-            if (Directory.Exists(clientInfo.InstallDir))
-                Directory.Delete(clientInfo.InstallDir, true);
-
-            return Task.FromResult(clientInfo);
+            foreach (var removedClient in clientsInfo)
+            {
+                if (Directory.Exists(removedClient.InstallDir))
+                    Directory.Delete(removedClient.InstallDir, true);
+            }
+            return Task.FromResult(clientsInfo);
         }
     }
 }

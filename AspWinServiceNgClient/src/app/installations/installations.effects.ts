@@ -13,6 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CurrentProcessComponent, CurrenProcessDialogData } from './current-process/current-process.component';
 import { ElectronService } from 'ngx-electron';
 import { MessageBoxComponent } from '../shared/message-box/message-box.component';
+import { InstallExistingClientService } from './install-existing-client.service';
 
 @Injectable()
 export class InstallationsEffects {
@@ -30,38 +31,33 @@ export class InstallationsEffects {
         ofType(actions.loadInstallationsSuccess),
         switchMap(({ payload }) => of(payload)),
         switchMap(res => {
+            // .hegi tells to run install wizard
             if (this.hegiService.hegiDescriptor && !this.hegiService.hegiDescriptor.hideWizard) {
                 this.router.navigate(['installations', 'newclient']);
             }
+            // .hegi tells to run installation. Check if client is alredy installed. Show yes/no reinstall dialog if needed.
             if (this.hegiService.hegiDescriptor && this.hegiService.hegiDescriptor.hideWizard) {
-                if (res.find(c => c.clientName === this.hegiService.hegiDescriptor.clientName)) {
-                    this.dialog.open(MessageBoxComponent, {
-                        width: '80%', maxWidth: '500px',
-                        data: {
-                            title: 'Installation',
-                            message: `Client with name ${this.hegiService.hegiDescriptor.clientName} is already installed.
-                                Reinstall existing client ?`,
-                            yesNo: true
+                this.installExistingClientService.installExistingClient(this.hegiService.hegiDescriptor.clientName)
+                    .subscribe(canInstall => {
+                        if (canInstall) {
+                            const currentProcessId = UUID.UUID();
+                            const installClientAction = actions.installNewClient({
+                                payload: {
+                                    applicationServer: this.hegiService.hegiDescriptor.applicationServer,
+                                    clientId: UUID.UUID(),
+                                    clientName: this.hegiService.hegiDescriptor.clientName,
+                                    installDir: 'C:\\Users\\eparso\\Desktop\\installDir',
+                                    installationProcessId: currentProcessId,
+                                    language: 'EN'
+                                }
+                            });
+                            this.store.dispatch(installClientAction);
+                            this.dialog.open(CurrentProcessComponent, {
+                                width: '80%', maxWidth: '500px',
+                                data: { currentProcessId } as CurrenProcessDialogData
+                            });
                         }
                     });
-                } else {
-                    const currentProcessId = UUID.UUID();
-                    const installClientAction = actions.installNewClient({
-                        payload: {
-                            applicationServer: this.hegiService.hegiDescriptor.applicationServer,
-                            clientId: UUID.UUID(),
-                            clientName: this.hegiService.hegiDescriptor.clientName,
-                            installDir: 'C:\\Users\\eparso\\Desktop\\installDir',
-                            installationProcessId: currentProcessId,
-                            language: 'EN'
-                        }
-                    });
-                    this.store.dispatch(installClientAction);
-                    this.dialog.open(CurrentProcessComponent, {
-                        width: '80%', maxWidth: '500px',
-                        data: { currentProcessId } as CurrenProcessDialogData
-                    });
-                }
             }
             return res.map(cli => actions.getClientNeedUpgrade({ payload: { clientId: cli.clientId } }));
         }),
@@ -140,6 +136,7 @@ export class InstallationsEffects {
         private router: Router,
         private store: Store<State>,
         public dialog: MatDialog,
-        public electronService: ElectronService
+        public electronService: ElectronService,
+        public installExistingClientService: InstallExistingClientService
     ) { }
 }

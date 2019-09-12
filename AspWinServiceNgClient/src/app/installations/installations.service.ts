@@ -46,7 +46,8 @@ export class InstallationsService {
     return this.httpClient.put<ClientInstallationInfo>(this.clientInstallationsUrl, { clientId, updateProcessId });
   }
 
-  public deleteClient(clientId: string, deleteProcessId: string): Observable<ClientInstallationInfo> {
-    return this.httpClient.request<ClientInstallationInfo>('delete', this.clientInstallationsUrl, { body: { clientId, deleteProcessId } });
+  public deleteClient(clientId: string, deleteProcessId: string): Observable<ClientInstallationInfo[]> {
+    return this.httpClient.request<ClientInstallationInfo[]>(
+      'delete', this.clientInstallationsUrl, { body: { clientId, deleteProcessId } });
   }
 }

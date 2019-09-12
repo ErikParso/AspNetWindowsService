@@ -30,11 +30,22 @@ namespace AspWinService.RequestHandlers
             var installDir = Path.Combine(request.InstallDir, request.ClientName);
             var tempDir = Path.Combine(Path.GetTempPath(), $@"HeliosGreenTemp\{request.ClientName}");
 
+            // delete clients with same name from disc and database
+            var existingClients = clientInfoService.GetClientsInfo().Where(c => c.ClientName == request.ClientName);
+            foreach(var existingClient in existingClients)
+            {
+                if (Directory.Exists(existingClient.InstallDir))
+                    Directory.Delete(existingClient.InstallDir, true);
+            }
+            clientInfoService.DeleteClientInfo(c => c.ClientName == request.ClientName);
+
+
             if (!Directory.Exists(installDir))
                 Directory.CreateDirectory(installDir);
 
             if (!Directory.Exists(tempDir))
                 Directory.CreateDirectory(tempDir);
+
 
             manifestService.LoadConfig(installDir, request.ApplicationServer, request.Language);
             await downloadService.DownloadClient(request.InstallationProcessId, tempDir, installDir, request.ApplicationServer);
