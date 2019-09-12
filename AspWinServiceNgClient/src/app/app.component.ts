@@ -44,7 +44,7 @@ export class AppComponent implements OnInit {
 
     if (startupFile && startupFile.endsWith('.hegi')) {
       this.store.dispatch(reducer.setStartupFile({payload: startupFile}));
-      this.router.navigate(['installations', 'newclient']);
+      this.electronService.remote.getCurrentWindow().show();
     } else if (startupFile) {
       this.store.dispatch(reducer.setStartupFile({payload: startupFile}));
       this.associationsService.openFileInClient(startupFile)

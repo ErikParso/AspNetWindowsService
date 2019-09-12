@@ -9,6 +9,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { CurrentProcessComponent, CurrenProcessDialogData } from '../current-process/current-process.component';
 import { CurrentProcess, CurrentProcessResult, CurrentProcessType } from '../models/current-process';
 import { ClientState, ClientStateService } from '../client-state.service';
+import { HegiService } from '../hegi.service';
+import { Router } from '@angular/router';
+import { HegiDescriptor } from '../models/hegi-descriptor';
+import { UUID } from 'angular2-uuid';
 
 @Component({
   selector: 'app-installation-list',
@@ -28,7 +32,10 @@ export class InstallationListComponent implements OnInit {
   constructor(
     private store: Store<State>,
     public dialog: MatDialog,
-    public clientStateService: ClientStateService) { }
+    public clientStateService: ClientStateService,
+    public hegiService: HegiService,
+    public router: Router) {
+  }
 
   ngOnInit() {
     this.installations$ = this.store.select(reducer.allInstallationsSelector);

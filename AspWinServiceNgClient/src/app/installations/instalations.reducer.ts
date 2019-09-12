@@ -80,25 +80,25 @@ const installationsReducer = createReducer<InstalationsState>(
     })),
     on(actions.setCurrentInstallation, (s, p) => ({ ...s, currentInstallation: p.payload })),
     on(actions.installNewClient, (s, p) => ({
-            ...s,
-            allInstallations: s.allInstallations.concat({
-                clientId: p.payload.clientId,
-                clientName: p.payload.clientName,
-                language: p.payload.language,
-                installDir: p.payload.installDir,
-                version: 'installing',
-                currentProcessId: p.payload.installationProcessId,
-                needUpgrade: false,
-                errorMessage: ''
-            } as ClientInstallationInfo),
-            currentInstallation: p.payload.clientId,
-            currentProcesses: s.currentProcesses.concat({
-                processId: p.payload.installationProcessId,
-                processType: CurrentProcessType.installation,
-                progress: 0,
-                result: CurrentProcessResult.running,
-                log: []
-            } as CurrentProcess)
+        ...s,
+        allInstallations: s.allInstallations.concat({
+            clientId: p.payload.clientId,
+            clientName: p.payload.clientName,
+            language: p.payload.language,
+            installDir: p.payload.installDir,
+            version: 'installing',
+            currentProcessId: p.payload.installationProcessId,
+            needUpgrade: false,
+            errorMessage: ''
+        } as ClientInstallationInfo),
+        currentInstallation: p.payload.clientId,
+        currentProcesses: s.currentProcesses.concat({
+            processId: p.payload.installationProcessId,
+            processType: CurrentProcessType.installation,
+            progress: 0,
+            result: CurrentProcessResult.running,
+            log: []
+        } as CurrentProcess)
     })),
     on(actions.installNewClientSuccess, (s, p) => ({
         ...s,
