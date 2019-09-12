@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { ClientInstallationInfo } from './models/clientInstallationInfo';
 import { SignalRService } from './signalR.service';
-import { saveAs } from 'file-saver';
 import { ElectronService } from 'ngx-electron';
-import * as FS from 'fs';
 
 @Injectable({
   providedIn: 'root'
@@ -29,27 +27,6 @@ export class InstallationsService {
 
   public runClientApplication(clientName: string): Observable<object> {
     return this.httpClient.post(this.clientInstallationsUrl + '/runClient', { clientName });
-  }
-
-  public downloadHegi(): void {
-    this.httpClient.post(this.clientInstallationsUrl + '/downloadhegi', {}, {
-      responseType: 'blob',
-      headers: new HttpHeaders().append('Content-Type', 'application/json')
-    }).subscribe(data => {
-      if (this.electronService.isElectronApp) {
-        this.electronService.remote.dialog.showSaveDialog(
-          { filters: [{ extensions: ['hegi'], name: 'hegi' } as Electron.FileFilter] } as Electron.SaveDialogOptions).then(
-            res => {
-              const fileReader = new FileReader();
-              fileReader.addEventListener('loadend', e =>
-                ((window as any).fs).writeFile(res.filePath, fileReader.result, () => { }));
-              fileReader.readAsText(data);
-            }
-          );
-      } else {
-        saveAs(data, 'install.hegi');
-      }
-    });
   }
 
   public installNewClient(

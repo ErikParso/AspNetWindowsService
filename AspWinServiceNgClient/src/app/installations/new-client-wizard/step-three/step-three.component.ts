@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-step-three',
@@ -19,5 +19,17 @@ export class StepThreeComponent {
       lnkForAllUsers: [false],
       runAfterInstall: [false]
     });
+  }
+
+  get createIcon(): FormControl {
+    return this.frmStepThree.get('createIcon') as FormControl;
+  }
+
+  get lnkForAllUsers(): FormControl {
+    return this.frmStepThree.get('lnkForAllUsers') as FormControl;
+  }
+
+  get runAfterInstall(): FormControl {
+    return this.frmStepThree.get('runAfterInstall') as FormControl;
   }
 }

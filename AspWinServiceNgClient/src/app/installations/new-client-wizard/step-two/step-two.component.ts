@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ConfigValue } from '../../models/config-value';
+import { HegiConfigItem } from '../../models/hegi-config-item';
 import { group } from '@angular/animations';
 
 @Component({
@@ -11,7 +11,7 @@ import { group } from '@angular/animations';
 export class StepTwoComponent implements OnInit {
 
   public displayedColumns = ['section', 'key', 'value', 'tools'];
-  public defaultConfigValues: ConfigValue[] = [];
+  public defaultConfigValues: HegiConfigItem[] = [];
 
   public useDefaultConfig: FormControl;
   public configName: FormControl;
@@ -62,7 +62,7 @@ export class StepTwoComponent implements OnInit {
     this.value.setValue('');
   }
 
-  deleteConfigValue(value: ConfigValue) {
+  deleteConfigValue(value: HegiConfigItem) {
     this.defaultConfigValues = this.defaultConfigValues.filter(conf => conf !== value);
   }
 

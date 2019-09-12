@@ -7,7 +7,8 @@ import { UUID } from 'angular2-uuid';
 import * as actions from '../installations.actions';
 import { StepThreeComponent } from './step-three/step-three.component';
 import { StepTwoComponent } from './step-two/step-two.component';
-import { InstallationsService } from '../installations.service';
+import { HegiService } from '../hegi.service';
+import { HegiDescriptor, ClientExistsAction, InstallationScope, TypeExec } from '../models/hegi-descriptor';
 
 @Component({
   selector: 'app-new-client-wizard',
@@ -19,7 +20,7 @@ export class NewClientWizardComponent implements OnInit {
   constructor(
     public electronService: ElectronService,
     public store: Store<State>,
-    public installationService: InstallationsService) { }
+    public hegiService: HegiService) { }
 
   ngOnInit() {
 
@@ -48,6 +49,22 @@ export class NewClientWizardComponent implements OnInit {
   }
 
   downloadHegi(step1: StepOneComponent, step2: StepTwoComponent, step3: StepThreeComponent) {
-    this.installationService.downloadHegi();
+    const hegiDesc = this.createHegiDesc(step1, step2, step3);
+    this.hegiService.downloadHegi(hegiDesc);
+  }
+
+  createHegiDesc(step1: StepOneComponent, step2: StepTwoComponent, step3: StepThreeComponent): HegiDescriptor {
+    return {
+      applicationServer: step1.applicationServer.value,
+      clientExists: ClientExistsAction.dialog,
+      clientName: step1.clientName.value,
+      configName: step2.configName.value,
+      desktopIcon: step3.createIcon.value,
+      installScope: step1.installForAll.value ? InstallationScope.perMachine : InstallationScope.perUser,
+      hideWizard: false,
+      lnkForAllUser: step3.lnkForAllUsers.value,
+      typeExec: TypeExec.addInstall,
+      config: step2.defaultConfigValues
+    };
   }
 }

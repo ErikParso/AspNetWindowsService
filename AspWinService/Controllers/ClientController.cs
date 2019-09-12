@@ -47,13 +47,6 @@ namespace AspWinService.Controllers
             return Ok(result);
         }
 
-        [HttpPost("downloadhegi")]
-        public IActionResult DownloadHegiFileRequest(DownloadHegiFileRequest request)
-        {
-            byte[] fileBytes = System.Text.Encoding.ASCII.GetBytes("configuration json here");
-            return File(fileBytes, "application/force-download", "MyProduct.msi");
-        }
-
         [HttpPut]
         public async Task<IActionResult> UpdateClient(ClientUpdateRequest request)
         {

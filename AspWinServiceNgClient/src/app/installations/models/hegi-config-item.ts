@@ -1,4 +1,4 @@
-export class ConfigValue {
+export class HegiConfigItem {
     section: string;
     key: string;
     value: string;
