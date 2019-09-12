@@ -7,13 +7,14 @@ import { of } from 'rxjs';
 import { HegiService } from './hegi.service';
 import { Router } from '@angular/router';
 import { UUID } from 'angular2-uuid';
-import { Store } from '@ngrx/store';
+import { Store, createAction } from '@ngrx/store';
 import { State } from '../app.reducer';
 import { MatDialog } from '@angular/material/dialog';
 import { CurrentProcessComponent, CurrenProcessDialogData } from './current-process/current-process.component';
 import { ElectronService } from 'ngx-electron';
 import { MessageBoxComponent } from '../shared/message-box/message-box.component';
 import { InstallExistingClientService } from './install-existing-client.service';
+import { Action } from 'rxjs/internal/scheduler/Action';
 
 @Injectable()
 export class InstallationsEffects {
@@ -58,6 +59,7 @@ export class InstallationsEffects {
                             });
                         }
                     });
+                return of(actions.dummy());
             }
             return res.map(cli => actions.getClientNeedUpgrade({ payload: { clientId: cli.clientId } }));
         }),

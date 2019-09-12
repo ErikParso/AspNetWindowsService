@@ -43,10 +43,12 @@ export class AppComponent implements OnInit {
     const uriScheme = this.getUriScheme();
 
     if (startupFile && startupFile.endsWith('.hegi')) {
-      this.store.dispatch(reducer.setStartupFile({payload: startupFile}));
-      this.electronService.remote.getCurrentWindow().show();
+      this.store.dispatch(reducer.setStartupFile({ payload: startupFile }));
+      if (this.electronService.isElectronApp) {
+        this.electronService.remote.getCurrentWindow().show();
+      }
     } else if (startupFile) {
-      this.store.dispatch(reducer.setStartupFile({payload: startupFile}));
+      this.store.dispatch(reducer.setStartupFile({ payload: startupFile }));
       this.associationsService.openFileInClient(startupFile)
         .subscribe(() => this.electronService.remote.getCurrentWindow().close());
     } else if (uriScheme) {

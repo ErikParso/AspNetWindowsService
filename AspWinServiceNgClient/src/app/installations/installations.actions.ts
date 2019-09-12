@@ -22,7 +22,8 @@ export enum InstallationsActions {
     deleteClientSuccess = '[Installation] Delete client success',
     deleteClientError = '[Installation] Delete client error',
     reportProgress = '[Installation] Progress report',
-    clearCurrentProcess = '[Installation] Clear current process from store'
+    clearCurrentProcess = '[Installation] Clear current process from store',
+    dummyAction = '[Dummy] just relax'
 }
 
 export const loadInstallations = createAction(
@@ -135,4 +136,8 @@ export const reportProgress = createAction(
 export const clearCurrentProcess = createAction(
     InstallationsActions.clearCurrentProcess,
     props<{ payload: string }>()
+);
+
+export const dummy = createAction(
+    InstallationsActions.dummyAction
 );
