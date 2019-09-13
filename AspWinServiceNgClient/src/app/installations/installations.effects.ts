@@ -15,6 +15,7 @@ import { ElectronService } from 'ngx-electron';
 import { MessageBoxComponent } from '../shared/message-box/message-box.component';
 import { InstallExistingClientService } from './install-existing-client.service';
 import { Action } from 'rxjs/internal/scheduler/Action';
+import { InstallationScope } from './models/hegi-descriptor';
 
 @Injectable()
 export class InstallationsEffects {
@@ -59,6 +60,11 @@ export class InstallationsEffects {
                                     installDir: this.hegiService.hegiDescriptor.installDir,
                                     installationProcessId: currentProcessId,
                                     language: this.hegiService.hegiDescriptor.language,
+                                    configName: this.hegiService.hegiDescriptor.configName,
+                                    desktopIcon: this.hegiService.hegiDescriptor.desktopIcon,
+                                    installForAllUsers: this.hegiService.hegiDescriptor.installScope === InstallationScope.perMachine,
+                                    lnkForAllUser: this.hegiService.hegiDescriptor.lnkForAllUser,
+                                    config: this.hegiService.hegiDescriptor.config
                                 }
                             });
                         } else {
@@ -92,9 +98,7 @@ export class InstallationsEffects {
 
     installNewClient$ = createEffect(() => this.actions$.pipe(
         ofType(actions.installNewClient),
-        mergeMap(({ payload }) => this.installationsService.installNewClient(
-            payload.clientId, payload.clientName, payload.language, payload.installDir, payload.applicationServer,
-            payload.installationProcessId)
+        mergeMap(({ payload }) => this.installationsService.installNewClient(payload)
             .pipe(
                 map(info => actions.installNewClientSuccess({ payload: { ...info, currentProcessId: payload.installationProcessId } })),
                 catchError((e) => of(actions.installNewClientError({

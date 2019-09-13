@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { ClientInstallationInfo } from './models/clientInstallationInfo';
 import { SignalRService } from './signalR.service';
 import { ElectronService } from 'ngx-electron';
+import { ClientInstallationRequest } from './models/ClientInstallationRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -29,16 +30,9 @@ export class InstallationsService {
     return this.httpClient.post(this.clientInstallationsUrl + '/runClient', { clientName });
   }
 
-  public installNewClient(
-    clientId: string,
-    clientName: string,
-    language: string,
-    installDir: string,
-    applicationServer: string,
-    installationProcessId: string): Observable<ClientInstallationInfo> {
+  public installNewClient(installation: ClientInstallationRequest): Observable<ClientInstallationInfo> {
     this.signalRService.startConnection();
-    return this.httpClient.post<ClientInstallationInfo>(this.clientInstallationsUrl,
-      { clientId, clientName, language, installDir, applicationServer, installationProcessId });
+    return this.httpClient.post<ClientInstallationInfo>(this.clientInstallationsUrl, installation);
   }
 
   public updateClient(clientId: string, updateProcessId: string): Observable<ClientInstallationInfo> {

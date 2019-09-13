@@ -43,27 +43,6 @@ export class InstallationToolsComponent implements OnInit {
     this.store.dispatch(actions.deleteClient({ payload: { clientId: row.clientId, deleteProcessId: UUID.UUID() } }));
   }
 
-  addNewClient() {
-    const dialogRef = this.dialog.open(NewClientWizardComponent, {
-      width: '80%', maxWidth: '500px'
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.store.dispatch(actions.installNewClient({
-          payload: {
-            clientId: UUID.UUID(),
-            clientName: result.clientName,
-            language: result.language,
-            installDir: result.installDir,
-            applicationServer: result.applicationServer,
-            installationProcessId: UUID.UUID()
-          }
-        }));
-      }
-    });
-  }
-
   canRunActions(row: ClientInstallationInfo, currentProcesses: CurrentProcess[]) {
     const clientState = this.clientStateService.getClientState(row, currentProcesses);
     return clientState === ClientState.ready ||

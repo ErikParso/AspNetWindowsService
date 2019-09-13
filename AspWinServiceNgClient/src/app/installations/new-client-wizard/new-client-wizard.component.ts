@@ -35,7 +35,7 @@ export class NewClientWizardComponent {
     store.select(allInstallationsSelector).subscribe(i => this.allInstallations = i);
   }
 
-  install(step1comp: StepOneComponent) {
+  install(step1comp: StepOneComponent, step2comp: StepTwoComponent, step3comp: StepThreeComponent) {
     this.installExistingClientService.installExistingClient(step1comp.clientName.value)
       .subscribe(res => {
         if (res) {
@@ -47,7 +47,12 @@ export class NewClientWizardComponent {
               language: step1comp.language.value,
               installDir: step1comp.installDir.value,
               applicationServer: step1comp.applicationServer.value,
-              installationProcessId: UUID.UUID()
+              installationProcessId: UUID.UUID(),
+              configName: step2comp.configName.value,
+              config: step2comp.defaultConfigValues,
+              desktopIcon: step3comp.createIcon.value,
+              installForAllUsers: step1comp.installForAll.value,
+              lnkForAllUser: step3comp.lnkForAllUsers.value
             }
           }));
           this.router.navigate(['installations', 'list']);

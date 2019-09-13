@@ -1,5 +1,6 @@
 import { createAction, props, Action } from '@ngrx/store';
 import { ClientInstallationInfo } from './models/clientInstallationInfo';
+import { ClientInstallationRequest } from './models/ClientInstallationRequest';
 
 export enum InstallationsActions {
     loadInstallations = '[Installations] Load installations',
@@ -71,16 +72,7 @@ export const setCurrentInstallation = createAction(
 
 export const installNewClient = createAction(
     InstallationsActions.installNewClient,
-    props<{
-        payload: {
-            clientId: string,
-            clientName: string,
-            language: string,
-            installDir: string,
-            applicationServer: string,
-            installationProcessId: string
-        }
-    }>()
+    props<{ payload: ClientInstallationRequest }>()
 );
 
 export const installNewClientSuccess = createAction(

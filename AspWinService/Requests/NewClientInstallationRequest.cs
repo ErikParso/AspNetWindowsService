@@ -1,5 +1,6 @@
 ﻿using AspWinService.Model;
 using MediatR;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace AspWinService.Requests
@@ -23,5 +24,29 @@ namespace AspWinService.Requests
 
         [Required]
         public string ApplicationServer { get; set; }
+
+        [Required]
+        public string ConfigName { get; set; }
+
+        [Required]
+        public bool LnkForAllUser { get; set; }
+
+        [Required]
+        public bool DesktopIcon { get; set; }
+
+        [Required]
+        public bool InstallForAllUsers { get; set; }
+
+        public IEnumerable<ConfigItem> Config { get; set; }
     }
+
+    public class ConfigItem
+    {
+        public string Section { get; set; }
+
+        public string Key { get; set; }
+
+        public string Value { get; set; }
+    }
+
 }
