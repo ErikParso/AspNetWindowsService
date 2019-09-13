@@ -2,6 +2,7 @@
 using AspWinService.Requests;
 using AspWinService.Services;
 using MediatR;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -37,10 +38,13 @@ namespace AspWinService.RequestHandlers
 
             if (request.CheckForUpgrades)
             {
-                foreach (var c in clients)
+                // check updates parallel to speed up process
+                var tasks = clients.Select(async c =>
                 {
-                    c.NeedUpgrade = await checkNewVersionService.CheckNewVersion(c.ClientId);
-                }
+                    var needUpgrade = await checkNewVersionService.CheckNewVersion(c.ClientId);
+                    c.NeedUpgrade = needUpgrade;
+                });
+                await Task.WhenAll(tasks);
             }
 
             return clients;
