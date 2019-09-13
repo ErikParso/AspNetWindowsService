@@ -10,13 +10,15 @@ export interface InstalationsState {
     currentInstallation: string;
     errorMessage: string;
     currentProcesses: CurrentProcess[];
+    loadingInstallations: boolean;
 }
 
 export const initialState: InstalationsState = {
     allInstallations: [],
     currentInstallation: null,
     errorMessage: null,
-    currentProcesses: []
+    currentProcesses: [],
+    loadingInstallations: false,
 };
 
 export interface State extends fromRoot.State {
@@ -61,14 +63,25 @@ export const clientInstallationInfoSelector = (currentProcessId: string) => crea
     (allInstallations) => allInstallations.find(i => i.currentProcessId === currentProcessId)
 );
 
+export const loadingInstallationsSelector = createSelector(
+    installationsSelector,
+    installations => installations.loadingInstallations
+);
+
 const installationsReducer = createReducer<InstalationsState>(
     initialState,
+    on(actions.loadInstallations, (s) => ({ ...s, loadingInstallations: true })),
     on(actions.loadInstallationsSuccess, (s, p) => ({
         ...s,
         allInstallations: p.payload,
-        currentInstallation: p.payload.length ? p.payload[0].clientId : null
+        currentInstallation: p.payload.length ? p.payload[0].clientId : null,
+        loadingInstallations: false
     })),
-    on(actions.loadInstallationsError, (s, p) => ({ ...s, errorMessage: p.payload })),
+    on(actions.loadInstallationsError, (s, p) => ({
+        ...s,
+        errorMessage: p.payload,
+        loadingInstallations: false
+    })),
     on(actions.getClientNeedUpgradeSuccess, (s, p) => ({
         ...s,
         allInstallations: s.allInstallations.map(i => {

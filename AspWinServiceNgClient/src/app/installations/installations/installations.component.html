@@ -1,0 +1,7 @@
+<router-outlet *ngIf="!(loadingInstallations$ | async)"></router-outlet>
+<div class="center" *ngIf="loadingInstallations$ | async">
+  <mat-progress-spinner color="primary" mode="indeterminate">
+  </mat-progress-spinner>
+  <span class="mat-body">Loading clients</span>
+  <span class="mat-body">Please wait...</span>
+</div>

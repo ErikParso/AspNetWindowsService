@@ -16,6 +16,7 @@ import { StepThreeComponent } from './new-client-wizard/step-three/step-three.co
 import { State } from '../app.reducer';
 import { loadInstallations } from './installations.actions';
 import { FormsModule } from '@angular/forms';
+import { InstallationsComponent } from './installations/installations.component';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { FormsModule } from '@angular/forms';
     EffectsModule.forFeature([InstallationsEffects]),
   ],
   declarations: [
+    InstallationsComponent,
     InstallationListComponent,
     InstallationToolsComponent,
     CurrentProcessComponent,
