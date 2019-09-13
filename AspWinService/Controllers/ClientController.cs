@@ -17,10 +17,10 @@ namespace AspWinService.Controllers
             this.mediator = mediator;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetClients()
+        [HttpGet("{checkForUpgrades}")]
+        public async Task<IActionResult> GetClients(bool checkForUpgrades)
         {
-            var request = new GetClientsInfoRequest();
+            var request = new GetClientsInfoRequest() { CheckForUpgrades = checkForUpgrades };
             var result = await mediator.Send(request);
             return Ok(result);
         }

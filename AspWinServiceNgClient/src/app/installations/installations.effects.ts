@@ -28,14 +28,15 @@ export class InstallationsEffects {
             ))
     ));
 
-    // after client list load, check for updates
-    loadInstallationsSuccess1$ = createEffect(() => this.actions$.pipe(
-        ofType(actions.loadInstallationsSuccess),
-        switchMap(({ payload }) => of(payload)),
-        switchMap(res => {
-            return res.map(cli => actions.getClientNeedUpgrade({ payload: { clientId: cli.clientId } }));
-        }),
-    ));
+    // // 'loadInstallations' now does upgrade check
+    // // after client list load, check for updates
+    // loadInstallationsSuccess1$ = createEffect(() => this.actions$.pipe(
+    //     ofType(actions.loadInstallationsSuccess),
+    //     switchMap(({ payload }) => of(payload)),
+    //     switchMap(res => {
+    //         return res.map(cli => actions.getClientNeedUpgrade({ payload: { clientId: cli.clientId } }));
+    //     }),
+    // ));
 
     // after client list load, run .hegi installation if needed
     loadInstallationsSuccess2$ = createEffect(() => this.actions$.pipe(

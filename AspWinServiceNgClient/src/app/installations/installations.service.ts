@@ -18,7 +18,7 @@ export class InstallationsService {
     private electronService: ElectronService) { }
 
   public getInstallations(): Observable<ClientInstallationInfo[]> {
-    return this.httpClient.get<ClientInstallationInfo[]>(this.clientInstallationsUrl);
+    return this.httpClient.get<ClientInstallationInfo[]>(this.clientInstallationsUrl + '/true');
   }
 
   public getClientNeedUpgrade(clientId: string): Observable<boolean> {
