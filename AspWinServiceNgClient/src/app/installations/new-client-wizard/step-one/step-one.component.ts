@@ -35,10 +35,13 @@ export class StepOneComponent implements OnInit {
     if (hegiDesc) {
       this.clientName = new FormControl(hegiDesc.clientName, Validators.required);
       this.installForAll = new FormControl(hegiDesc.installScope === InstallationScope.perMachine);
-      this.installDir = new FormControl('', Validators.required);
+      this.installDir = new FormControl(
+        hegiDesc.installScope === InstallationScope.perMachine ? hegiDesc.installDir : '', Validators.required);
+      if (hegiDesc.installScope === InstallationScope.perUser) {
+        this.installDir.disable();
+      }
       this.applicationServer = new FormControl(
         hegiDesc.applicationServer, Validators.required, this.validateVersionManagerAddress.bind(this));
-      // this.availableLanguages = [hegiDesc.language];
       this.language = new FormControl(hegiDesc.language, Validators.required);
     } else {
       this.clientName = new FormControl('', Validators.required);

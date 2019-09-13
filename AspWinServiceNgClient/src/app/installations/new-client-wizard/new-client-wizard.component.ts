@@ -81,7 +81,8 @@ export class NewClientWizardComponent {
       lnkForAllUser: step3.lnkForAllUsers.value,
       typeExec: TypeExec.addInstall,
       config: step2.defaultConfigValues,
-      language: step1.language.value
+      language: step1.language.value,
+      installDir: step1.installForAll ? step1.installDir.value : ''
     };
   }
 }

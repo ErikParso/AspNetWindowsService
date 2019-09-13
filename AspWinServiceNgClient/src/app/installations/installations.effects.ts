@@ -56,7 +56,7 @@ export class InstallationsEffects {
                                     applicationServer: this.hegiService.hegiDescriptor.applicationServer,
                                     clientId: UUID.UUID(),
                                     clientName: this.hegiService.hegiDescriptor.clientName,
-                                    installDir: 'C:\\Users\\eparso\\Desktop\\installDir',
+                                    installDir: this.hegiService.hegiDescriptor.installDir,
                                     installationProcessId: currentProcessId,
                                     language: this.hegiService.hegiDescriptor.language,
                                 }

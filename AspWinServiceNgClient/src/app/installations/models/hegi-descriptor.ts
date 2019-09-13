@@ -5,6 +5,7 @@ export class HegiDescriptor {
     hideWizard: boolean;
     clientName: string;
     language: string;
+    installDir: string;
     clientExists: ClientExistsAction;
     applicationServer: string;
     configName: string;
