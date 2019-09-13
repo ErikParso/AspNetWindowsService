@@ -4,6 +4,7 @@ export class HegiDescriptor {
     typeExec: TypeExec;
     hideWizard: boolean;
     clientName: string;
+    language: string;
     clientExists: ClientExistsAction;
     applicationServer: string;
     configName: string;

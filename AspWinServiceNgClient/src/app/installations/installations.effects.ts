@@ -58,7 +58,7 @@ export class InstallationsEffects {
                                     clientName: this.hegiService.hegiDescriptor.clientName,
                                     installDir: 'C:\\Users\\eparso\\Desktop\\installDir',
                                     installationProcessId: currentProcessId,
-                                    language: 'EN'
+                                    language: this.hegiService.hegiDescriptor.language,
                                 }
                             });
                         } else {

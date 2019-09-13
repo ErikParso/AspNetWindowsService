@@ -28,7 +28,7 @@ export class StepOneComponent implements OnInit {
   constructor(
     public electronService: ElectronService,
     public validationService: ValidationService,
-    hegiService: HegiService) {
+    private hegiService: HegiService) {
 
     const hegiDesc = hegiService.hegiDescriptor;
 
@@ -38,7 +38,8 @@ export class StepOneComponent implements OnInit {
       this.installDir = new FormControl('', Validators.required);
       this.applicationServer = new FormControl(
         hegiDesc.applicationServer, Validators.required, this.validateVersionManagerAddress.bind(this));
-      this.language = new FormControl('', Validators.required);
+      // this.availableLanguages = [hegiDesc.language];
+      this.language = new FormControl(hegiDesc.language, Validators.required);
     } else {
       this.clientName = new FormControl('', Validators.required);
       this.installForAll = new FormControl(true);
@@ -57,7 +58,6 @@ export class StepOneComponent implements OnInit {
   }
 
   ngOnInit() {
-
   }
 
   selectDir() {

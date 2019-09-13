@@ -27,7 +27,7 @@
       <mat-icon>language</mat-icon> Language
     </mat-label>
     <mat-select formControlName="language" [disabled]="!(availableLanguages && availableLanguages.length)">
-      <mat-option *ngFor="let item of availableLanguages" value="CZ">{{item}}</mat-option>
+      <mat-option *ngFor="let item of availableLanguages" [value]="item">{{item}}</mat-option>
     </mat-select>
     <mat-error *ngIf="frmStepOne.get('language').hasError('required')">
       Language is required

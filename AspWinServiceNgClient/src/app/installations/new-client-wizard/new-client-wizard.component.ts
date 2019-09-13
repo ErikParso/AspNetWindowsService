@@ -80,7 +80,8 @@ export class NewClientWizardComponent {
       hideWizard: false,
       lnkForAllUser: step3.lnkForAllUsers.value,
       typeExec: TypeExec.addInstall,
-      config: step2.defaultConfigValues
+      config: step2.defaultConfigValues,
+      language: step1.language.value
     };
   }
 }
