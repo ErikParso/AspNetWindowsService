@@ -8,7 +8,7 @@ import { HegiService } from './hegi.service';
 import { Router } from '@angular/router';
 import { UUID } from 'angular2-uuid';
 import { Store, createAction } from '@ngrx/store';
-import { State } from '../app.reducer';
+import { State, currentUserAppLocalPathSelector } from '../app.reducer';
 import { MatDialog } from '@angular/material/dialog';
 import { CurrentProcessComponent, CurrenProcessDialogData } from './current-process/current-process.component';
 import { ElectronService } from 'ngx-electron';
@@ -57,7 +57,9 @@ export class InstallationsEffects {
                                     applicationServer: this.hegiService.hegiDescriptor.applicationServer,
                                     clientId: UUID.UUID(),
                                     clientName: this.hegiService.hegiDescriptor.clientName,
-                                    installDir: this.hegiService.hegiDescriptor.installDir,
+                                    installDir: this.hegiService.hegiDescriptor.installScope === InstallationScope.perMachine
+                                        ? this.hegiService.hegiDescriptor.installDir
+                                        : this.appdataPath + '\\Asseco Solutions\\NorisWin32Clients',
                                     installationProcessId: currentProcessId,
                                     language: this.hegiService.hegiDescriptor.language,
                                     configName: this.hegiService.hegiDescriptor.configName,
@@ -141,6 +143,8 @@ export class InstallationsEffects {
             ))
     ));
 
+    private appdataPath: string;
+
     constructor(
         private actions$: Actions,
         private installationsService: InstallationsService,
@@ -149,6 +153,8 @@ export class InstallationsEffects {
         private store: Store<State>,
         public dialog: MatDialog,
         public electronService: ElectronService,
-        public installExistingClientService: InstallExistingClientService
-    ) { }
+        public installExistingClientService: InstallExistingClientService) {
+
+        this.store.select(currentUserAppLocalPathSelector).subscribe(res => this.appdataPath = res);
+    }
 }

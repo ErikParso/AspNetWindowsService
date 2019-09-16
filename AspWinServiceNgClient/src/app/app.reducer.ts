@@ -7,6 +7,7 @@ export interface State {
     versionInfo: VersionInfo;
     applicationState: ApplicationState;
     startupInfo: StartupInfo;
+    currentUser: CurrentUserInfo;
 }
 export interface VersionInfo {
     localVersion: string;
@@ -17,6 +18,10 @@ export interface ApplicationState {
 }
 export interface StartupInfo {
     startupFile: string;
+}
+export interface CurrentUserInfo {
+    userName: string;
+    appLocalPath: string;
 }
 
 // State initialization
@@ -29,6 +34,10 @@ export const initialStateAppState: ApplicationState = {
 };
 export const initialStartupInfo: StartupInfo = {
     startupFile: ''
+};
+export const initialCurrentUserInfo: CurrentUserInfo = {
+    userName: '',
+    appLocalPath: ''
 };
 
 // Actions definition
@@ -48,7 +57,18 @@ export const runUpgradePackage = createAction(
 );
 export const setStartupFile = createAction(
     '[App] Set startup file name',
-    props<{payload: string}>()
+    props<{ payload: string }>()
+);
+export const loadCurrentUserInfo = createAction(
+    '[App] Load current user info'
+);
+export const loadCurrentUserInfoSuccess = createAction(
+    '[App] Load current user info success',
+    props<{ payload: CurrentUserInfo }>()
+);
+export const loadCurrentUserInfoError = createAction(
+    '[App] Load current user info error',
+    props<{ payload: string }>()
 );
 
 // Selectors definition
@@ -71,6 +91,15 @@ export const startupFileSelector = createSelector(
     startupInfoSelectror,
     startupInfo => startupInfo.startupFile
 );
+export const currentUserInfoSelector = (state: State) => state.currentUser;
+export const currentUserNameSelector = createSelector(
+    currentUserInfoSelector,
+    currentUser => currentUser.userName
+);
+export const currentUserAppLocalPathSelector = createSelector(
+    currentUserInfoSelector,
+    currentUser => currentUser.appLocalPath
+);
 
 // Reducers definition
 const appReducerVersions = createReducer<VersionInfo>(
@@ -86,12 +115,17 @@ const appReducerStartupInfo = createReducer<StartupInfo>(
     initialStartupInfo,
     on(setStartupFile, (s, p) => ({ ...s, startupFile: p.payload }))
 );
+const appReducerCurrentUserInfo = createReducer<CurrentUserInfo>(
+    initialCurrentUserInfo,
+    on(loadCurrentUserInfoSuccess, (s, p) => ({ ...s, userName: p.payload.userName, appLocalPath: p.payload.appLocalPath }))
+);
 
 // Reducers export
 export const reducers = {
     versionInfo: appReducerVersions,
     applicationState: appReducerAppState,
-    startupInfo: appReducerStartupInfo
+    startupInfo: appReducerStartupInfo,
+    currentUser: appReducerCurrentUserInfo
 };
 export const reducerToken = new InjectionToken<ActionReducerMap<State>>('Registered Reducers');
 export const reducerProvider = [

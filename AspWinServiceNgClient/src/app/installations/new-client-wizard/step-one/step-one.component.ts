@@ -6,6 +6,8 @@ import { map, tap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { HegiService } from '../../hegi.service';
 import { InstallationScope } from '../../models/hegi-descriptor';
+import { Store } from '@ngrx/store';
+import { State, currentUserAppLocalPathSelector } from 'src/app/app.reducer';
 
 @Component({
   selector: 'app-step-one',
@@ -13,6 +15,9 @@ import { InstallationScope } from '../../models/hegi-descriptor';
   styleUrls: ['./step-one.component.css']
 })
 export class StepOneComponent implements OnInit {
+
+  private currentUserAppPath: string;
+  private perMachineInstallDir: string;
 
   public availableLanguages: string[] = [];
 
@@ -28,15 +33,20 @@ export class StepOneComponent implements OnInit {
   constructor(
     public electronService: ElectronService,
     public validationService: ValidationService,
-    private hegiService: HegiService) {
+    private hegiService: HegiService,
+    store: Store<State>) {
 
+    store.select(currentUserAppLocalPathSelector).subscribe(res => this.currentUserAppPath = res);
     const hegiDesc = hegiService.hegiDescriptor;
 
     if (hegiDesc) {
       this.clientName = new FormControl(hegiDesc.clientName, Validators.required);
       this.installForAll = new FormControl(hegiDesc.installScope === InstallationScope.perMachine);
       this.installDir = new FormControl(
-        hegiDesc.installScope === InstallationScope.perMachine ? hegiDesc.installDir : '', Validators.required);
+        hegiDesc.installScope === InstallationScope.perMachine
+          ? hegiDesc.installDir
+          : this.currentUserAppPath + '\\Asseco Solutions\\NorisWin32Clients',
+        Validators.required);
       if (hegiDesc.installScope === InstallationScope.perUser) {
         this.installDir.disable();
       }
@@ -90,8 +100,11 @@ export class StepOneComponent implements OnInit {
   installAllClientsChanged($event) {
     if ($event.value) {
       this.installDir.enable();
+      this.installDir.setValue(this.perMachineInstallDir);
     } else {
       this.installDir.disable();
+      this.perMachineInstallDir = this.installDir.value;
+      this.installDir.setValue(this.currentUserAppPath + '\\Asseco Solutions\\NorisWin32Clients');
     }
   }
 }

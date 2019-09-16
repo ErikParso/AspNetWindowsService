@@ -59,7 +59,9 @@ export class AppComponent implements OnInit {
     this.localVersion$ = this.store.select(reducer.localVersionSelector);
     this.latestVersion$ = this.store.select(reducer.latestVersionSelector);
     this.upgradeState$ = this.store.select(reducer.upgradeStateSelector);
+
     this.store.dispatch(reducer.loadVersions());
+    this.store.dispatch(reducer.loadCurrentUserInfo());
   }
 
   hideWindow() {
