@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace AspWinService
 {
@@ -65,6 +66,8 @@ namespace AspWinService
             int Version,
             ref IntPtr ppSessionInfo,
             ref int pCount);
+
+
 
         #endregion
 

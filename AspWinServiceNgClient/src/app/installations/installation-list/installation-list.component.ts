@@ -7,12 +7,10 @@ import * as actions from '../installations.actions';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { CurrentProcessComponent, CurrenProcessDialogData } from '../current-process/current-process.component';
-import { CurrentProcess, CurrentProcessResult, CurrentProcessType } from '../models/current-process';
+import { CurrentProcess } from '../models/current-process';
 import { ClientState, ClientStateService } from '../client-state.service';
 import { HegiService } from '../hegi.service';
 import { Router } from '@angular/router';
-import { HegiDescriptor } from '../models/hegi-descriptor';
-import { UUID } from 'angular2-uuid';
 import { ElectronService } from 'ngx-electron';
 
 @Component({
@@ -43,9 +41,6 @@ export class InstallationListComponent implements OnInit {
     this.installations$ = this.store.select(reducer.allInstallationsSelector);
     this.currentInstallation$ = this.store.select(reducer.currentInstallationIdSelector);
     this.currentProcesses$ = this.store.select(reducer.currentProcessesSelector);
-
-    console.log(((window as any).os).userInfo().username);
-    console.log(process.env.username);
   }
 
   setCurrentInstallation(row: ClientInstallationInfo) {
