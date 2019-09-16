@@ -67,7 +67,6 @@ export class StepTwoComponent implements OnInit {
       key: this.key.value,
       value: this.value.value
     });
-    console.log(this.section, this.key, this.value);
     this.section.setValue('');
     this.key.setValue('');
     this.value.setValue('');

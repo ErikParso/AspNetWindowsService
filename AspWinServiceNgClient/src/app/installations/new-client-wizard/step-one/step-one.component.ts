@@ -77,10 +77,8 @@ export class StepOneComponent implements OnInit {
   validateVersionManagerAddress(control: AbstractControl) {
     return this.validationService.validateVersionManagerAddress(control.value).pipe(
       tap(res => {
-        console.log(res.message);
         if (res.isValid) {
           this.availableLanguages = JSON.parse(res.message).Languages;
-          console.log(this.availableLanguages);
         } else {
           this.availableLanguages = [];
         }

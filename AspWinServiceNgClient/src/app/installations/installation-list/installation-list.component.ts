@@ -13,6 +13,7 @@ import { HegiService } from '../hegi.service';
 import { Router } from '@angular/router';
 import { HegiDescriptor } from '../models/hegi-descriptor';
 import { UUID } from 'angular2-uuid';
+import { ElectronService } from 'ngx-electron';
 
 @Component({
   selector: 'app-installation-list',
@@ -34,13 +35,17 @@ export class InstallationListComponent implements OnInit {
     public dialog: MatDialog,
     public clientStateService: ClientStateService,
     public hegiService: HegiService,
-    public router: Router) {
+    public router: Router,
+    public electronService: ElectronService) {
   }
 
   ngOnInit() {
     this.installations$ = this.store.select(reducer.allInstallationsSelector);
     this.currentInstallation$ = this.store.select(reducer.currentInstallationIdSelector);
     this.currentProcesses$ = this.store.select(reducer.currentProcessesSelector);
+
+    console.log(((window as any).os).userInfo().username);
+    console.log(process.env.username);
   }
 
   setCurrentInstallation(row: ClientInstallationInfo) {

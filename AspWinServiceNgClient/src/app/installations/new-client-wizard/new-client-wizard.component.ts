@@ -39,7 +39,6 @@ export class NewClientWizardComponent {
     this.installExistingClientService.installExistingClient(step1comp.clientName.value)
       .subscribe(res => {
         if (res) {
-          console.log('ok installing');
           this.store.dispatch(actions.installNewClient({
             payload: {
               clientId: UUID.UUID(),

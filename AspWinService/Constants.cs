@@ -11,5 +11,8 @@
         public const string CurrentManifestFileName = "CurrentManifest.xml";
         public const string UpdateManifestFileName = "CurrentManifest.xml";
         public const string ManifestUpdateXsdSchemaUrl = "http://helios.eu/ClientUpdateManifest.xsd";
+
+        public const string AssecoSolutions = "Asseco Solutions";
+        public const string NorisWin32Clients = "NorisWin32Clients";
     }
 }
