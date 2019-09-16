@@ -66,7 +66,8 @@ export class InstallationsEffects {
                                     desktopIcon: this.hegiService.hegiDescriptor.desktopIcon,
                                     installForAllUsers: this.hegiService.hegiDescriptor.installScope === InstallationScope.perMachine,
                                     lnkForAllUser: this.hegiService.hegiDescriptor.lnkForAllUser,
-                                    config: this.hegiService.hegiDescriptor.config
+                                    config: this.hegiService.hegiDescriptor.config,
+                                    runAfterInstall: false
                                 }
                             });
                         } else {
@@ -102,7 +103,9 @@ export class InstallationsEffects {
         ofType(actions.installNewClient),
         mergeMap(({ payload }) => this.installationsService.installNewClient(payload)
             .pipe(
-                map(info => actions.installNewClientSuccess({ payload: { ...info, currentProcessId: payload.installationProcessId } })),
+                switchMap(info => [
+                    actions.installNewClientSuccess({ payload: { ...info, currentProcessId: payload.installationProcessId } }),
+                    payload.runAfterInstall ? new actions.RunClientAction(info.clientName) : actions.dummy()]),
                 catchError((e) => of(actions.installNewClientError({
                     payload: {
                         message: e.message,

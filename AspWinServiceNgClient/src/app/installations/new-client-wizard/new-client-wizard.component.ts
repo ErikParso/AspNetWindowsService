@@ -51,7 +51,8 @@ export class NewClientWizardComponent {
               config: step2comp.defaultConfigValues,
               desktopIcon: step3comp.createIcon.value,
               installForAllUsers: step1comp.installForAll.value,
-              lnkForAllUser: step3comp.lnkForAllUsers.value
+              lnkForAllUser: step3comp.lnkForAllUsers.value,
+              runAfterInstall: step3comp.runAfterInstall.value
             }
           }));
           this.router.navigate(['installations', 'list']);

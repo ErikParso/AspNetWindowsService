@@ -12,4 +12,5 @@ export class ClientInstallationRequest {
     desktopIcon: boolean;
     installForAllUsers: boolean;
     config: HegiConfigItem[];
+    runAfterInstall: boolean;
 }
