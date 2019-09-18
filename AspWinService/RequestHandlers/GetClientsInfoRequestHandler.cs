@@ -35,7 +35,8 @@ namespace AspWinService.RequestHandlers
                 ClientId = c.ClientId,
                 ClientName = c.ClientName,
                 InstallDir = c.InstallDir,
-                Extensions = c.Extensions,
+                UserName = c.UserName,
+                Extensions = c.Extensions,                
                 Config = c.Config,
                 NeedUpgrade = false
             })
