@@ -2,6 +2,7 @@
 using AspWinService.Requests;
 using AspWinService.Services;
 using MediatR;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -21,7 +22,13 @@ namespace AspWinService.RequestHandlers
             return Task.FromResult(new CurrentUserInfo()
             {
                 UserName = currentUserService.Account(),
-                AppLocalPath = currentUserService.GetUserPath()
+                AppLocalPath = currentUserService.GetUserPath(Constants.CSIDL_LOCAL_APPDATA),
+
+                CommonDesktop = Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory),
+                CommonPrograms = Environment.GetFolderPath(Environment.SpecialFolder.CommonPrograms),
+
+                UserDesktop = currentUserService.GetUserPath(Constants.CSIDL_DESKTOPDIRECTORY),
+                UserPrograms = currentUserService.GetUserPath(Constants.CSIDL_PROGRAMS)
             });
         }
     }

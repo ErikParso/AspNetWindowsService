@@ -2,6 +2,7 @@
 using AspWinService.Requests;
 using AspWinService.Services;
 using MediatR;
+using System;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -15,17 +16,20 @@ namespace AspWinService.RequestHandlers
         private readonly DownloadService downloadService;
         private readonly ManifestService manifestService;
         private readonly CurrentUserService currentUserService;
+        private readonly LinkService linkService;
 
         public NewClientInstallationRequestHandler(
             ClientInfoService clientInfoService,
             DownloadService downloadService,
             ManifestService manifestService,
-            CurrentUserService currentUserService)
+            CurrentUserService currentUserService,
+            LinkService linkService)
         {
             this.clientInfoService = clientInfoService;
             this.downloadService = downloadService;
             this.manifestService = manifestService;
             this.currentUserService = currentUserService;
+            this.linkService = linkService;
         }
 
         public async Task<ClientInfo> Handle(NewClientInstallationRequest request, CancellationToken cancellationToken)
@@ -73,6 +77,21 @@ namespace AspWinService.RequestHandlers
                 }
             };
             clientInfoService.AddClientInfo(clientInfo);
+
+            var clientMainFile = Path.Combine(installDir, Constants.NorisWin32Exe);
+            var programsPath = request.InstallForAllUsers && request.LnkForAllUser
+                ? Environment.GetFolderPath(Environment.SpecialFolder.CommonPrograms)
+                : currentUserService.GetUserPath(Constants.CSIDL_PROGRAMS);
+            programsPath += $@"\{Constants.AssecoSolutions}\{Constants.HeliosClients}\{request.ClientName}";
+            linkService.CreateLinks(programsPath, request.ClientName, clientMainFile, installDir);
+
+            if (request.DesktopIcon)
+            {
+                var desktop = request.InstallForAllUsers
+                    ? Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory)
+                    : currentUserService.GetUserPath(Constants.CSIDL_DESKTOPDIRECTORY);
+                linkService.CreateDesktopLinks(desktop, request.ClientName, clientMainFile, installDir);
+            }
 
             return clientInfo;
         }

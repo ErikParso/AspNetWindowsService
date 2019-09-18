@@ -65,8 +65,6 @@ namespace AspWinService.Services
             int TokenInformationLength,
             out int ReturnLength);
 
-        private const int CSIDL_LOCAL_APPDATA = 0x001c;
-
         [DllImport("shell32.dll")]
         static extern int SHGetFolderLocation(IntPtr hwndOwner, int nFolder,
             IntPtr hToken, uint dwReserved, out IntPtr ppidl);
@@ -123,7 +121,7 @@ namespace AspWinService.Services
             return sidAsString;
         }
 
-        public string GetUserPath()
+        public string GetUserPath(int csidl)
         {
             IntPtr token = IntPtr.Zero;
             String account = String.Empty;
@@ -131,9 +129,9 @@ namespace AspWinService.Services
             if (WTSQueryUserToken(WTSGetActiveConsoleSessionId(), out token))
             {
                 IntPtr pidlist = IntPtr.Zero;
-                StringBuilder sb = new StringBuilder();
+                StringBuilder sb = new StringBuilder(260);
 
-                SHGetFolderLocation(IntPtr.Zero, CSIDL_LOCAL_APPDATA, token, 0, out pidlist);
+                SHGetFolderLocation(IntPtr.Zero, csidl, token, 0, out pidlist);
                 SHGetPathFromIDListW(pidlist, sb);
 
                 return sb.ToString();

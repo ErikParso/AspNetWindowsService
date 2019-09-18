@@ -13,6 +13,12 @@
         public const string ManifestUpdateXsdSchemaUrl = "http://helios.eu/ClientUpdateManifest.xsd";
 
         public const string AssecoSolutions = "Asseco Solutions";
+        public const string HeliosClients = "HELIOS Clients";
         public const string NorisWin32Clients = "NorisWin32Clients";
+        public const string NorisWin32Exe = "NorisWin32.exe";
+
+        public const int CSIDL_LOCAL_APPDATA = 0x001c;
+        public const int CSIDL_DESKTOPDIRECTORY = 0x10;
+        public const int CSIDL_PROGRAMS = 0x02;
     }
 }
