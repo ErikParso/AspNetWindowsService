@@ -8,6 +8,8 @@ namespace AspWinService.Model
 
         public string Language { get; set; }
 
+        public string ConfigFileName { get; set; }
+
         public IEnumerable<ClientConfigItem> Items { get; set;  }
     }
 

@@ -35,7 +35,7 @@ namespace AspWinService.RequestHandlers
 
             // delete clients with same name from disc and database
             var existingClients = clientInfoService.GetClientsInfo().Where(c => c.ClientName == request.ClientName);
-            foreach(var existingClient in existingClients)
+            foreach (var existingClient in existingClients)
             {
                 if (Directory.Exists(existingClient.InstallDir))
                     Directory.Delete(existingClient.InstallDir, true);
@@ -60,11 +60,16 @@ namespace AspWinService.RequestHandlers
                 InstallDir = installDir,
                 UserName = request.InstallForAllUsers ? string.Empty : currentUserService.Account(),
                 Extensions = Enumerable.Empty<string>(),
-                Config =  new ClientConfig()
+                Config = new ClientConfig()
                 {
                     Language = request.Language,
                     ApplicationServer = request.ApplicationServer,
                     Items = request.ConfigItems,
+                    ConfigFileName = string.IsNullOrWhiteSpace(request.ConfigName)
+                        ? string.Empty
+                        : request.ConfigName.EndsWith(".config")
+                            ? request.ConfigName
+                            : request.ConfigName + ".config"
                 }
             };
             clientInfoService.AddClientInfo(clientInfo);
