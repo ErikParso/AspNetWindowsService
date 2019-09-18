@@ -14,15 +14,18 @@ namespace AspWinService.RequestHandlers
         private readonly ClientInfoService clientInfoService;
         private readonly DownloadService downloadService;
         private readonly ManifestService manifestService;
+        private readonly CurrentUserService currentUserService;
 
         public NewClientInstallationRequestHandler(
             ClientInfoService clientInfoService,
             DownloadService downloadService,
-            ManifestService manifestService)
+            ManifestService manifestService,
+            CurrentUserService currentUserService)
         {
             this.clientInfoService = clientInfoService;
             this.downloadService = downloadService;
             this.manifestService = manifestService;
+            this.currentUserService = currentUserService;
         }
 
         public async Task<ClientInfo> Handle(NewClientInstallationRequest request, CancellationToken cancellationToken)
@@ -55,6 +58,7 @@ namespace AspWinService.RequestHandlers
                 ClientId = request.ClientId,
                 ClientName = request.ClientName,
                 InstallDir = installDir,
+                UserName = request.InstallForAllUsers ? string.Empty : currentUserService.Account(),
                 Extensions = Enumerable.Empty<string>(),
                 Config =  new ClientConfig()
                 {

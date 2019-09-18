@@ -11,6 +11,8 @@ namespace AspWinService.Model
 
         public string InstallDir { get; set; }
 
+        public string UserName { get; set; }
+
         public IEnumerable<string> Extensions { get; set; }
 
         public ClientConfig Config { get; set; }

@@ -14,17 +14,22 @@ namespace AspWinService.RequestHandlers
     {
         private readonly ClientInfoService clientInfoService;
         private readonly CheckNewVersionService checkNewVersionService;
+        private readonly CurrentUserService currentUserService;
 
         public GetClientsInfoRequestHandler(
             ClientInfoService clientInfoService,
-            CheckNewVersionService checkNewVersionService)
+            CheckNewVersionService checkNewVersionService,
+            CurrentUserService currentUserService)
         {
             this.clientInfoService = clientInfoService;
             this.checkNewVersionService = checkNewVersionService;
+            this.currentUserService = currentUserService;
         }
 
         public async Task<IEnumerable<ClientInfoExtended>> Handle(GetClientsInfoRequest request, CancellationToken cancellationToken)
         {
+            var currentUser = currentUserService.Account();
+
             var clients = clientInfoService.GetClientsInfo().Select(c => new ClientInfoExtended()
             {
                 ClientId = c.ClientId,
@@ -33,7 +38,9 @@ namespace AspWinService.RequestHandlers
                 Extensions = c.Extensions,
                 Config = c.Config,
                 NeedUpgrade = false
-            }).ToList();
+            })
+                .Where(c => string.IsNullOrWhiteSpace(c.UserName) || c.UserName == currentUser)
+                .ToList();
 
             if (request.CheckForUpgrades)
             {
