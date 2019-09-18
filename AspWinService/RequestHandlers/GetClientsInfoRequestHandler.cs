@@ -27,12 +27,11 @@ namespace AspWinService.RequestHandlers
         {
             var clients = clientInfoService.GetClientsInfo().Select(c => new ClientInfoExtended()
             {
-                ApplicationServer = c.ApplicationServer,
                 ClientId = c.ClientId,
                 ClientName = c.ClientName,
-                Extensions = c.Extensions,
                 InstallDir = c.InstallDir,
-                Language = c.Language,
+                Extensions = c.Extensions,
+                Config = c.Config,
                 NeedUpgrade = false
             }).ToList();
 

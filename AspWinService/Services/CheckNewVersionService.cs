@@ -26,7 +26,7 @@ namespace AspWinService.Services
         {
             ClientUpdateManifest currentManifest = null;
             var clientInfo = clientInfoService.GetClientInfo(clientId);
-            var updateClient = await redirectService.GetUpdateClient(clientInfo.ApplicationServer);
+            var updateClient = await redirectService.GetUpdateClient(clientInfo.Config.ApplicationServer);
 
             var loader = new ClientManifestFileAccessor(clientInfo.InstallDir, clientInfo.InstallDir, updateClient);
             var parser = new UpdateManifestParser(clientInfo.InstallDir, clientInfo.InstallDir);

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { ClientInstallationInfo } from './models/clientInstallationInfo';
+import { ClientInfo } from './models/client-info';
 import { SignalRService } from './signalR.service';
 import { ElectronService } from 'ngx-electron';
 import { ClientInstallationRequest } from './models/ClientInstallationRequest';
@@ -18,8 +18,8 @@ export class InstallationsService {
     private signalRService: SignalRService,
     private electronService: ElectronService) { }
 
-  public getInstallations(): Observable<ClientInstallationInfo[]> {
-    return this.httpClient.get<ClientInstallationInfo[]>(this.clientInstallationsUrl + '/true');
+  public getInstallations(): Observable<ClientInfo[]> {
+    return this.httpClient.get<ClientInfo[]>(this.clientInstallationsUrl + '/true');
   }
 
   public getClientNeedUpgrade(clientId: string): Observable<boolean> {
@@ -30,18 +30,18 @@ export class InstallationsService {
     return this.httpClient.post(this.clientInstallationsUrl + '/runClient', { clientName });
   }
 
-  public installNewClient(installation: ClientInstallationRequest): Observable<ClientInstallationInfo> {
+  public installNewClient(installation: ClientInstallationRequest): Observable<ClientInfo> {
     this.signalRService.startConnection();
-    return this.httpClient.post<ClientInstallationInfo>(this.clientInstallationsUrl, installation);
+    return this.httpClient.post<ClientInfo>(this.clientInstallationsUrl, installation);
   }
 
-  public updateClient(clientId: string, updateProcessId: string): Observable<ClientInstallationInfo> {
+  public updateClient(clientId: string, updateProcessId: string): Observable<ClientInfo> {
     this.signalRService.startConnection();
-    return this.httpClient.put<ClientInstallationInfo>(this.clientInstallationsUrl, { clientId, updateProcessId });
+    return this.httpClient.put<ClientInfo>(this.clientInstallationsUrl, { clientId, updateProcessId });
   }
 
-  public deleteClient(clientId: string, deleteProcessId: string): Observable<ClientInstallationInfo[]> {
-    return this.httpClient.request<ClientInstallationInfo[]>(
+  public deleteClient(clientId: string, deleteProcessId: string): Observable<ClientInfo[]> {
+    return this.httpClient.request<ClientInfo[]>(
       'delete', this.clientInstallationsUrl, { body: { clientId, deleteProcessId } });
   }
 }

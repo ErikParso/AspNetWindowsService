@@ -1,4 +1,4 @@
-import { HegiConfigItem } from './hegi-config-item';
+import { ClientConfigItem } from './client-config-item';
 
 export class HegiDescriptor {
     typeExec: TypeExec;
@@ -12,7 +12,7 @@ export class HegiDescriptor {
     lnkForAllUser: boolean;
     desktopIcon: boolean;
     installScope: InstallationScope;
-    config: HegiConfigItem[];
+    configItems: ClientConfigItem[];
 }
 
 export enum TypeExec {

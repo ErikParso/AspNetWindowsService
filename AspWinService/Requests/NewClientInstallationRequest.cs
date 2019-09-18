@@ -37,16 +37,7 @@ namespace AspWinService.Requests
         [Required]
         public bool InstallForAllUsers { get; set; }
 
-        public IEnumerable<ConfigItem> Config { get; set; }
-    }
-
-    public class ConfigItem
-    {
-        public string Section { get; set; }
-
-        public string Key { get; set; }
-
-        public string Value { get; set; }
+        public IEnumerable<ClientConfigItem> ConfigItems { get; set; }
     }
 
 }

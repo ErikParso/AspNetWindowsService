@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ClientInstallationInfo } from './models/clientInstallationInfo';
+import { ClientInfo } from './models/client-info';
 import { CurrentProcess, CurrentProcessType, CurrentProcessResult } from './models/current-process';
 
 export enum ClientState {
@@ -23,7 +23,7 @@ export class ClientStateService {
 
   constructor() { }
 
-  public getClientState(row: ClientInstallationInfo, currentProcesses: CurrentProcess[]): ClientState {
+  public getClientState(row: ClientInfo, currentProcesses: CurrentProcess[]): ClientState {
     const process = currentProcesses.find(p => p.processId === row.currentProcessId);
     if (!process) {
       return row.needUpgrade ? ClientState.upgradeAvailable : ClientState.ready;

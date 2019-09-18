@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import * as reducer from '../instalations.reducer';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { clearCurrentProcess } from '../installations.actions';
-import { ClientInstallationInfo } from '../models/clientInstallationInfo';
+import { ClientInfo } from '../models/client-info';
 
 export class CurrenProcessDialogData {
   currentProcessId: string;
@@ -23,7 +23,7 @@ export class CurrentProcessComponent implements OnInit {
   public currentProcessResults = CurrentProcessResult;
 
   public currentProcess$: Observable<CurrentProcess>;
-  public installation$: Observable<ClientInstallationInfo>;
+  public installation$: Observable<ClientInfo>;
 
   constructor(
     private store: Store<State>,
@@ -90,7 +90,7 @@ export class CurrentProcessComponent implements OnInit {
     }
   }
 
-  getBody(currentProcess: CurrentProcess, clientInfo: ClientInstallationInfo): string {
+  getBody(currentProcess: CurrentProcess, clientInfo: ClientInfo): string {
     switch (currentProcess.processType) {
       case CurrentProcessType.installation: {
         switch (currentProcess.result) {

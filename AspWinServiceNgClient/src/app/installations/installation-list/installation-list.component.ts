@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ClientInstallationInfo } from '../models/clientInstallationInfo';
+import { ClientInfo } from '../models/client-info';
 import { Store } from '@ngrx/store';
 import { State } from 'src/app/app.reducer';
 import * as reducer from '../instalations.reducer';
@@ -20,7 +20,7 @@ import { ElectronService } from 'ngx-electron';
 })
 export class InstallationListComponent implements OnInit {
 
-  public installations$: Observable<ClientInstallationInfo[]>;
+  public installations$: Observable<ClientInfo[]>;
   public currentInstallation$: Observable<string>;
   public currentProcesses$: Observable<CurrentProcess[]>;
 
@@ -43,7 +43,7 @@ export class InstallationListComponent implements OnInit {
     this.currentProcesses$ = this.store.select(reducer.currentProcessesSelector);
   }
 
-  setCurrentInstallation(row: ClientInstallationInfo) {
+  setCurrentInstallation(row: ClientInfo) {
     this.store.dispatch(actions.setCurrentInstallation({ payload: row.clientId }));
 
     if (row.currentProcessId && row.currentProcessId.length) {

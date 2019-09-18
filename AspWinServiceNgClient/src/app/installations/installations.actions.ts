@@ -1,5 +1,5 @@
 import { createAction, props, Action } from '@ngrx/store';
-import { ClientInstallationInfo } from './models/clientInstallationInfo';
+import { ClientInfo } from './models/client-info';
 import { ClientInstallationRequest } from './models/ClientInstallationRequest';
 
 export enum InstallationsActions {
@@ -33,7 +33,7 @@ export const loadInstallations = createAction(
 
 export const loadInstallationsSuccess = createAction(
     InstallationsActions.loadInstallationsSuccess,
-    props<{ payload: ClientInstallationInfo[] }>()
+    props<{ payload: ClientInfo[] }>()
 );
 
 export const loadInstallationsError = createAction(
@@ -77,7 +77,7 @@ export const installNewClient = createAction(
 
 export const installNewClientSuccess = createAction(
     InstallationsActions.installNewClientSuccess,
-    props<{ payload: ClientInstallationInfo }>()
+    props<{ payload: ClientInfo }>()
 );
 
 export const installNewClientError = createAction(
@@ -87,7 +87,7 @@ export const installNewClientError = createAction(
 
 export const removeCleint = createAction(
     InstallationsActions.removeClient,
-    props<{ payload: ClientInstallationInfo }>()
+    props<{ payload: ClientInfo }>()
 );
 
 export const updateClient = createAction(

@@ -1,4 +1,4 @@
-import { ClientInstallationInfo } from './models/clientInstallationInfo';
+import { ClientInfo } from './models/client-info';
 import { Action, createReducer, on, createSelector } from '@ngrx/store';
 import * as fromRoot from '../app.reducer';
 import * as actions from './installations.actions';
@@ -6,7 +6,7 @@ import { CurrentProcess, CurrentProcessType, CurrentProcessLogItem, CurrentProce
 import { stringify } from 'querystring';
 
 export interface InstalationsState {
-    allInstallations: ClientInstallationInfo[];
+    allInstallations: ClientInfo[];
     currentInstallation: string;
     errorMessage: string;
     currentProcesses: CurrentProcess[];
@@ -99,13 +99,16 @@ const installationsReducer = createReducer<InstalationsState>(
             .concat({
                 clientId: p.payload.clientId,
                 clientName: p.payload.clientName,
-                language: p.payload.language,
                 installDir: p.payload.installDir,
-                version: 'installing',
+                config: {
+                    language: p.payload.language,
+                    applicationServer: p.payload.applicationServer,
+                    Items: p.payload.configItems
+                },
+                extensions: [],
                 currentProcessId: p.payload.installationProcessId,
                 needUpgrade: false,
-                errorMessage: ''
-            } as ClientInstallationInfo),
+            }),
         currentInstallation: p.payload.clientId,
         currentProcesses: s.currentProcesses.concat({
             processId: p.payload.installationProcessId,

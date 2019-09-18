@@ -66,7 +66,7 @@ export class InstallationsEffects {
                                     desktopIcon: this.hegiService.hegiDescriptor.desktopIcon,
                                     installForAllUsers: this.hegiService.hegiDescriptor.installScope === InstallationScope.perMachine,
                                     lnkForAllUser: this.hegiService.hegiDescriptor.lnkForAllUser,
-                                    config: this.hegiService.hegiDescriptor.config,
+                                    configItems: this.hegiService.hegiDescriptor.configItems,
                                     runAfterInstall: false
                                 }
                             });

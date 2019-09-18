@@ -9,12 +9,10 @@ namespace AspWinService.Model
 
         public string ClientName { get; set; }
 
-        public string Language { get; set; }
-
         public string InstallDir { get; set; }
 
-        public string ApplicationServer { get; set; }
-
         public IEnumerable<string> Extensions { get; set; }
+
+        public ClientConfig Config { get; set; }
     }
 }

@@ -55,9 +55,13 @@ namespace AspWinService.RequestHandlers
                 ClientId = request.ClientId,
                 ClientName = request.ClientName,
                 InstallDir = installDir,
-                ApplicationServer = request.ApplicationServer,
                 Extensions = Enumerable.Empty<string>(),
-                Language = request.Language
+                Config =  new ClientConfig()
+                {
+                    Language = request.Language,
+                    ApplicationServer = request.ApplicationServer,
+                    Items = request.ConfigItems,
+                }
             };
             clientInfoService.AddClientInfo(clientInfo);
 

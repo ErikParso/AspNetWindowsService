@@ -1,4 +1,4 @@
-import { HegiConfigItem } from './hegi-config-item';
+import { ClientConfigItem } from './client-config-item';
 
 export class ClientInstallationRequest {
     installationProcessId: string;
@@ -11,6 +11,6 @@ export class ClientInstallationRequest {
     lnkForAllUser: boolean;
     desktopIcon: boolean;
     installForAllUsers: boolean;
-    config: HegiConfigItem[];
+    configItems: ClientConfigItem[];
     runAfterInstall: boolean;
 }

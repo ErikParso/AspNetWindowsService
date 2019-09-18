@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ClientInstallationInfo } from './models/clientInstallationInfo';
+import { ClientInfo } from './models/client-info';
 import { Store } from '@ngrx/store';
 import { State } from '../app.reducer';
 import { Observable, of } from 'rxjs';
@@ -13,7 +13,7 @@ import { map } from 'rxjs/operators';
 })
 export class InstallExistingClientService {
 
-  private allInstallations: ClientInstallationInfo[] = [];
+  private allInstallations: ClientInfo[] = [];
 
   constructor(
     private store: Store<State>,

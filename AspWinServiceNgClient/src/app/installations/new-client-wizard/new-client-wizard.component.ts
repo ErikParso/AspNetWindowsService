@@ -1,5 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { ElectronService } from 'ngx-electron';
+import { Component } from '@angular/core';
 import { StepOneComponent } from './step-one/step-one.component';
 import { Store } from '@ngrx/store';
 import { State } from 'src/app/app.reducer';
@@ -9,11 +8,10 @@ import { StepThreeComponent } from './step-three/step-three.component';
 import { StepTwoComponent } from './step-two/step-two.component';
 import { HegiService } from '../hegi.service';
 import { HegiDescriptor, ClientExistsAction, InstallationScope, TypeExec } from '../models/hegi-descriptor';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ClientInstallationInfo } from '../models/clientInstallationInfo';
+import { Router } from '@angular/router';
+import { ClientInfo } from '../models/client-info';
 import { allInstallationsSelector } from '../instalations.reducer';
 import { MatDialog } from '@angular/material/dialog';
-import { MessageBoxComponent } from 'src/app/shared/message-box/message-box.component';
 import { InstallExistingClientService } from '../install-existing-client.service';
 
 @Component({
@@ -23,7 +21,7 @@ import { InstallExistingClientService } from '../install-existing-client.service
 })
 export class NewClientWizardComponent {
 
-  private allInstallations: ClientInstallationInfo[];
+  private allInstallations: ClientInfo[];
 
   constructor(
     private store: Store<State>,
@@ -48,7 +46,7 @@ export class NewClientWizardComponent {
               applicationServer: step1comp.applicationServer.value,
               installationProcessId: UUID.UUID(),
               configName: step2comp.configName.value,
-              config: step2comp.defaultConfigValues,
+              configItems: step2comp.defaultConfigValues,
               desktopIcon: step3comp.createIcon.value,
               installForAllUsers: step1comp.installForAll.value,
               lnkForAllUser: step3comp.lnkForAllUsers.value,
@@ -85,7 +83,7 @@ export class NewClientWizardComponent {
       hideWizard: false,
       lnkForAllUser: step3.lnkForAllUsers.value,
       typeExec: TypeExec.addInstall,
-      config: step2.defaultConfigValues,
+      configItems: step2.defaultConfigValues,
       language: step1.language.value,
       installDir: step1.installForAll ? step1.installDir.value : ''
     };

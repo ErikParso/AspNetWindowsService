@@ -69,7 +69,7 @@ namespace AspWinService.Services
                 var clientsInfoString = File.ReadAllText(Constants.InstalledClientsFileName);
                 var clientsInfo = JsonConvert.DeserializeObject<IEnumerable<ClientInfo>>(clientsInfoString).ToList();
                 processClientsInfo(clientsInfo);
-                File.WriteAllText(Constants.InstalledClientsFileName, JsonConvert.SerializeObject(clientsInfo));
+                File.WriteAllText(Constants.InstalledClientsFileName, JsonConvert.SerializeObject(clientsInfo, Formatting.Indented));
             }
         }
     }

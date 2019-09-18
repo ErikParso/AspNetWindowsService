@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { HegiConfigItem } from '../../models/hegi-config-item';
+import { ClientConfigItem } from '../../models/client-config-item';
 import { group } from '@angular/animations';
 import { HegiService } from '../../hegi.service';
 
@@ -12,7 +12,7 @@ import { HegiService } from '../../hegi.service';
 export class StepTwoComponent implements OnInit {
 
   public displayedColumns = ['section', 'key', 'value', 'tools'];
-  public defaultConfigValues: HegiConfigItem[] = [];
+  public defaultConfigValues: ClientConfigItem[] = [];
 
   public useDefaultConfig: FormControl;
   public configName: FormControl;
@@ -29,7 +29,7 @@ export class StepTwoComponent implements OnInit {
       const useDefConf = hegiService.hegiDescriptor.configName === 'noris.config';
       this.useDefaultConfig = new FormControl(useDefConf);
       this.configName = new FormControl({ value: hegiService.hegiDescriptor.configName, disabled: useDefConf }, Validators.required);
-      this.defaultConfigValues = hegiService.hegiDescriptor.config ? hegiService.hegiDescriptor.config : [];
+      this.defaultConfigValues = hegiService.hegiDescriptor.configItems ? hegiService.hegiDescriptor.configItems : [];
     } else {
       this.useDefaultConfig = new FormControl(true);
       this.configName = new FormControl({ value: 'noris.config', disabled: true }, Validators.required);
@@ -72,7 +72,7 @@ export class StepTwoComponent implements OnInit {
     this.value.setValue('');
   }
 
-  deleteConfigValue(value: HegiConfigItem) {
+  deleteConfigValue(value: ClientConfigItem) {
     this.defaultConfigValues = this.defaultConfigValues.filter(conf => conf !== value);
   }
 
