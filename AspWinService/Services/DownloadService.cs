@@ -1,4 +1,5 @@
 ﻿using AspWinService.ManifestProcessing;
+using AspWinService.Model;
 using AspWinService.Tools;
 using System;
 using System.Collections.Generic;
@@ -37,10 +38,10 @@ namespace AspWinService.Services
             this.redirectService = redirectService;
         }
 
-        public async Task DownloadClient(string processId, string tempDir, string installDir, string versionManagerAddress)
+        public async Task DownloadClient(string processId, string tempDir, string installDir, ClientConfig clientConfig)
         {
-            versionManagerAddress = versionManagerAddress.TrimEnd('/');
-            var updateClient = await redirectService.GetUpdateClient(versionManagerAddress);
+            clientConfig.ApplicationServer = clientConfig.ApplicationServer.TrimEnd('/');
+            var updateClient = await redirectService.GetUpdateClient(clientConfig);
 
             var manifestFileAccessor = new ClientManifestFileAccessor(tempDir, installDir, updateClient);
             var updateManifestContent = await manifestFileAccessor.ReadUpdateManifestFileContent();

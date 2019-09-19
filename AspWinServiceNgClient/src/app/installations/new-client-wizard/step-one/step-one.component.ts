@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, Validators, FormGroup, FormBuilder, AbstractControl } from '@angular/forms';
 import { ElectronService } from 'ngx-electron';
 import { ValidationService } from '../../validation.service';
@@ -10,15 +10,17 @@ import { Store } from '@ngrx/store';
 import { State, currentUserAppLocalPathSelector } from 'src/app/app.reducer';
 import { InstallConfigService } from '../install-config.service';
 import { ClientConfigItem } from '../../models/client-config-item';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-step-one',
   templateUrl: './step-one.component.html',
   styleUrls: ['./step-one.component.css']
 })
-export class StepOneComponent implements OnInit {
+export class StepOneComponent implements OnInit, OnDestroy {
 
   private configItems: ClientConfigItem[];
+  private appServerValidationSubscription: Subscription;
 
   private currentUserAppPath: string;
   private perMachineInstallDir: string;
@@ -75,11 +77,15 @@ export class StepOneComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.configService.defaultConfigValues$.subscribe(c => {
+    this.appServerValidationSubscription = this.configService.defaultConfigValues$.subscribe(c => {
       this.configItems = c;
       this.applicationServer.updateValueAndValidity();
-      this.frmStepOne.updateValueAndValidity();
+      console.log('validationInvoked');
     });
+  }
+
+  ngOnDestroy(): void {
+    this.appServerValidationSubscription.unsubscribe();
   }
 
   selectDir() {
@@ -96,6 +102,7 @@ export class StepOneComponent implements OnInit {
   validateVersionManagerAddress(control: AbstractControl) {
     return this.validationService.validateVersionManagerAddress(control.value, this.configItems).pipe(
       tap(res => {
+        console.log('validated');
         if (res.isValid) {
           this.availableLanguages = JSON.parse(res.message).Languages;
         } else {

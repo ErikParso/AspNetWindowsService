@@ -37,6 +37,18 @@ namespace AspWinService.RequestHandlers
             var installDir = Path.Combine(request.InstallDir, request.ClientName);
             var tempDir = Path.Combine(Path.GetTempPath(), $@"HeliosGreenTemp\{request.ClientName}");
 
+            var config = new ClientConfig()
+            {
+                Language = request.Language,
+                ApplicationServer = request.ApplicationServer,
+                Items = request.ConfigItems,
+                ConfigFileName = string.IsNullOrWhiteSpace(request.ConfigName)
+                    ? string.Empty
+                    : request.ConfigName.EndsWith(".config")
+                        ? request.ConfigName
+                        : request.ConfigName + ".config"
+            };
+
             // delete clients with same name from disc and database
             var existingClients = clientInfoService.GetClientsInfo().Where(c => c.ClientName == request.ClientName);
             foreach (var existingClient in existingClients)
@@ -55,7 +67,7 @@ namespace AspWinService.RequestHandlers
 
 
             manifestService.LoadConfig(installDir, request.ApplicationServer, request.Language);
-            await downloadService.DownloadClient(request.InstallationProcessId, tempDir, installDir, request.ApplicationServer);
+            await downloadService.DownloadClient(request.InstallationProcessId, tempDir, installDir, config);
 
             var clientInfo = new ClientInfo()
             {
@@ -64,17 +76,7 @@ namespace AspWinService.RequestHandlers
                 InstallDir = installDir,
                 UserName = request.InstallForAllUsers ? string.Empty : currentUserService.Account(),
                 Extensions = Enumerable.Empty<string>(),
-                Config = new ClientConfig()
-                {
-                    Language = request.Language,
-                    ApplicationServer = request.ApplicationServer,
-                    Items = request.ConfigItems,
-                    ConfigFileName = string.IsNullOrWhiteSpace(request.ConfigName)
-                        ? string.Empty
-                        : request.ConfigName.EndsWith(".config")
-                            ? request.ConfigName
-                            : request.ConfigName + ".config"
-                }
+                Config = config
             };
             clientInfoService.AddClientInfo(clientInfo);
 

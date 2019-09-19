@@ -25,6 +25,12 @@ namespace AspWinService.RequestHandlers
         {
             var result = new ValidationResult();
 
+            var config = new ClientConfig()
+            {
+                ApplicationServer = request.VersionManagerAddress,
+                Items = request.ConfigItems
+            };
+
             if (request.ConfigItems != null && request.ConfigItems.Any(c => c.Section == "test" && c.Key == "invalid_application_server" && c.Value == "1"))
             {
                 result.IsValid = false;
@@ -34,10 +40,10 @@ namespace AspWinService.RequestHandlers
 
             try
             {
-                var applicationserverAddress = await redirectService.GetApplicationServerAddress(request.VersionManagerAddress);
+                var applicationserverAddress = await redirectService.GetApplicationServerAddress(config);
                 if (!string.IsNullOrWhiteSpace(applicationserverAddress))
                 {
-                    var languagesXml = await redirectService.GetAvailableLanguages(request.VersionManagerAddress);
+                    var languagesXml = await redirectService.GetAvailableLanguages(config);
                     var languages = ParseLanguages(languagesXml);
                     result.IsValid = true;
                     result.Message = JsonConvert.SerializeObject(

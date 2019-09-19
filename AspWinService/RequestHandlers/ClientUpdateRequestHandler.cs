@@ -25,7 +25,7 @@ namespace AspWinService.RequestHandlers
         {
             var clientInfo = clientInfoService.GetClientInfo(request.ClientId);
             var tempDir = Path.Combine(Path.GetTempPath(), $@"HeliosGreenTemp\{clientInfo.ClientName}");
-            await downloadService.DownloadClient(request.UpdateProcessId, tempDir, clientInfo.InstallDir, clientInfo.Config.ApplicationServer);
+            await downloadService.DownloadClient(request.UpdateProcessId, tempDir, clientInfo.InstallDir, clientInfo.Config);
             return clientInfo;
         }
     }
