@@ -21,6 +21,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { MatCardModule } from '@angular/material/card';
     MatStepperModule,
     MatCheckboxModule,
     MatRadioModule,
-    MatCardModule
+    MatCardModule,
+    MatMenuModule
   ],
   entryComponents: [
     MessageBoxComponent

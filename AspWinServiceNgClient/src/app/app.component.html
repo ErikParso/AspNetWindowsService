@@ -1,19 +1,33 @@
 <mat-toolbar color="primary" class="header mat-elevation-z2">
   <mat-toolbar-row>
+    
     <span>Client Manager</span>
+
     <button mat-icon-button
       *ngIf="(upgradeState$ | async) === upgradeState.none && (localVersion$|async) !== (latestVersion$ | async)"
       (click)="showUpgradeInfo()">
       <mat-icon>arrow_upward</mat-icon>
     </button>
+    
     <span class="spacer"></span>
+    
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>settings_applications</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item routerLink="settings/proxy">Proxy</button>
+      <button mat-menu-item>Help</button>
+    </mat-menu>
+
     <button mat-icon-button (click)="hideWindow()" *ngIf="electronService.isElectronApp">
       <mat-icon>minimize</mat-icon>
     </button>
+
     <button mat-icon-button (click)="closeWindow()"
       *ngIf="electronService.isElectronApp && (upgradeState$ | async) === upgradeState.none">
       <mat-icon>close</mat-icon>
     </button>
+
   </mat-toolbar-row>
 </mat-toolbar>
 

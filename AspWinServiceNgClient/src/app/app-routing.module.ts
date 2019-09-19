@@ -7,6 +7,10 @@ const routes: Routes = [
     loadChildren: () => import('./installations/installations.module').then(mod => mod.InstallationsModule)
   },
   {
+    path: 'settings',
+    loadChildren: () => import('./settings/settings.module').then(mod => mod.SettingsModule)
+  },
+  {
     path: '',
     redirectTo: 'installations',
     pathMatch: 'full'
