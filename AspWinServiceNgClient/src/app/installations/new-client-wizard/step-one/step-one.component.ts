@@ -8,6 +8,8 @@ import { HegiService } from '../../hegi.service';
 import { InstallationScope } from '../../models/hegi-descriptor';
 import { Store } from '@ngrx/store';
 import { State, currentUserAppLocalPathSelector } from 'src/app/app.reducer';
+import { InstallConfigService } from '../install-config.service';
+import { ClientConfigItem } from '../../models/client-config-item';
 
 @Component({
   selector: 'app-step-one',
@@ -16,9 +18,10 @@ import { State, currentUserAppLocalPathSelector } from 'src/app/app.reducer';
 })
 export class StepOneComponent implements OnInit {
 
+  private configItems: ClientConfigItem[];
+
   private currentUserAppPath: string;
   private perMachineInstallDir: string;
-
   public availableLanguages: string[] = [];
 
   public clientName: FormControl;
@@ -34,6 +37,7 @@ export class StepOneComponent implements OnInit {
     public electronService: ElectronService,
     public validationService: ValidationService,
     private hegiService: HegiService,
+    private configService: InstallConfigService,
     store: Store<State>) {
 
     store.select(currentUserAppLocalPathSelector).subscribe(res => this.currentUserAppPath = res);
@@ -71,6 +75,11 @@ export class StepOneComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.configService.defaultConfigValues$.subscribe(c => {
+      this.configItems = c;
+      this.applicationServer.updateValueAndValidity();
+      this.frmStepOne.updateValueAndValidity();
+    });
   }
 
   selectDir() {
@@ -85,7 +94,7 @@ export class StepOneComponent implements OnInit {
   }
 
   validateVersionManagerAddress(control: AbstractControl) {
-    return this.validationService.validateVersionManagerAddress(control.value).pipe(
+    return this.validationService.validateVersionManagerAddress(control.value, this.configItems).pipe(
       tap(res => {
         if (res.isValid) {
           this.availableLanguages = JSON.parse(res.message).Languages;

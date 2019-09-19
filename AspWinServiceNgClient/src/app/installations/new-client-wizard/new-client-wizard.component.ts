@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { StepOneComponent } from './step-one/step-one.component';
 import { Store } from '@ngrx/store';
 import { State } from 'src/app/app.reducer';
@@ -13,24 +13,40 @@ import { ClientInfo } from '../models/client-info';
 import { allInstallationsSelector } from '../instalations.reducer';
 import { MatDialog } from '@angular/material/dialog';
 import { InstallExistingClientService } from '../install-existing-client.service';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { InstallConfigService } from './install-config.service';
+import { ClientConfigItem } from '../models/client-config-item';
+import { MatStepper, MatStep } from '@angular/material/stepper';
 
 @Component({
   selector: 'app-new-client-wizard',
   templateUrl: './new-client-wizard.component.html',
-  styleUrls: ['./new-client-wizard.component.scss']
+  styleUrls: ['./new-client-wizard.component.scss'],
+  providers: [
+    {
+      provide: STEPPER_GLOBAL_OPTIONS,
+      useValue: { showError: true }
+    }
+  ]
 })
-export class NewClientWizardComponent {
+export class NewClientWizardComponent implements OnInit {
 
   private allInstallations: ClientInfo[];
+  private configItems: ClientConfigItem[];
 
   constructor(
     private store: Store<State>,
     private hegiService: HegiService,
     private dialog: MatDialog,
     private installExistingClientService: InstallExistingClientService,
-    private router: Router) {
+    private router: Router,
+    private installConfigService: InstallConfigService) {
 
     store.select(allInstallationsSelector).subscribe(i => this.allInstallations = i);
+  }
+
+  ngOnInit(): void {
+    this.installConfigService.defaultConfigValues$.subscribe(c => this.configItems = c);
   }
 
   install(step1comp: StepOneComponent, step2comp: StepTwoComponent, step3comp: StepThreeComponent) {
@@ -46,7 +62,7 @@ export class NewClientWizardComponent {
               applicationServer: step1comp.applicationServer.value,
               installationProcessId: UUID.UUID(),
               configName: step2comp.configName.value,
-              configItems: step2comp.defaultConfigValues,
+              configItems: this.configItems,
               desktopIcon: step3comp.createIcon.value,
               installForAllUsers: step1comp.installForAll.value,
               lnkForAllUser: step3comp.lnkForAllUsers.value,
@@ -83,9 +99,13 @@ export class NewClientWizardComponent {
       hideWizard: false,
       lnkForAllUser: step3.lnkForAllUsers.value,
       typeExec: TypeExec.addInstall,
-      configItems: step2.defaultConfigValues,
+      configItems: this.configItems,
       language: step1.language.value,
       installDir: step1.installForAll ? step1.installDir.value : ''
     };
+  }
+
+  stepsValid(step1: StepOneComponent, step2: StepTwoComponent, step3: StepThreeComponent): boolean {
+    return step1.frmStepOne.valid && step2.frmStepTwo.valid && step3.frmStepThree.valid;
   }
 }

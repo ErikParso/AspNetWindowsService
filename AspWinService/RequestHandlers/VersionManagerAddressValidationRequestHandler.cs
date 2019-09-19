@@ -25,6 +25,13 @@ namespace AspWinService.RequestHandlers
         {
             var result = new ValidationResult();
 
+            if (request.ConfigItems != null && request.ConfigItems.Any(c => c.Section == "test" && c.Key == "invalid_application_server" && c.Value == "1"))
+            {
+                result.IsValid = false;
+                result.Message = "invalid_application_server is specified in configuration step 2 section test.";
+                return result;
+            }
+
             try
             {
                 var applicationserverAddress = await redirectService.GetApplicationServerAddress(request.VersionManagerAddress);
