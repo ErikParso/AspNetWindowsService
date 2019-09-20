@@ -11,6 +11,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { RpcService } from './rpc.service';
 
 @NgModule({
   declarations: [
@@ -28,4 +29,10 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
   providers: [reducerProvider],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+  constructor(rpcService: RpcService) {
+    rpcService.startConnection();
+  }
+
+}
