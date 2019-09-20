@@ -1,5 +1,6 @@
 ﻿using AspWinService.Model;
 using AspWinService.Tools;
+using System;
 using System.Linq;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
@@ -8,13 +9,11 @@ namespace AspWinService.Services
 {
     public class ProxyService
     {
-        internal Binding GetBinding(ClientConfig config)
+        public void  SetProxy(ClientConfig config, BasicHttpBinding binding)
         {
-            var result = new BasicHttpBinding();
-
             if (config.Items.Any(c => c.Section == "LogIn" && c.Key == "UseDefaultProxy" && c.Value == "1"))
             {
-                result.UseDefaultWebProxy = true;
+                binding.UseDefaultWebProxy = true;
             }
 
             var proxy = config.Items.FirstOrDefault(c => c.Section == "LogIn" && c.Key == "Proxy")?.Value ?? string.Empty;
@@ -26,12 +25,8 @@ namespace AspWinService.Services
 
             if (!string.IsNullOrWhiteSpace(proxy))
             {
-                result.ProxyAddress = new System.Uri(proxy);
+                binding.ProxyAddress = new System.Uri(proxy);
             }
-
-            return result;
         }
-
-
     }
 }

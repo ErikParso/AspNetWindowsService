@@ -39,6 +39,7 @@ namespace AspWinService
             services.AddSingleton(typeof(CurrentUserService));
             services.AddSingleton(typeof(LinkService));
             services.AddSingleton(typeof(ProxyService));
+            services.AddSingleton(typeof(CredentialService));
 
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             {
