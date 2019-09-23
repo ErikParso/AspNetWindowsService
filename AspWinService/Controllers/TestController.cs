@@ -1,10 +1,6 @@
 ﻿using AspWinService.SignalR.Rpc;
+using AspWinService.SignalR.RpcHubs;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Diagnostics;
-using System.IO;
-using System.Net.Http;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace AspWinService.Controllers
@@ -13,17 +9,17 @@ namespace AspWinService.Controllers
     [ApiController]
     public class TestController : ControllerBase
     {
-        private readonly IRpcCaller<RpcHub> _rpcCaller;
+        private readonly RpcHub<RpcLoginRequest, RpcLoginResponse> loginRpc;
 
-        public TestController(IRpcCaller<RpcHub> rpcCaller)
+        public TestController(RpcHub<RpcLoginRequest, RpcLoginResponse> loginRpc)
         {
-            _rpcCaller = rpcCaller;
+            this.loginRpc = loginRpc;
         }
 
         [HttpGet("{userId}")]
         public async Task<IActionResult> Get(string userId)
         {
-            var result = await _rpcCaller.MethodCall(userId, new MethodParams() { MethodCallId = Guid.NewGuid() });
+            var result = await loginRpc.MethodCall(userId, new RpcLoginRequest());
             return Ok("hello from v 1.0.11");
         }
     }

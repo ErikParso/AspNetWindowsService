@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MethodParams } from './model/method-params';
+import { RpcLoginRequest } from './model/rpc-login-request';
 import * as signalR from '@aspnet/signalr';
 
 @Injectable({
@@ -16,13 +16,17 @@ export class RpcService {
   public startConnection = () => {
     if (!this.connectionStarted) {
       this.hubConnection = new signalR.HubConnectionBuilder()
-        .withUrl('http://localhost:5000/rpc')
+        .withUrl('http://localhost:5000/loginrpc')
         .build();
 
       this.hubConnection.on(
-        'methodcall', (methodParams: MethodParams) => {
-          console.log('request from server: ' + methodParams.methodCallId);
-          this.hubConnection.invoke('methodresponsehandler', { methodCallId: methodParams.methodCallId });
+        'Request', (methodId: string, methodParams: RpcLoginRequest) => {
+          console.log('request from server: ' + methodId);
+          this.hubConnection.invoke('methodresponse', methodId, {
+            userName: 'eParso',
+            password: '123',
+            domain: 'sigp'
+          });
         });
 
       this.hubConnection

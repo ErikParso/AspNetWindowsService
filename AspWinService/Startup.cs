@@ -2,6 +2,7 @@
 using AspWinService.Services;
 using AspWinService.SignalR;
 using AspWinService.SignalR.Rpc;
+using AspWinService.SignalR.RpcHubs;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -41,7 +42,7 @@ namespace AspWinService
             services.AddSingleton(typeof(LinkService));
             services.AddSingleton(typeof(ProxyService));
             services.AddSingleton(typeof(CredentialService));
-            services.AddSingleton(typeof(IRpcCaller<>), typeof(RpcCaller<>));
+            services.AddSingleton(typeof(RpcHub<RpcLoginRequest, RpcLoginResponse>));
 
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             {
@@ -74,7 +75,7 @@ namespace AspWinService
             app.UseSignalR(route =>
             {
                 route.MapHub<ProgressHub>("/progresshub");
-                route.MapHub<RpcHub>("/rpc");
+                route.MapHub<RpcHub<RpcLoginRequest, RpcLoginResponse>> ("/loginrpc");
             });
 
             app.UseMvc();
