@@ -1,0 +1,77 @@
+table {
+   width: 100%;
+   max-width: 100%;
+   min-width: 100%;
+}
+
+.table-container {
+   display: flex;
+   position: absolute;
+   top: 0;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   max-height: 100%;
+   overflow: auto;
+}
+
+.col-tools {
+   width: 50px;
+}
+
+.col-version {
+   width: 100px;
+}
+
+.col-name-wrap {
+   white-space: pre-wrap;
+   word-wrap: break-word;
+   word-break: break-all;
+   white-space: normal;
+   padding-right: 10px;
+   vertical-align: middle;
+}
+
+.col-name-trim {
+   white-space: nowrap;
+   text-overflow: ellipsis;
+   overflow: hidden;
+   max-width: 0px;
+   padding-right: 10px;
+}
+
+.text-and-icon {
+   display: flex;
+   flex-direction: row;
+   justify-content: flex-start;
+   align-items: center;
+   align-content: center;
+}
+
+.text-and-icon>mat-icon {
+   flex: 1 100%;
+   margin: 10px
+}
+
+.spinner {
+   margin: 10px;
+}
+
+$footerHeight: 60px;
+
+.content {
+   position: absolute;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: $footerHeight;
+ }
+ 
+ .footer {
+   z-index: 10000;
+   position: absolute;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   height: $footerHeight;
+ }

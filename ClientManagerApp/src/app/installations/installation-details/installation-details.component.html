@@ -1,0 +1,61 @@
+<div class="content">
+
+  <mat-card *ngIf="(clientInfo$ | async); let clientInfo;">
+    <mat-card-header>
+      <div mat-card-avatar class="noris-header-image"></div>
+      <mat-card-title>{{clientInfo.clientName}}</mat-card-title>
+      <mat-card-subtitle>{{clientInfo.installDir}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-list role="list">
+        <mat-list-item role="listitem" *ngIf="clientInfo.userName && clientInfo.userName.length">
+          <mat-icon>person</mat-icon>
+          Installed for {{clientInfo.userName}}
+        </mat-list-item>
+        <mat-list-item role="listitem" *ngIf="!clientInfo.userName || !clientInfo.userName.length">
+          <mat-icon>people</mat-icon>
+          Installed for all users
+        </mat-list-item>
+        <mat-list-item role="listitem">
+          <mat-icon>storage</mat-icon>
+          Connected to {{clientInfo.config.applicationServer}}
+        </mat-list-item>
+        <mat-list-item role="listitem">
+          <mat-icon>language</mat-icon>
+          Language {{clientInfo.config.language}}
+        </mat-list-item>
+        <mat-list-item *ngIf="clientInfo.extensions && clientInfo.extensions.length" role="listitem">
+          <mat-icon>description</mat-icon>
+          Associated files<span *ngFor="let ext of clientInfo.extensions">&nbsp;{{ext}}</span>
+        </mat-list-item>
+        <mat-list-item *ngIf="!clientInfo.extensions || !clientInfo.extensions.length" role="listitem">
+          <mat-icon>description</mat-icon>
+          No files associated
+        </mat-list-item>
+      </mat-list>
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Configuration
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-list role="list">
+            <div *ngFor="let subItem of clientInfo.config.items">
+              <mat-list-item>{{subItem.section}}, {{subItem.key}}, {{subItem.value}}</mat-list-item>
+            </div>
+          </mat-list>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-card-content>
+  </mat-card>
+
+</div>
+
+<mat-toolbar color="primary" class="footer mat-elevation-z2">
+  <mat-toolbar-row>
+    <button mat-icon-button [routerLink]="'../../list'">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>

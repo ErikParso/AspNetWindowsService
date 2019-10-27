@@ -1,0 +1,64 @@
+<div class="table-container content">
+  <table mat-table [dataSource]="installations$ | async">
+
+    <ng-container matColumnDef="clientName">
+      <th class="col-name-trim" mat-header-cell *matHeaderCellDef> Name </th>
+      <td class="col-name-trim" [class.currentRow]="(currentInstallation$ | async) == element.clientId" mat-cell
+        *matCellDef="let element">
+        <div class="text-and-icon">
+          <div>{{element.clientName}}</div>
+          <mat-icon color="primary" *ngIf="element.userName && element.userName.length">
+            person
+          </mat-icon>
+          <mat-icon color="primary" *ngIf="!element.userName || !element.userName.length">
+            people
+          </mat-icon>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="installDir">
+      <th mat-header-cell *matHeaderCellDef> Loacation </th>
+      <td mat-cell [class.currentRow]="(currentInstallation$ | async) == element.clientId" *matCellDef="let element">
+        <div class="mat-small">{{element.installDir}}</div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="version">
+      <th class="col-version" mat-header-cell *matHeaderCellDef> Version </th>
+      <td class="col-version" mat-cell [class.currentRow]="(currentInstallation$ | async) == element.clientId"
+        *matCellDef="let element">
+        <div class="text-and-icon"
+          *ngIf="clientStateService.getClientState(element, currentProcesses$ |async); let clientState;">
+          <div>{{clientState}}</div>
+          <mat-icon color="warn"
+            *ngIf="clientState === clientStates.installationError || clientState === clientStates.upgradeError || clientState === clientStates.deleteError">
+            warning
+          </mat-icon>
+          <mat-icon color="primary"
+            *ngIf="clientState === clientStates.installationSuccessfull || clientState === clientStates.upgradeSuccessfull || clientState === clientStates.deleteSuccessfull">
+            check
+          </mat-icon>
+          <mat-icon color="primary" *ngIf="clientState === clientStates.upgradeAvailable">
+            arrow_upward
+          </mat-icon>
+          <mat-icon color="primary" *ngIf="clientState === clientStates.ready">
+            play_arrow
+          </mat-icon>
+          <mat-progress-spinner class="spinner" [diameter]="15" *ngIf="clientState === clientStates.installing || 
+            clientState === clientStates.deleting || clientState === clientStates.upgrading || 
+            element.upgradeInfo === upgradeInfos.checkingForUpgrade" mode="indeterminate">
+          </mat-progress-spinner>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="setCurrentInstallation(row)"></tr>
+  </table>
+
+</div>
+
+<div class="footer">
+    <app-installation-tools></app-installation-tools>
+</div>

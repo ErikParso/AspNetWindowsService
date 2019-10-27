@@ -1,0 +1,25 @@
+﻿{
+  "ProviderId": "Microsoft.VisualStudio.ConnectedService.Wcf",
+  "Version": "15.0.30730.948",
+  "GettingStartedDocument": {
+    "Uri": "https://go.microsoft.com/fwlink/?linkid=858517"
+  },
+  "ExtendedData": {
+    "inputs": [
+      "https://localhost:5035/Service1.svc"
+    ],
+    "collectionTypes": [
+      "System.Array",
+      "System.Collections.Generic.Dictionary`2"
+    ],
+    "namespaceMappings": [
+      "*, TestServiceReference"
+    ],
+    "references": [
+      "C:\\Users\\eparso\\source\\repos\\ClientUpdateService\\ClientManagerService\\bin\\Debug\\netcoreapp3.0\\win7-x64\\Interop.IWshRuntimeLibrary.dll",
+      "C:\\Users\\eparso\\source\\repos\\ClientUpdateService\\ClientManagerService\\bin\\Debug\\netcoreapp3.0\\win7-x64\\NorisConfig.dll"
+    ],
+    "targetFramework": "netcoreapp3.0",
+    "typeReuseMode": "All"
+  }
+}

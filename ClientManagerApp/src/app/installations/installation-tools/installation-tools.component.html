@@ -1,0 +1,38 @@
+<mat-toolbar color="primary" class="footer mat-elevation-z2">
+  <mat-toolbar-row>
+    
+    <ng-container *ngIf="currentInstallation$ | async; let currentInstallation;">
+      <ng-container *ngIf="canRunActions(currentInstallation, currentProcesses$ | async)">
+        <button mat-icon-button (click)="runApplication(currentInstallation)" matTooltip="Run client">
+          <mat-icon>play_circle_filled</mat-icon>
+        </button>
+        <button mat-icon-button [routerLink]="['../details', currentInstallation.clientId]" matTooltip="Show client details">
+          <mat-icon>info</mat-icon>
+        </button>
+        <button mat-icon-button *ngIf="currentInstallation.upgradeInfo === upgradeInfo.upgradeAvailable" matTooltip="Upgrade client"
+          (click)="updateClient(currentInstallation)">
+          <mat-icon>arrow_upward</mat-icon>
+        </button>
+        <button mat-icon-button
+          *ngIf="currentInstallation.upgradeInfo === upgradeInfo.notChecked || currentInstallation.upgradeInfo === upgradeInfo.upgradeCheckFailed" matTooltip="Check for client upgrade"
+          (click)="checkForUpgrades(currentInstallation)">
+          <mat-icon>youtube_searched_for</mat-icon>
+        </button>
+        <button mat-icon-button *ngIf="currentInstallation.up" (click)="updateClient(currentInstallation)" matTooltip="Upgrade client">
+          <mat-icon>arrow_upward</mat-icon>
+        </button>
+        <button mat-icon-button (click)="deleteClient(currentInstallation)" matTooltip="Delete client">
+          <mat-icon>delete</mat-icon>
+        </button>
+    
+      </ng-container>
+    </ng-container>
+    
+    <span class="spacer"></span>
+    
+    <button mat-icon-button [routerLink]="'../newclient'" matTooltip="Add new client">
+      <mat-icon>library_add</mat-icon>
+    </button>
+
+  </mat-toolbar-row>
+</mat-toolbar>

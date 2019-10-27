@@ -1,0 +1,55 @@
+.main-form-field {
+    width: 100%;
+}
+
+table {
+    width: 100%;
+}
+
+.table-container {
+    height: 180px;
+    overflow: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+table tr.mat-row {
+    height: 30px;
+}
+
+table tr.mat-header-row {
+    height: 30px;
+}
+
+table tr.mat-footer-row {
+    height: 30px;
+}
+
+th {
+    width: 30%;
+}
+
+td {
+    width: 30%;
+}
+
+button {
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
+}
+
+.mat-icon {
+    height: 20px;
+    width: 20px;
+    font-size: 20px;
+    line-height: 20px;
+}
+
+.mat-table-sticky {
+    border-top: 1px solid #e0e0e0;
+}
+
+.disabled-icon {
+    color: gray;
+}

@@ -1,0 +1,40 @@
+$footerHeight: 60px;
+
+.content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: $footerHeight;
+}
+
+mat-card {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  overflow: auto;
+}
+
+.footer {
+  z-index: 10000;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: $footerHeight;
+}
+
+button {
+  float: right;
+}
+
+.noris-header-image {
+  background-image: url('../../../assets/NorisIcon.ico');
+  background-size: cover;
+}
+
+mat-icon {
+  margin-right: 10px;
+}

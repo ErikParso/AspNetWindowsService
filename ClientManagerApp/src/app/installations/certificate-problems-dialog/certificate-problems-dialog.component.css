@@ -1,0 +1,29 @@
+mat-icon {
+    vertical-align: top;
+    margin-right: 10px;
+}
+
+.cert-details {
+    display: inline-block;
+}
+
+.report-item {
+    margin: 5px;
+}
+
+.report-item>mat-icon {
+    float: left;
+}
+
+.report-item>div {
+    overflow: hidden;
+}
+
+.cert-info {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+img {
+    vertical-align: middle;
+}

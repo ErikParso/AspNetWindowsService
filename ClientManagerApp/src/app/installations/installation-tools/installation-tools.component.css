@@ -1,0 +1,12 @@
+.spacer {
+    flex: 1 1 auto
+}
+
+.footer {
+    z-index: 10000;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 60px;
+}
